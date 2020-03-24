@@ -1,0 +1,1 @@
+nnoremap <buffer> <leader>f :GoImports<CR>

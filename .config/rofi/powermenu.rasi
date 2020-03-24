@@ -1,0 +1,33 @@
+* {
+    background-color: #212121;
+    color: #fff;
+    font: "Font Awesome 5 Free 50";
+}
+
+#window {
+  children: [ horibox ];
+  border: 1px;
+  border-color: #546e7a;
+  padding: 50px 30px;
+  text-align: center;
+  width: 388px;
+}
+
+#horibox {
+  orientation: horizontal;
+  children: [ listview ];
+}
+
+#listview {
+  layout: horizontal;
+}
+
+#element {
+  width: 107px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+#element selected {
+  text-color: #ff5370;
+}
