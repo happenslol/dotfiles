@@ -1,0 +1,14 @@
+//----------------------
+// Configuration
+//----------------------
+
+configuration {
+	modi: 			"run";
+	width: 			600;
+	lines: 			5;
+	show-match: 		false;
+	separator-style: 	"solid";
+	hide-scrollbar: 	true;
+	theme:			"matte";
+  show-icons: true;
+}

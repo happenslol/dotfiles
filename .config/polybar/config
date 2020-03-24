@@ -1,0 +1,132 @@
+;---------------------------------------
+;		COLORS
+;---------------------------------------
+
+[colors]
+black = #212121
+highlight = #546e7a
+red = #ff5370
+green = #c3e88d
+yellow = #ffcb6b
+blue = #82aaff
+magenta = #c792ea
+cyan = #89ddff
+white = #ffffff
+
+;---------------------------------------
+;		GLOBAL
+;---------------------------------------
+
+[bar/main]
+width = 100%
+height = 20
+top = true
+
+border-top-size = 14
+border-right-size = 26
+border-left-size = 26
+border-bottom-size = 0
+border-color = #00000000
+
+background = #00000000
+foreground = #FFFFFF
+
+wm-restack = i3
+
+;---------------------------------------
+;		FONTS
+;---------------------------------------
+
+font-0 = Noto Sans:style=Bold:size=12;3
+font-1 = Font Awesome 5 Free:style=Solid:size=14;3
+font-2 = Font Awesome 5 Free:style=Solid:size=10;2
+font-3 = Noto Sans:style=Regular:size=12;3
+font-4 = Font Awesome 5 Free:style=Regular:size=10;2
+font-5 = Font Awesome 5 Free:style=Solid:size=12;3
+font-6 = Font Awesome 5 Free:style=Regular:size=14;3
+font-7 = Fira Code:style=Regular:size=8;2
+
+;---------------------------------------
+;	     MODULES LAYOUT
+;---------------------------------------
+
+modules-left = pulseaudio brightness i3
+modules-center = date
+modules-right = battery
+
+[module/brightness]
+type = internal/backlight
+card = intel_backlight
+
+format = <ramp>
+
+; Only applies if <ramp> is used
+ramp-0 = "%{T7}  %{T8}|%{T-}  "
+ramp-1 = "%{T7}  %{T8}|%{T-}  "
+ramp-2 = "%{T7}  %{T8}|%{T-}  "
+ramp-3 = "%{T2}  %{T8}|%{T-}  "
+ramp-4 = "%{T2}  %{T8}|%{T-}  "
+
+[module/i3]
+type = internal/i3
+label-focused = " %{T6}%{T-} "
+label-unfocused = " %{T5}%{T-} "
+label-visible = " %{T5}%{T-} "
+label-urgent = " %{F#ff5370}%{T5}%{T-}%{F-} "
+format = <label-state>
+
+[module/date]
+type = internal/date
+
+interval = 60
+date = %a %d
+time = %H:%M
+label = "%date%    %time%"
+
+format-foreground = #FFFFFF
+format-background = #00000000
+format-padding = 1
+
+;---------------------------------------
+;	   BATTERY MODULE
+;---------------------------------------
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC0
+
+full-at = 98
+
+format-charging = <label-charging> <ramp-capacity>
+format-full = <label-full> <ramp-capacity>
+
+format-discharging = <label-discharging> <ramp-capacity>
+format-discharging-foreground = #FFFFFF
+
+label-charging = " %{F#ffcb6b}%{T3}%{T-}%{F-} %percentage%%{T4}%%{T-} "
+label-discharging = " %percentage%%{T4}%%{T-} "
+label-full = " %{F#c3e88d}%{T3}%{T-}%{F-}  %percentage%%{T4}%%{T-} "
+
+ramp-capacity-0 = "  "
+ramp-capacity-0-foreground = ${colors.red}
+ramp-capacity-1 = "  "
+ramp-capacity-1-foreground = ${colors.yellow}
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
+ramp-capacity-4 = "  "
+
+;---------------------------------------
+;	   AUDIO MODULE
+;---------------------------------------
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+format-volume = " <ramp-volume>   "
+
+label-muted = "   "
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
