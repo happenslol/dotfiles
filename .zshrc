@@ -5,6 +5,8 @@ CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="false"
 
+export npm_config_prefix="$HOME/.node_modules"
+
 source $ZSH/oh-my-zsh.sh
 source ~/.zplug/init.zsh
 source /usr/share/nvm/init-nvm.sh
@@ -16,7 +18,7 @@ export GOBIN="$GOPATH/bin"
 export GITLAB_TOKEN_NAME="cap-local-builder"
 export GITLAB_TOKEN="bmn8NiJUJxmzAbbHpdmy"
 
-export PATH="$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/git-ext:$HOME/android-studio/bin:$HOME/.linkerd2/bin"
+export PATH="$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/git-ext:$HOME/android-studio/bin:$HOME/.linkerd2/bin:$HOME/.node_modules/bin"
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zsh-users/zsh-autosuggestions", from:github, as:plugin
@@ -38,6 +40,7 @@ alias dot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 zplug load
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 source /home/happens/.config/broot/launcher/bash/br
 source <(kubectl completion zsh)
