@@ -44,5 +44,8 @@ zplug load
 
 source /home/happens/.config/broot/launcher/bash/br
 source <(kubectl completion zsh)
+alias k="kubectl"
+complete -F __start_kubectl k
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:/var/lib/snapd/snap/bin"

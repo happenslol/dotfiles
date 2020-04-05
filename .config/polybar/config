@@ -45,6 +45,8 @@ font-4 = Font Awesome 5 Free:style=Regular:size=10;2
 font-5 = Font Awesome 5 Free:style=Solid:size=12;3
 font-6 = Font Awesome 5 Free:style=Regular:size=14;3
 font-7 = Fira Code:style=Regular:size=8;2
+font-8 = Noto Sans:style=Bold:size=10;2
+font-9 = Font Awesome 5 Free:style=Regular:size=13;4
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
@@ -52,7 +54,21 @@ font-7 = Fira Code:style=Regular:size=8;2
 
 modules-left = pulseaudio brightness i3
 modules-center = date
-modules-right = battery
+modules-right = fs ethernet battery
+
+[module/fs]
+type = internal/fs
+mount-0 = /
+format-mounted = <label-mounted>
+label-mounted = "%{T9}%percentage_used%%   %{T10}  %{T8}|%{T-}  "
+
+[module/ethernet]
+type = internal/network
+interface = enp0s31f6
+interval = 0.5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-connected = %{T5} 
 
 [module/brightness]
 type = internal/backlight
@@ -74,6 +90,7 @@ label-unfocused = " %{T5}%{T-} "
 label-visible = " %{T5}%{T-} "
 label-urgent = " %{F#ff5370}%{T5}%{T-}%{F-} "
 format = <label-state>
+index-sort = true
 
 [module/date]
 type = internal/date
