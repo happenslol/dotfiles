@@ -35,12 +35,10 @@ Plug 'prettier/vim-prettier', {
     \ 'ruby',
     \ 'html',
     \ 'swift' ] }
-Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
-Plug 'mxw/vim-jsx'
 Plug 'FooSoft/vim-argwrap'
-Plug 'ianks/vim-tsx'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
 

@@ -9,10 +9,10 @@ bindsym $mod+c exec brave
 bindsym $mod+v exec Thunar
 
 # window border
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
+default_border pixel 2
 default_floating_border normal
 # border_radius 3
 
@@ -37,11 +37,16 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "$HOME/.config/i3/brightness.
 bindsym XF86AudioRaiseVolume exec --no-startup-id "$HOME/.config/i3/volume.sh up"
 bindsym XF86AudioLowerVolume exec --no-startup-id "$HOME/.config/i3/volume.sh down"
 bindsym XF86AudioMute exec --no-startup-id "$HOME/.config/i3/volume.sh toggle"
-bindsym $mod+BackSpace exec --no-startup-id "systemctl suspend"
+
+bindsym $mod+Prior exec --no-startup-id "$HOME/.config/i3/volume.sh up"
+bindsym $mod+Next exec --no-startup-id "$HOME/.config/i3/volume.sh down"
+bindsym $mod+End exec --no-startup-id "$HOME/.config/i3/volume.sh toggle"
 
 bindsym $mod+F10 exec --no-startup-id "$HOME/.config/i3/screenshot.sh select"
 bindsym $mod+F11 exec --no-startup-id "$HOME/.config/i3/screenshot.sh window"
 bindsym $mod+F12 exec --no-startup-id "$HOME/.config/i3/screenshot.sh all"
+
+bindsym $mod+BackSpace exec --no-startup-id "systemctl suspend"
 
 focus_follows_mouse yes
 
@@ -139,7 +144,7 @@ exec_always --no-startup-id xinput set-prop 18 319 1 # set tapping enabled
 exec_always --no-startup-id xinput set-prop 18 320 1 # set tapping enabled
 
 exec_always --no-startup-id dunst
-exec_always --no-startup-id setxkbmap -option compose:rctrl
+exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # exec_always --no-startup-id xrandr --output eDP-1-1 --auto --primary --right-of DP-2.8
 exec_always --no-startup-id nitrogen --restore
