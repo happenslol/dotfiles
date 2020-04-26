@@ -49,3 +49,8 @@ complete -F __start_kubectl k
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"

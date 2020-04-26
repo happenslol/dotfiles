@@ -116,7 +116,7 @@ let g:lightline = {'colorscheme': 'wombat'}
 let g:go_code_completion_enabled=0
 let g:go_fmt_autosave=0
 
-filetype plugin on
+filetype plugin indent on
 
 set number
 set relativenumber

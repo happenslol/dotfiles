@@ -44,7 +44,7 @@ font-3 = Noto Sans:style=Regular:size=12;3
 font-4 = Font Awesome 5 Free:style=Regular:size=10;2
 font-5 = Font Awesome 5 Free:style=Solid:size=12;3
 font-6 = Font Awesome 5 Free:style=Regular:size=14;3
-font-7 = Fira Code:style=Regular:size=8;2
+font-7 = Fira Code:style=Regular:size=10;2
 font-8 = Noto Sans:style=Bold:size=10;2
 font-9 = Font Awesome 5 Free:style=Regular:size=13;4
 
@@ -54,13 +54,19 @@ font-9 = Font Awesome 5 Free:style=Regular:size=13;4
 
 modules-left = pulseaudio brightness i3
 modules-center = date
-modules-right = fs ethernet battery
+modules-right = updates-combined fs ethernet battery
 
 [module/fs]
 type = internal/fs
 mount-0 = /
 format-mounted = <label-mounted>
-label-mounted = "%{T9}%percentage_used%%   %{T10}  %{T8}|%{T-}  "
+label-mounted = "%{T9}%percentage_used%%   %{T10}   %{T8}•%{T-}   "
+
+[module/updates-combined]
+type = custom/script
+exec = ~/.config/polybar/updates-combined.sh
+interval = 600
+label = "%{T9}%output%    %{T3}%{F#c3e88d} %{F-}  %{T8}•%{T-}   "
 
 [module/ethernet]
 type = internal/network
@@ -69,6 +75,7 @@ interval = 0.5
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 label-connected = %{T5} 
+label-disconnected = %{F#ff5370}!%{F-}
 
 [module/brightness]
 type = internal/backlight
@@ -76,12 +83,11 @@ card = intel_backlight
 
 format = <ramp>
 
-; Only applies if <ramp> is used
-ramp-0 = "%{T7}  %{T8}|%{T-}  "
-ramp-1 = "%{T7}  %{T8}|%{T-}  "
-ramp-2 = "%{T7}  %{T8}|%{T-}  "
-ramp-3 = "%{T2}  %{T8}|%{T-}  "
-ramp-4 = "%{T2}  %{T8}|%{T-}  "
+ramp-0 = "%{T7}  %{T8}•%{T-}  "
+ramp-1 = "%{T7}  %{T8}•%{T-}  "
+ramp-2 = "%{T7}  %{T8}•%{T-}  "
+ramp-3 = "%{T2}  %{T8}•%{T-}  "
+ramp-4 = "%{T2}  %{T8}•%{T-}  "
 
 [module/i3]
 type = internal/i3
@@ -89,7 +95,7 @@ label-focused = " %{T6}%{T-} "
 label-unfocused = " %{T5}%{T-} "
 label-visible = " %{T5}%{T-} "
 label-urgent = " %{F#ff5370}%{T5}%{T-}%{F-} "
-format = <label-state>
+format = "%{T8}•%{T-}   <label-state>"
 index-sort = true
 
 [module/date]
@@ -103,10 +109,6 @@ label = "%date%    %time%"
 format-foreground = #FFFFFF
 format-background = #00000000
 format-padding = 1
-
-;---------------------------------------
-;	   BATTERY MODULE
-;---------------------------------------
 
 [module/battery]
 type = internal/battery
@@ -134,14 +136,10 @@ ramp-capacity-2 = "  "
 ramp-capacity-3 = "  "
 ramp-capacity-4 = "  "
 
-;---------------------------------------
-;	   AUDIO MODULE
-;---------------------------------------
 [module/pulseaudio]
 type = internal/pulseaudio
-sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
-format-volume = " <ramp-volume>   "
+format-volume = "<ramp-volume>    "
 
 label-muted = "   "
 ramp-volume-0 = 

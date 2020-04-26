@@ -6,7 +6,7 @@ bindsym $mod+z exec firefox
 bindsym $mod+x exec "kitty tmux new -A -s main"
 bindsym $mod+Shift+x exec "kitty"
 bindsym $mod+c exec brave
-bindsym $mod+v exec Thunar
+bindsym $mod+e exec Thunar
 
 # window border
 for_window [class="^.*"] border pixel 2
