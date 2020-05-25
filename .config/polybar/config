@@ -54,7 +54,13 @@ font-9 = Font Awesome 5 Free:style=Regular:size=13;4
 
 modules-left = pulseaudio brightness i3
 modules-center = date
-modules-right = updates-combined fs ethernet battery
+modules-right = redshift updates-combined fs ethernet battery
+
+[module/redshift]
+type = custom/script
+exec = ~/.config/polybar/redshift-temp.sh
+interval = 600
+label = "%{T9}%output%  %{T8}•%{T-}   "
 
 [module/fs]
 type = internal/fs
