@@ -5,11 +5,11 @@ CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="false"
 
-export npm_config_prefix="$HOME/.node_modules"
+# export npm_config_prefix="$HOME/.node_modules"
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zplug/init.zsh
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 
 export GOPRIVATE=*.g51.dev,g51.dev
 export GOPATH="/home/happens/go"
