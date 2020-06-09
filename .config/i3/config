@@ -46,6 +46,7 @@ bindsym $mod+F10 exec --no-startup-id "$HOME/.config/i3/screenshot.sh select"
 bindsym $mod+F11 exec --no-startup-id "$HOME/.config/i3/screenshot.sh window"
 bindsym $mod+F12 exec --no-startup-id "$HOME/.config/i3/screenshot.sh all"
 
+bindsym $mod+Shift+F12 exec --no-startup-id "$HOME/.screenlayout/layout.sh"
 bindsym $mod+BackSpace exec --no-startup-id "systemctl suspend"
 
 focus_follows_mouse yes
@@ -138,19 +139,19 @@ mode "resize" {
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id killall xmousepasteblock; xmousepasteblock
 exec_always --no-startup-id xset r rate 170 60 # adjust repeat rate
+
+# These 2 are needed because the nvidia driver can crash when the display turns off
+exec_always --no-startup-id xset s 0 0 0 # turn off automatic display standby
+exec_always --no-startup-id xset -dpms # disable display power management
+
 exec_always --no-startup-id picom -b
-exec_always --no-startup-id xset -dpms
 exec_always --no-startup-id xinput set-prop 18 319 1 # set tapping enabled
 exec_always --no-startup-id xinput set-prop 18 320 1 # set tapping enabled
 
 exec_always --no-startup-id dunst
 exec_always --no-startup-id setxkbmap -option compose:ralt
 
-# exec_always --no-startup-id xrandr --output eDP-1-1 --auto --primary --right-of DP-2.8
 exec_always --no-startup-id nitrogen --restore
-
-# TODO: Fix this!
-# exec_always --no-startup-id xss-lock -l -- $HOME/.config/i3/transfer-sleep-lock-i3lock.sh
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
