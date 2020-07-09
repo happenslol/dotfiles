@@ -89,6 +89,18 @@ set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
+set $ws9 9
+
+# Bind workspace to monitors
+workspace 1 output DP-0.8 eDP-1-1
+workspace 2 output DP-0.8 eDP-1-1
+workspace 3 output DP-0.8 eDP-1-1
+workspace 4 output DP-2.8 eDP-1-1
+workspace 5 output DP-2.8 eDP-1-1
+workspace 6 output DP-2.8 eDP-1-1
+workspace 7 output eDP-1-1
+workspace 8 output eDP-1-1
+workspace 9 output eDP-1-1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -99,6 +111,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -109,6 +122,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+r reload
@@ -141,12 +155,12 @@ exec_always --no-startup-id killall xmousepasteblock; xmousepasteblock
 exec_always --no-startup-id xset r rate 170 60 # adjust repeat rate
 
 # These 2 are needed because the nvidia driver can crash when the display turns off
-exec_always --no-startup-id xset s 0 0 0 # turn off automatic display standby
+exec_always --no-startup-id xset s off # turn off screensaver
+exec_always --no-startup-id xset dpms 0 0 0 # turn off automatic display standby
 exec_always --no-startup-id xset -dpms # disable display power management
 
 exec_always --no-startup-id picom -b
-exec_always --no-startup-id xinput set-prop 18 319 1 # set tapping enabled
-exec_always --no-startup-id xinput set-prop 18 320 1 # set tapping enabled
+exec_always --no-startup-id xinput set-prop 'ELAN0406:00 04F3:30A6 Touchpad' 'libinput Tapping Enabled' 1 # set tapping enabled
 
 exec_always --no-startup-id dunst
 exec_always --no-startup-id setxkbmap -option compose:ralt
