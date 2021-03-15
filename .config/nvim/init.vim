@@ -107,6 +107,7 @@ let g:lightline = {'colorscheme': 'wombat'}
 
 let g:go_code_completion_enabled=0
 let g:go_fmt_autosave=0
+let g:go_echo_go_info=0
 
 filetype plugin indent on
 
