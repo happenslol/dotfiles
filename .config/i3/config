@@ -3,13 +3,15 @@
 set $mod Mod4
 
 bindsym $mod+z exec firefox
-bindsym $mod+x exec "kitty tmux new -A -s main"
-bindsym $mod+Shift+x exec "kitty"
+bindsym $mod+x exec "alacritty -e tmux new -2 -A -s main"
+bindsym $mod+Shift+x exec "alacritty"
+# bindsym $mod+x exec "kitty tmux new -A -s main"
+# bindsym $mod+Shift+x exec "kitty"
 bindsym $mod+c exec brave
 bindsym $mod+e exec Thunar
 
 # window border
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
@@ -42,9 +44,9 @@ bindsym $mod+Prior exec --no-startup-id "$HOME/.config/i3/volume.sh up"
 bindsym $mod+Next exec --no-startup-id "$HOME/.config/i3/volume.sh down"
 bindsym $mod+End exec --no-startup-id "$HOME/.config/i3/volume.sh toggle"
 
-bindsym $mod+F10 exec --no-startup-id "$HOME/.config/i3/screenshot.sh select"
-bindsym $mod+F11 exec --no-startup-id "$HOME/.config/i3/screenshot.sh window"
-bindsym $mod+F12 exec --no-startup-id "$HOME/.config/i3/screenshot.sh all"
+bindsym $mod+F10 exec --no-startup-id "flameshot gui -p ~/screenshots"
+bindsym $mod+F11 exec --no-startup-id "flameshot screen -p ~/screenshots"
+bindsym $mod+F12 exec --no-startup-id "flameshot full -p ~/screenshots"
 
 bindsym $mod+BackSpace exec --no-startup-id "systemctl suspend"
 
@@ -135,6 +137,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+exec_always --no-startup-id $HOME/.screenlayout/main.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id killall xmousepasteblock; xmousepasteblock
 exec_always --no-startup-id xset r rate 170 60 # adjust repeat rate
@@ -142,15 +145,14 @@ exec_always --no-startup-id picom -b
 exec_always --no-startup-id xset -dpms
 exec_always --no-startup-id xinput set-prop 18 319 1 # set tapping enabled
 exec_always --no-startup-id xinput set-prop 18 320 1 # set tapping enabled
+exec_always --no-startup-id unclutter
+
+exec_always /usr/lib/geoclue-2.0/demos/agent
 
 exec_always --no-startup-id dunst
 exec_always --no-startup-id setxkbmap -option compose:ralt
 
-# exec_always --no-startup-id xrandr --output eDP-1-1 --auto --primary --right-of DP-2.8
 exec_always --no-startup-id nitrogen --restore
-
-# TODO: Fix this!
-# exec_always --no-startup-id xss-lock -l -- $HOME/.config/i3/transfer-sleep-lock-i3lock.sh
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
@@ -171,12 +173,12 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# class                 border  bground text    indicator child_border
-client.focused          #546e7a #212121 #FFFFFF #546e7a   #546e7a
-client.focused_inactive #212121 #212121 #FFFFFF #212121   #212121
-client.unfocused        #212121 #212121 #888888 #212121   #212121
-client.urgent           #FF5370 #212121 #FFFFFF #FF5370   ##ff5370
-client.placeholder      #212121 #212121 #FFFFFF #212121   #212121
+# class                 border  bground text    indicat child_border
+client.focused          #546e7a #212121 #FFFFFF #546e7a #546e7a
+client.focused_inactive #212121 #212121 #FFFFFF #212121 #212121
+client.unfocused        #212121 #212121 #888888 #212121 #212121
+client.urgent           #FF5370 #212121 #FFFFFF #FF5370 #ff5370
+client.placeholder      #212121 #212121 #FFFFFF #212121 #212121
 
 client.background       #212121
 

@@ -1,0 +1,32 @@
+#!/bin/bash
+set -eo pipefail
+
+function release {
+  git commit --allow-empty -m"Release $1"
+  git tag $1
+}
+
+if ! hash semver 2> /dev/null; then
+  echo 'semver command not found. Run "go install https://github.com/davidrjonas/semver-cli@latest" to install.'
+  exit 1
+fi
+
+if [[ "$1" != "major" ]] && [[ "$1" != "minor" ]] && [[ "$1" != "patch" ]] && [[ ! -z "$1" ]]; then
+  echo "Usage: git release [major|minor|patch]"
+fi
+
+if [[ $(git status --porcelain) ]]; then
+  echo "There are uncommitted changes. Aborting release"
+  exit 1
+fi
+
+latest=$(git tag --sort=committerdate | tail -1)
+if [[ -z "$latest" ]]; then
+  echo "No latest version found, starting at v0.1.0"
+  release "v0.1.0"
+  exit 0
+fi
+
+next=$(semver -i "$1" "$latest")
+echo "Releasing v$next..."
+release "v$next"
