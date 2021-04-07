@@ -2,59 +2,52 @@ call plug#begin('~/.nvim-plugs')
 
 " Themeing
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
 " Fuzzy finding
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'onsails/lspkind-nvim'
+Plug 'ray-x/lsp_signature.nvim'
 
 " File browsing and status
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
 Plug 'itchyny/lightline.vim'
+Plug 'farmergreg/vim-lastplace'
 
 " Code formatting
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'FooSoft/vim-argwrap'
+Plug 'sbdchd/neoformat'
+Plug 'windwp/nvim-ts-autotag', { 'branch': 'main' }
 
 " Language plugins
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'uarun/vim-protobuf', { 'for': 'proto' }
-Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'fatih/vim-go', { 'for': 'go' }
-
-Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
+Plug 'JoosepAlviste/nvim-ts-context-commentstring', { 'branch': 'main' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact']}
+Plug 'sheerun/vim-polyglot'
 
-" Prettier for formatting
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'branch': 'release/1.x',
-  \ 'for': [
-    \ 'javascript',
-    \ 'typescript',
-    \ 'css',
-    \ 'less',
-    \ 'scss',
-    \ 'json',
-    \ 'graphql',
-    \ 'markdown',
-    \ 'vue',
-    \ 'lua',
-    \ 'php',
-    \ 'python',
-    \ 'ruby',
-    \ 'html',
-    \ 'swift' ] }
+Plug 'mattn/vim-goimpl'
 
+" Plug 'elzr/vim-json', { 'for': 'json' }
+" Plug 'uarun/vim-protobuf', { 'for': 'proto' }
+" Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
+" Plug 'cespare/vim-toml', { 'for': 'toml' }
+" Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'fatih/vim-go', { 'for': 'go' }
+" Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
 
 call plug#end()
 
@@ -76,11 +69,12 @@ nmap <silent> <c-d>h :lprev<CR>
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_ZH="\e[3m"
+  let &t_ZR="\e[23m"
   set termguicolors
 endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-set termguicolors
 set background=dark
 set t_Co=256
 colorscheme material
@@ -88,23 +82,21 @@ colorscheme material
 let g:material_theme_style='darker'
 let g:material_terminal_italics=1
 
+" reverse bracket highlighting
+autocmd ColorScheme * hi MatchParen gui=bold guifg=#89ddff guibg=#545454 cterm=bold ctermbg=117 ctermfg=59
+
 set modeline
 set modelines=5
 
 set mouse=a
 
-let NERDTreeShowHidden=1
-map <C-n> :NERDTreeToggle<CR>
-
-let g:fzf_buffers_jump=1
-map <C-i> :Rg<CR>
-map <C-p> :Files<CR>
-map <C-o> :Buffers<CR>
+nnoremap <C-n> :NvimTreeToggle<CR>
 
 set noshowmode
 set laststatus=2
-let g:lightline = {'colorscheme': 'wombat'}
+let g:lightline = {'colorscheme': 'material_vim'}
 
+let g:go_gopls_enabled=0
 let g:go_code_completion_enabled=0
 let g:go_fmt_autosave=0
 let g:go_echo_go_info=0
@@ -148,27 +140,6 @@ set completeopt-=preview
 set undofile
 set undodir=~/.nvim-undo/
 
-let $FZF_DEFAULT_OPTS .= '--color=bg:#212121 --border --layout=reverse'
-function! FloatingFZF()
-  let width = float2nr(&columns * 0.38)
-  let height = float2nr(&lines * 0.25)
-  let opts = { 'relative': 'editor',
-       \ 'row': (&lines - height) / 2.4,
-       \ 'col': (&columns - width) / 2,
-       \ 'width': width,
-       \ 'height': height,
-       \ 'style': 'minimal'
-       \}
-
-  let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-  call setwinvar(win, '&winhighlight', 'NormalFloat:TabLine')
-endfunction
-
-let g:fzf_preview_window = []
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-let g:vimtex_view_general_viewer = 'evince'
-
 let g:go_highlight_structs = 1 
 let g:go_highlight_methods = 1
 let g:go_highlight_functions = 1
@@ -179,34 +150,68 @@ let g:go_highlight_types = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_diagnostic_errors = 0
 let g:go_highlight_variable_declarations = 1
+let g:go_highlight_trailing_whitespace_error=0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_chan_whitespace_error = 0
+let g:go_highlight_space_tab_error = 0
 
 nnoremap <silent> <leader>w :ArgWrap<CR>
+nnoremap <silent> <leader>f :Neoformat<CR>
+
+let g:neoformat_enabled_go = ['goimports']
 
 " Autocompletion pum options
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+set pumheight=12
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR> compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+inoremap <silent><expr> <C-e> compe#close('<C-e>')
+
 " Close pum on escape
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-" LSP config
+" Telescope config
+nnoremap <C-p> <cmd>Telescope find_files theme=get_dropdown<CR>
+nnoremap <C-m> <cmd>Telescope live_grep theme=get_dropdown<CR>
+
+" Folding with treesitter
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevelstart=99
+
+set updatetime=500
+
+" Lua config
+let g:vimsyn_embed = 'l'
 lua << EOF
 
 local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
-  require('completion').on_attach{}
+  require('compe').setup{
+    enabled = true,
+    source = {
+      path = true,
+      buffer = true,
+      nvim_lsp = true,
+      nvim_lua = true
+    }
+  }
+
+  -- require('completion').on_attach(client)
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -216,37 +221,67 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<C-j>', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  end
+  buf_set_keymap('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]], false)
-  end
+  vim.api.nvim_exec([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]], false)
+
+  require'lsp_signature'.on_attach()
 end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    update_in_insert = false
+  }
+)
 
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { "gopls" }
+local servers = { "gopls", "tsserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
+
+-- Telescope config
+local telescope = require('telescope')
+telescope.load_extension('fzy_native')
+telescope.setup{
+  defaults = {
+    prompt_position = 'top',
+    sorting_strategy = 'ascending'
+  }
+}
+
+local tree_cb = require('nvim-tree.config').nvim_tree_callback
+
+vim.g.nvim_tree_show_icons = {
+  ["git"] = 0,
+  ["folders"] = 1,
+  ["files"] = 1
+}
+
+vim.g.nvim_tree_bindings = {
+  ["s"] = tree_cb("vsplit"),
+  ["i"] = tree_cb("split")
+}
+
+vim.g.nvim_tree_group_empty = 1
+
+require('lspkind').init()
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = 'maintained',
+  indent = {
+    enable = true
+  },
+  highlight = {
+    enable = true
+  },
+}
+
+require'nvim-ts-autotag'.setup()
 
 EOF
