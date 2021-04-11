@@ -11,12 +11,11 @@ bindsym $mod+c exec brave
 bindsym $mod+e exec Thunar
 
 # window border
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 5
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 2
+default_border pixel 6
 default_floating_border normal
-# border_radius 3
 
 # Hide borders
 hide_edge_borders none
