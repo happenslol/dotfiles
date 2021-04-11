@@ -112,7 +112,7 @@ append(gl.section.right, "DiffModified", {
   provider = "DiffModified",
   condition = condition.check_git_workspace,
   icon = "~",
-  highlight = { _G.colors.cyan, _G.colors.selection },
+  highlight = { _G.colors.yellow, _G.colors.selection },
   separator = " ",
   separator_highlight = { _G.colors.selection, _G.colors.selection },
 })

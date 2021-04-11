@@ -57,6 +57,7 @@ bo.expandtab = true
 bo.tabstop = 2
 bo.shiftwidth = 2
 
+o.undofile = true
 bo.undofile = true
 
 o.updatetime = 500

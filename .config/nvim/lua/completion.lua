@@ -21,18 +21,20 @@ local on_lsp_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", key, command, { silent = true, noremap = true })
   end
 
-  -- Mappings.
+  -- LSP mappings
   local opts = { noremap=true, silent=true }
-  buf_set_keymap('gD', ':lua vim.lsp.buf.declaration()<CR>')
-  buf_set_keymap('gd', ':lua vim.lsp.buf.definition()<CR>')
-  buf_set_keymap('gi', ':lua vim.lsp.buf.implementation()<CR>')
-  buf_set_keymap('gr', ':lua vim.lsp.buf.references()<CR>')
+  buf_set_keymap("gD", [[:lua vim.lsp.buf.declaration()<CR>]])
+  buf_set_keymap("gd", [[:lua vim.lsp.buf.definition()<CR>]])
+  buf_set_keymap("gi", [[:lua vim.lsp.buf.implementation()<CR>]])
+  buf_set_keymap("gr", [[:lua vim.lsp.buf.references()<CR>]])
 
-  buf_set_keymap('<C-h>', ':lua vim.lsp.buf.hover()<CR>')
-  buf_set_keymap('<C-j>', ':lua vim.lsp.diagnostic.set_loclist()<CR>')
+  buf_set_keymap("<C-h>", [[:lua vim.lsp.buf.hover()<CR>]])
+  buf_set_keymap("<C-j>", [[:lua vim.lsp.diagnostic.set_loclist()<CR>]])
 
-  buf_set_keymap('[c', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  buf_set_keymap(']c', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  buf_set_keymap("<leader>a", [[:lua vim.lsp.buf.code_action()<CR>]])
+
+  buf_set_keymap("[c", [[:lua vim.lsp.diagnostic.goto_prev()<CR>]])
+  buf_set_keymap("]c", [[:lua vim.lsp.diagnostic.goto_next()<CR>]])
 
   vim.api.nvim_exec([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]], false)
 end
@@ -43,6 +45,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false
   }
 )
+
+-- TODO
+-- custom code action selection
+--[[ local function custom_codeAction_callback(_, _, action)
+  print(vim.inspect(action))
+end ]]
+
+-- vim.lsp.handlers["textDocument/codeAction"] = custom_codeAction_callback
 
 local servers = { "gopls", "tsserver" }
 for _, lsp in ipairs(servers) do
@@ -58,7 +68,7 @@ o.completeopt = "menuone,noselect"
 o.shortmess = o.shortmess .. "c"
 
 -- Configure pum
-o.pumheight=12
+o.pumheight = 12
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vimp.inoremap({ "expr" }, "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]])
@@ -87,3 +97,5 @@ _G.confirm_completion = function()
   fn["compe#confirm"]()
   return npairs.esc("<c-n>")
 end
+
+vimp.inoremap({ "expr" }, "<CR>", [[v:lua.confirm_completion()]])

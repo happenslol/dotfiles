@@ -71,3 +71,11 @@ override_color("LspDiagnosticsSignHint", _G.colors.paleblue, _G.colors.bg)
 
 -- Hide "~" on empty lines
 override_color("EndOfBuffer", _G.colors.bg, _G.colors.bg)
+
+-- Style gitgutter icons
+override_color("GitGutterAdd", _G.colors.green, _G.colors.bg)
+override_color("GitGutterChange", _G.colors.yellow, _G.colors.bg)
+override_color("GitGutterDelete", _G.colors.red, _G.colors.bg)
+
+-- Style status messages
+override_color("errormsg", _G.colors.red, _G.colors.bg)

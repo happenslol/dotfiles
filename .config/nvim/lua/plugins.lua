@@ -3,7 +3,11 @@ local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
 
 local packer = require "packer".startup(function()
   use "wbthomason/packer.nvim"
+
+  -- Util and libraries
   use "svermeulen/vimpeccable"
+  use "nvim-lua/plenary.nvim"
+  use "nvim-lua/popup.nvim"
 
   -- Themeing
   use { "kaicataldo/material.vim", branch = "main" }
@@ -14,8 +18,6 @@ local packer = require "packer".startup(function()
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 
   -- Fuzzy finding
-  use "nvim-lua/popup.nvim"
-  use "nvim-lua/plenary.nvim"
   use "nvim-telescope/telescope.nvim"
   use "nvim-telescope/telescope-fzy-native.nvim"
 
@@ -89,5 +91,8 @@ g.neoformat_enabled_go = { "goimports" }
 
 -- Hexokinase
 g.Hexokinase_highlighters = { "virtual" }
+
+-- Disable git gutter
+g.gitgutter_sign_allow_clobber = 0
 
 return packer
