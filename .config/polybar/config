@@ -22,18 +22,16 @@ width = 100%
 height = 24
 top = true
 
-border-top-size = 22
+border-top-size = 20
 border-right-size = 24
 border-left-size = 24
-border-bottom-size = 12
+border-bottom-size = 10
 border-color = #00000000
 
 module-margin = 4
 
 background = #00000000
 foreground = #eeffff
-
-wm-restack = i3
 
 ;---------------------------------------
 ;		FONTS
@@ -42,8 +40,8 @@ wm-restack = i3
 font-0 = NotoSans Nerd Font:style=Bold:size=11;3
 font-1 = JetBrainsMono Nerd Font:style=Bold:size=12;3
 font-2 = Font Awesome 5 Free:style=Solid:size=13;4
-font-3 = NotoSans Nerd Font:style=Bold:size=13;4
-font-4 = NotoSans Nerd Font:style=Bold:size=17;4
+font-3 = NotoSans Nerd Font:style=Bold:size=12;4
+font-4 = NotoSans Nerd Font:style=Bold:size=15;4
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
@@ -55,14 +53,14 @@ modules-right = redshift updates-combined fs date
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = "%{T5}<label-volume>   %{T1}<bar-volume>"
+format-volume = "%{T5}<label-volume>    %{T1}<bar-volume>"
 label-volume = ""
 label-muted = "%{T5}ﳌ"
-bar-volume-width = 10
-bar-volume-indicator = ""
+bar-volume-width = 20
+bar-volume-indicator = "%{F#bbcccc}"
 bar-volume-fill = "%{F#ff5370}"
-bar-volume-empty = "%{F#eeffff}"
-bar-volume-foreground = "#eeffff"
+bar-volume-empty = "%{F#bbcccc}"
+bar-volume-foreground = "#bbcccc"
 
 [module/i3]
 type = internal/i3

@@ -43,9 +43,9 @@ bindsym $mod+Prior exec --no-startup-id "$HOME/.config/i3/volume.sh up"
 bindsym $mod+Next exec --no-startup-id "$HOME/.config/i3/volume.sh down"
 bindsym $mod+End exec --no-startup-id "$HOME/.config/i3/volume.sh toggle"
 
-bindsym $mod+F10 exec --no-startup-id "flameshot gui -p ~/screenshots"
-bindsym $mod+F11 exec --no-startup-id "flameshot screen -p ~/screenshots"
-bindsym $mod+F12 exec --no-startup-id "flameshot full -p ~/screenshots"
+bindsym $mod+F10 exec --no-startup-id "$HOME/.config/i3/screenshot.sh select"
+bindsym $mod+F11 exec --no-startup-id "$HOME/.config/i3/screenshot.sh window"
+bindsym $mod+F12 exec --no-startup-id "$HOME/.config/i3/screenshot.sh all"
 
 bindsym $mod+Shift+F12 exec --no-startup-id "$HOME/.screenlayout/layout.sh"
 bindsym $mod+BackSpace exec --no-startup-id "systemctl suspend"
