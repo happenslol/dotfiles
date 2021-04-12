@@ -1,33 +1,117 @@
-* {
-    background-color: #212121;
-    color: #fff;
-    font: "Font Awesome 5 Free 50";
+configuration {
+	font:							"JetBrainsMonoMedium Nerd Font 14";
+  show-icons:                     false;
+	icon-theme: 					"Vimix";
+  drun-display-format:            "{name}";
+  disable-history:                false;
+  fullscreen:                     false;
+	hide-scrollbar: 				true;
+	sidebar-mode: 					false;
 }
 
-#window {
-  children: [ horibox ];
-  border: 1px;
-  border-color: #546e7a;
-  padding: 50px 30px;
-  text-align: center;
-  width: 388px;
+@import "powermenu_colors.rasi"
+
+window {
+  transparency:                   "real";
+  background-color:               @background;
+  text-color:                     @foreground;
+  height:                         24.5%;
+  width:                          38%;
+  location:                       center;
+  x-offset:                       0;
+  y-offset:                       0;
+  border-radius: 6px;
+  border:                  		6px;
+  border-color: #89ddff;
 }
 
-#horibox {
-  orientation: horizontal;
-  children: [ listview ];
+prompt {
+  enabled: 						true;
+  padding:                        0.5% 0.5% 0.5% 0%;
+	background-color: 				@background-alt;
+	text-color: 					@foreground;
 }
 
-#listview {
-  layout: horizontal;
+textbox-prompt-colon {
+	expand: 						false;
+	str: 							"System |";
+	background-color: 				@background-alt;
+	text-color: 					@foreground;
+  padding:                        0.5% 0.5% 0.5% 0.5%;
 }
 
-#element {
-  width: 107px;
-  padding: 0 20px;
-  text-align: center;
+inputbar {
+	children: 						[ textbox-prompt-colon, prompt ];
+    background-color:               @background-alt;
+    text-color:                     @foreground;
+    expand:                         false;
+    border:                  		0% 0% 0% 0.2%;
+    border-radius:                  6px;
+    border-color:                  	@border;
+    margin:                         0% 18.5% 0% 0%;
+    padding:                        0.5%;
+    position:                       center;
 }
 
-#element selected {
-  text-color: #ff5370;
+listview {
+    background-color:               @background;
+    margin:                         0% 0% 0% 0%;
+    spacing:                        2%;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         horizontal;
+}
+
+mainbox {
+    background-color:               @background;
+    children:                       [ inputbar, listview ];
+    spacing:                        3.5%;
+    padding:                        4% 0% 0% 2%;
+}
+
+element {
+    background-color:               @background-alt;
+    text-color:                     @foreground;
+    orientation:                    horizontal;
+    border-radius:                  6px;
+    padding: 0.9% 0% 0% 0%;
+}
+
+element-text {
+	font:							"JetBrainsMonoMedium Nerd Font 32";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         1.8% 1.8% 4% 1.7%;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
+    border-radius:                  0.2%;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:               @background-alt;
+    text-color:                     @foreground;
+}
+
+element selected {
+    background-color:               @selected;
+    text-color:                     @foreground;
+    border:                  		0% 0% 0% 0.2%;
+    border-radius:                  6px;
+    border-color:                  	@border;
+}
+
+element selected.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
+}
+
+element selected.active {
+    background-color:               @background-alt;
+    color:                          @foreground;
 }

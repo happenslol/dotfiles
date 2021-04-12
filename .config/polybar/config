@@ -11,7 +11,7 @@ yellow = #ffcb6b
 blue = #82aaff
 magenta = #c792ea
 cyan = #89ddff
-white = #ffffff
+white = #eeffff
 
 ;---------------------------------------
 ;		GLOBAL
@@ -19,17 +19,19 @@ white = #ffffff
 
 [bar/main]
 width = 100%
-height = 20
+height = 24
 top = true
 
-border-top-size = 14
-border-right-size = 26
-border-left-size = 26
-border-bottom-size = 0
+border-top-size = 22
+border-right-size = 24
+border-left-size = 24
+border-bottom-size = 12
 border-color = #00000000
 
+module-margin = 4
+
 background = #00000000
-foreground = #FFFFFF
+foreground = #eeffff
 
 wm-restack = i3
 
@@ -37,72 +39,72 @@ wm-restack = i3
 ;		FONTS
 ;---------------------------------------
 
-font-0 = Noto Sans:style=Bold:size=12;3
-font-1 = Font Awesome 5 Free:style=Solid:size=14;3
-font-2 = Font Awesome 5 Free:style=Solid:size=10;2
-font-3 = Noto Sans:style=Regular:size=12;3
-font-4 = Font Awesome 5 Free:style=Regular:size=10;2
-font-5 = Font Awesome 5 Free:style=Solid:size=12;3
-font-6 = Font Awesome 5 Free:style=Regular:size=14;3
-font-7 = Fira Code:style=Regular:size=10;2
-font-8 = Noto Sans:style=Bold:size=10;2
-font-9 = Font Awesome 5 Free:style=Regular:size=13;4
+font-0 = NotoSans Nerd Font:style=Bold:size=11;3
+font-1 = JetBrainsMono Nerd Font:style=Bold:size=12;3
+font-2 = Font Awesome 5 Free:style=Solid:size=13;4
+font-3 = NotoSans Nerd Font:style=Bold:size=13;4
+font-4 = NotoSans Nerd Font:style=Bold:size=17;4
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
 ;---------------------------------------
 
-modules-left = pulseaudio brightness i3
-modules-center = date
-modules-right = redshift updates-combined fs ethernet battery
+modules-left = pulseaudio
+modules-center = i3
+modules-right = redshift updates-combined fs date
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume = "%{T5}<label-volume>   %{T1}<bar-volume>"
+label-volume = ""
+label-muted = "%{T5}ﳌ"
+bar-volume-width = 10
+bar-volume-indicator = ""
+bar-volume-fill = "%{F#ff5370}"
+bar-volume-empty = "%{F#eeffff}"
+bar-volume-foreground = "#eeffff"
+
+[module/i3]
+type = internal/i3
+format = "%{T2}<label-state>"
+index-sort = true
+
+label-unfocused = %name%
+label-visible = %name%
+label-urgent = %name%
+
+label-focused = %name%
+label-focused-padding = 1
+label-focused-foreground = #212121
+label-focused-background = #82aaff
+
+label-unfocused-padding = 1
+
+label-visible-padding = 1
+label-visible-foreground = #82aaff
+
+label-separator = " "
+
+label-urgent-padding = 1
+label-urgent-foreground = #ff5370
 
 [module/redshift]
 type = custom/script
 exec = ~/.config/polybar/redshift-temp.sh
 interval = 600
-label = "%{T9}%output%  %{T8}•%{T-}   "
-
-[module/fs]
-type = internal/fs
-mount-0 = /
-format-mounted = <label-mounted>
-label-mounted = "%{T9}%percentage_used%%   %{T10}   %{T8}•%{T-}   "
+label = "%output%"
 
 [module/updates-combined]
 type = custom/script
 exec = ~/.config/polybar/updates-combined.sh
 interval = 600
-label = "%{T9}%output%    %{T3}%{F#c3e88d} %{F-}  %{T8}•%{T-}   "
+label = "%output%   %{T3}%{F#c3e88d}"
 
-[module/ethernet]
-type = internal/network
-interface = enp0s31f6
-interval = 0.5
-format-connected = <label-connected>
-format-disconnected = <label-disconnected>
-label-connected = %{T5} 
-label-disconnected = %{F#ff5370}!%{F-}
-
-[module/brightness]
-type = internal/backlight
-card = intel_backlight
-
-format = <ramp>
-
-ramp-0 = "%{T7} %{T-}  "
-ramp-1 = "%{T7} %{T-}  "
-ramp-2 = "%{T7} %{T-}  "
-ramp-3 = "%{T2} %{T-}  "
-ramp-4 = "%{T2} %{T-}  "
-
-[module/i3]
-type = internal/i3
-label-focused = " %{T6}%{T-} "
-label-unfocused = " %{T5}%{T-} "
-label-visible = " %{T5}%{T-} "
-label-urgent = " %{F#ff5370}%{T5}%{T-}%{F-} "
-format = "%{T8}•%{T-}   <label-state>"
-index-sort = true
+[module/fs]
+type = internal/fs
+mount-0 = /
+format-mounted = <label-mounted>
+label-mounted = "%percentage_used%%   %{F#b2ccd6}%{T3}"
 
 [module/date]
 type = internal/date
@@ -110,44 +112,45 @@ type = internal/date
 interval = 60
 date = %a %d
 time = %H:%M
-label = "%date%    %time%"
+label = "%{T4}%time%"
 
 format-foreground = #FFFFFF
 format-background = #00000000
-format-padding = 1
 
-[module/battery]
-type = internal/battery
+; [module/brightness]
+; type = internal/backlight
+; card = intel_backlight
 
-battery = BAT0
-adapter = AC0
+; format = <ramp>
 
-full-at = 98
+; ramp-0 = "%{T7} %{T-}  "
+; ramp-1 = "%{T7} %{T-}  "
+; ramp-2 = "%{T7} %{T-}  "
+; ramp-3 = "%{T2} %{T-}  "
+; ramp-4 = "%{T2} %{T-}  "
 
-format-charging = <label-charging> <ramp-capacity>
-format-full = <label-full> <ramp-capacity>
+; [module/battery]
+; type = internal/battery
 
-format-discharging = <label-discharging> <ramp-capacity>
-format-discharging-foreground = #FFFFFF
+; battery = BAT0
+; adapter = AC0
 
-label-charging = " %{F#ffcb6b}%{T3}%{T-}%{F-} %percentage%%{T4}%%{T-} "
-label-discharging = " %percentage%%{T4}%%{T-} "
-label-full = " %{F#c3e88d}%{T3}%{T-}%{F-}  %percentage%%{T4}%%{T-} "
+; full-at = 98
 
-ramp-capacity-0 = "  "
-ramp-capacity-0-foreground = ${colors.red}
-ramp-capacity-1 = "  "
-ramp-capacity-1-foreground = ${colors.yellow}
-ramp-capacity-2 = "  "
-ramp-capacity-3 = "  "
-ramp-capacity-4 = "  "
+; format-charging = <label-charging> <ramp-capacity>
+; format-full = <label-full> <ramp-capacity>
 
-[module/pulseaudio]
-type = internal/pulseaudio
+; format-discharging = <label-discharging> <ramp-capacity>
+; format-discharging-foreground = #FFFFFF
 
-format-volume = "<ramp-volume>    "
+; label-charging = " %{F#ffcb6b}%{T3}%{T-}%{F-} %percentage%%{T4}%%{T-} "
+; label-discharging = " %percentage%%{T4}%%{T-} "
+; label-full = " %{F#c3e88d}%{T3}%{T-}%{F-}  %percentage%%{T4}%%{T-} "
 
-label-muted = "   "
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+; ramp-capacity-0 = "  "
+; ramp-capacity-0-foreground = ${colors.red}
+; ramp-capacity-1 = "  "
+; ramp-capacity-1-foreground = ${colors.yellow}
+; ramp-capacity-2 = "  "
+; ramp-capacity-3 = "  "
+; ramp-capacity-4 = "  "
