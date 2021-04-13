@@ -26,6 +26,7 @@ local packer = require "packer".startup(function()
   use "hrsh7th/nvim-compe"
   use "onsails/lspkind-nvim"
   use "ray-x/lsp_signature.nvim"
+  use "glepnir/lspsaga.nvim"
 
   -- File browsing and status
   use "kyazdani42/nvim-tree.lua"
@@ -52,11 +53,31 @@ require "nvim-autopairs".setup()
 
 -- Telescope
 local telescope = require "telescope"
+local telescope_actions = require "telescope.actions"
+
 telescope.load_extension "fzy_native"
 telescope.setup {
   defaults = {
     prompt_position = "top",
-    sorting_strategy = "ascending"
+    sorting_strategy = "ascending",
+    layout_strategy = "center",
+    width = 120,
+    results_height = 20,
+
+    borderchars = {
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      prompt = {"─", "│", " ", "│", "╭", "╮", "│", "│"},
+      results = {"─", "│", "─", "│", "├", "┤", "╯", "╰"},
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+    },
+
+    mappings = {
+      i = {
+        ["<esc>"] = telescope_actions.close,
+        ["<C-j>"] = telescope_actions.move_selection_next,
+        ["<C-k>"] = telescope_actions.move_selection_previous,
+      }
+    }
   }
 }
 
@@ -92,7 +113,7 @@ g.neoformat_enabled_go = { "goimports" }
 -- Hexokinase
 g.Hexokinase_highlighters = { "virtual" }
 
--- Disable git gutter
-g.gitgutter_sign_allow_clobber = 0
+-- Disable git gutter signs
+g.gitgutter_signs = 0
 
 return packer

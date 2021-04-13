@@ -5,7 +5,7 @@ set $mod Mod4
 bindsym $mod+z exec firefox
 bindsym $mod+x exec "alacritty -e tmux new -A -s main"
 bindsym $mod+Shift+x exec "alacritty"
-bindsym $mod+c exec brave
+bindsym $mod+c exec "alacritty -e ncmpcpp"
 bindsym $mod+e exec Thunar
 
 # window border
@@ -211,5 +211,5 @@ client.background       #212121
 #############################
 
 # Set inner/outer gaps
-gaps inner 8
-gaps outer 4
+gaps inner 16
+gaps outer 6

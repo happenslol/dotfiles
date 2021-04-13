@@ -28,15 +28,15 @@ local on_lsp_attach = function(client, bufnr)
   buf_set_keymap("gi", [[:lua vim.lsp.buf.implementation()<CR>]])
   buf_set_keymap("gr", [[:lua vim.lsp.buf.references()<CR>]])
 
-  buf_set_keymap("<C-h>", [[:lua vim.lsp.buf.hover()<CR>]])
-  buf_set_keymap("<C-j>", [[:lua vim.lsp.diagnostic.set_loclist()<CR>]])
+  buf_set_keymap("<C-h>", [[:Lspsaga hover_doc<CR>]])
 
-  buf_set_keymap("<leader>a", [[:lua vim.lsp.buf.code_action()<CR>]])
+  buf_set_keymap("<leader>a", [[:Lspsaga code_action<CR>]])
+  buf_set_keymap("<leader>r", [[:Lspsaga rename<CR>]])
 
-  buf_set_keymap("[c", [[:lua vim.lsp.diagnostic.goto_prev()<CR>]])
-  buf_set_keymap("]c", [[:lua vim.lsp.diagnostic.goto_next()<CR>]])
+  buf_set_keymap("[c", [[:Lspsaga diagnostic_jump_prev<CR>]])
+  buf_set_keymap("]c", [[:Lspsaga diagnostic_jump_next<CR>]])
 
-  vim.api.nvim_exec([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]], false)
+  vim.api.nvim_exec([[autocmd CursorHold * lua require"lspsaga.diagnostic".show_line_diagnostics()]], false)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -45,14 +45,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false
   }
 )
-
--- TODO
--- custom code action selection
---[[ local function custom_codeAction_callback(_, _, action)
-  print(vim.inspect(action))
-end ]]
-
--- vim.lsp.handlers["textDocument/codeAction"] = custom_codeAction_callback
 
 local servers = { "gopls", "tsserver" }
 for _, lsp in ipairs(servers) do
@@ -79,7 +71,7 @@ vimp.inoremap({ "expr", "silent" }, "<C-Space>", [[compe#complete()]])
 
 -- Close pum on escape
 vimp.inoremap({ "expr", "silent" }, "<C-e>", [[compe#close('<C-e>')]])
-vimp.inoremap({ "expr" }, "<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
+vimp.inoremap({ "expr", "silent" }, "<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
 
 -- Make confirmation work with autopairs
 local npairs = require "nvim-autopairs"
@@ -99,3 +91,26 @@ _G.confirm_completion = function()
 end
 
 vimp.inoremap({ "expr" }, "<CR>", [[v:lua.confirm_completion()]])
+
+-- Lspsaga setup
+require "lspsaga".init_lsp_saga {
+  use_saga_diagnostic_sign = false,
+  dianostic_header_icon = " ",
+  code_action_icon = " ",
+  code_action_prompt = {
+    enable = true,
+    sign = false,
+    virtual_text = false,
+  },
+  code_action_keys = {
+    quit = { "q", "<Esc>" },
+    exec = "<CR>"
+  },
+  rename_action_keys = {
+    quit = { "<C-c>", "<Esc>" },
+    exec = "<CR>"
+  },
+  -- 1: thin border | 2: rounded border | 3: thick border | 4: ascii border
+  border_style = 2,
+  rename_prompt_prefix = " "
+}

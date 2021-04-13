@@ -18,8 +18,9 @@ vimp.nmap({ "silent" }, "<c-d>h", [[:lprev<CR>]])
 
 vimp.nnoremap({ "silent" }, "<C-n>", [[:NvimTreeToggle<CR>]])
 
-vimp.nnoremap({ "silent" }, "<C-p>", [[:Telescope find_files theme=get_dropdown<CR>]])
-vimp.nnoremap({ "silent" }, "<leader>q", [[:Telescope live_grep theme=get_dropdown<CR>]])
+vimp.nnoremap({ "silent" }, "<C-p>", [[:Telescope find_files<CR>]])
+vimp.nnoremap({ "silent" }, "<leader>q", [[:Telescope live_grep<CR>]])
+vimp.nnoremap({ "silent" }, "<leader>e", [[:Telescope buffers<CR>]])
 
 vimp.nnoremap({ "silent" }, "<leader>w", [[:ArgWrap<CR>]])
 vimp.nnoremap({ "silent" }, "<leader>f", [[:Neoformat<CR>]])

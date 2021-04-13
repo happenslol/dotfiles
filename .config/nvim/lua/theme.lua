@@ -40,7 +40,7 @@ _G.colors = {
   violet = g.material_colorscheme_map.violet.gui
 }
 
-local function override_color(symbol, fg, bg, style)
+local function hi(symbol, fg, bg, style)
   local values = {}
 
   if fg then values[#values + 1] = "guifg=" .. fg end
@@ -52,30 +52,52 @@ local function override_color(symbol, fg, bg, style)
 end
 
 -- Reverse bracket highlighting
-override_color("MatchParen", _G.colors.cyan, _G.colors.comments, "bold")
+hi("MatchParen", _G.colors.cyan, _G.colors.comments, "bold")
 
 -- Style lsp diagnostics
-override_color("LspDiagnosticsUnderlineError", nil, nil, "underline")
-override_color("LspDiagnosticsUnderlineWarning", nil, nil, "underline")
-override_color("LspDiagnosticsUnderlineInformation", nil, nil, "underline")
+hi("LspDiagnosticsUnderlineError", nil, nil, "underline")
+hi("LspDiagnosticsUnderlineWarning", nil, nil, "underline")
+hi("LspDiagnosticsUnderlineInformation", nil, nil, "underline")
 
 fn.sign_define("LspDiagnosticsSignError", { text = "", texthl = "LspDiagnosticsSignError" })
 fn.sign_define("LspDiagnosticsSignWarning", { text = "", texthl = "LspDiagnosticsSignWarning" })
 fn.sign_define("LspDiagnosticsSignInformation", { text = "", texthl = "LspDiagnosticsSignInformation" })
 fn.sign_define("LspDiagnosticsSignHint", { text = "", texthl = "LspDiagnosticsSignHint" })
 
-override_color("LspDiagnosticsSignError", _G.colors.red, _G.colors.bg)
-override_color("LspDiagnosticsSignWarning", _G.colors.orange, _G.colors.bg)
-override_color("LspDiagnosticsSignInformation", _G.colors.cyan, _G.colors.bg)
-override_color("LspDiagnosticsSignHint", _G.colors.paleblue, _G.colors.bg)
+hi("LspDiagnosticsSignError", _G.colors.red, _G.colors.bg)
+hi("LspDiagnosticsSignWarning", _G.colors.orange, _G.colors.bg)
+hi("LspDiagnosticsSignInformation", _G.colors.cyan, _G.colors.bg)
+hi("LspDiagnosticsSignHint", _G.colors.paleblue, _G.colors.bg)
 
 -- Hide "~" on empty lines
-override_color("EndOfBuffer", _G.colors.bg, _G.colors.bg)
+hi("EndOfBuffer", _G.colors.bg, _G.colors.bg)
 
 -- Style gitgutter icons
-override_color("GitGutterAdd", _G.colors.green, _G.colors.bg)
-override_color("GitGutterChange", _G.colors.yellow, _G.colors.bg)
-override_color("GitGutterDelete", _G.colors.red, _G.colors.bg)
+hi("GitGutterAdd", _G.colors.green, _G.colors.bg)
+hi("GitGutterChange", _G.colors.yellow, _G.colors.bg)
+hi("GitGutterDelete", _G.colors.red, _G.colors.bg)
 
 -- Style status messages
-override_color("errormsg", _G.colors.red, _G.colors.bg)
+hi("errormsg", _G.colors.red, _G.colors.bg)
+
+-- Lspsaga popup
+local saga_popup_hi = {
+  "LspFloatWinBorder",
+
+  "LspSagaCodeActionBorder",
+  "LspSagaCodeActionTruncateLine",
+
+  "LspSagaDiagnosticBorder",
+  "LspSagaDiagnosticTruncateLine",
+
+  "LspSagaHoverBorder",
+  "LspSagaDocTruncateLine",
+
+  "LspSagaRenameBorder",
+  "LspSagaSignatureHelpBorder",
+  "LspSagaDefPreviewBorder"
+}
+
+for _, tag in pairs(saga_popup_hi) do
+  hi(tag, _G.colors.invisibles, "NONE")
+end
