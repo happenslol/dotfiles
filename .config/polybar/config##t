@@ -47,11 +47,19 @@ font-4 = NotoSans Nerd Font:style=Bold:size=15;4
 ;	     MODULES LAYOUT
 ;---------------------------------------
 
+{% if yadm.class == "laptop" %}
 modules-left = pulseaudio brightness
+{% else %}
+modules-left = pulseaudio
+{% endif %}
 
 modules-center = i3
 
+{% if yadm.class == "laptop" %}
 modules-right = redshift updates-combined fs battery date
+{% else %}
+modules-right = redshift updates-combined fs date
+{% endif %}
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -64,6 +72,7 @@ bar-volume-fill = "%{F#ff5370}"
 bar-volume-empty = "%{F#bbcccc}"
 bar-volume-foreground = "#bbcccc"
 
+{% if yadm.class == "laptop" %}
 [module/brightness]
 type = internal/backlight
 card = intel_backlight
@@ -75,6 +84,7 @@ ramp-1 = "%{T7} %{T-}  "
 ramp-2 = "%{T7} %{T-}  "
 ramp-3 = "%{T2} %{T-}  "
 ramp-4 = "%{T2} %{T-}  "
+{% endif %}
 
 [module/i3]
 type = internal/i3
@@ -118,6 +128,7 @@ mount-0 = /
 format-mounted = <label-mounted>
 label-mounted = "%percentage_used%%   %{F#b2ccd6}%{T3}"
 
+{% if yadm.class == "laptop" %}
 [module/battery]
 type = internal/battery
 
@@ -143,6 +154,7 @@ ramp-capacity-1-foreground = ${colors.yellow}
 ramp-capacity-2 = ""
 ramp-capacity-3 = ""
 ramp-capacity-4 = ""
+{% endif %}
 
 [module/date]
 type = internal/date
