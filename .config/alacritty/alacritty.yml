@@ -1,12 +1,11 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
-
 env:
   TERM: xterm-256color
 
 window:
   padding:
-    x: 4
-    y: 4
+    x: 6
+    y: 6
+  dynamic_padding: true
 
   decorations: none
 
@@ -14,16 +13,7 @@ scrolling:
   history: 0
   multiplier: 3
 
-# Font configuration
 font:
-  # normal:
-  #   family: FiraCode Nerd Font Mono
-  #   style: Medium
-
-  # bold:
-  #   family: FiraCode Nerd Font Mono
-  #   style: Bold
-
   normal:
     family: JetBrainsMono Nerd Font Mono
     style: Medium
@@ -55,7 +45,6 @@ colors:
     text: CellBackground
     background: CellForeground
 
-  # Normal colors
   normal:
     black:   '#546e7a'
     red:     '#ff5370'
@@ -66,33 +55,9 @@ colors:
     cyan:    '#89ddff'
     white:   '#ffffff'
 
-# Bell
-#
-# The bell is rung every time the BEL control character is received.
 bell:
-  # Visual Bell Animation
-  #
-  # Animation effect for flashing the screen when the visual bell is rung.
-  #
-  # Values for `animation`:
-  #   - Ease
-  #   - EaseOut
-  #   - EaseOutSine
-  #   - EaseOutQuad
-  #   - EaseOutCubic
-  #   - EaseOutQuart
-  #   - EaseOutQuint
-  #   - EaseOutExpo
-  #   - EaseOutCirc
-  #   - Linear
   animation: EaseOutExpo
-
-  # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-  # disable the visual bell animation.
   duration: 1
-
-  # Visual bell animation color.
   color: '#ffffff'
 
-# Live config reload (changes require restart)
 live_config_reload: true

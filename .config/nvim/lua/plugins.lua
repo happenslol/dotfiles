@@ -113,7 +113,7 @@ g.neoformat_enabled_go = { "goimports" }
 -- Hexokinase
 g.Hexokinase_highlighters = { "virtual" }
 
--- Disable git gutter signs
+-- GitGutter
 g.gitgutter_signs = 0
 
 return packer

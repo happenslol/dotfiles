@@ -37,11 +37,20 @@ foreground = #eeffff
 ;		FONTS
 ;---------------------------------------
 
+; Default font
 font-0 = NotoSans Nerd Font:style=Bold:size=11;3
+
+; i3 Workspace indicators
 font-1 = JetBrainsMono Nerd Font:style=Bold:size=12;3
+
+; Right indicator icons
 font-2 = Font Awesome 5 Free:style=Solid:size=13;4
-font-3 = NotoSans Nerd Font:style=Bold:size=12;4
-font-4 = NotoSans Nerd Font:style=Bold:size=15;4
+
+; Clock font
+font-3 = NotoSans Nerd Font:style=Bold:size=13;4
+
+; Brightness and Volume modules
+font-4 = NotoSans Nerd Font:style=Bold:size=18;4
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
