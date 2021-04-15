@@ -6,12 +6,16 @@
 black = #212121
 highlight = #546e7a
 red = #ff5370
+red-darker = #c91d39
 green = #c3e88d
 yellow = #ffcb6b
+yellow-darker = #e4980c
 blue = #82aaff
+blue-lighter = #b2ccd6
 magenta = #c792ea
 cyan = #89ddff
 white = #eeffff
+orange = #f78c6c
 
 ;---------------------------------------
 ;		GLOBAL
@@ -25,7 +29,7 @@ top = true
 border-top-size = 30
 border-right-size = 36
 border-left-size = 36
-border-bottom-size = 8
+border-bottom-size = 6
 border-color = #00000000
 
 module-margin = 4
@@ -42,6 +46,7 @@ font-1 = JetBrainsMono Nerd Font:style=Bold:size=12;3
 font-2 = Font Awesome 5 Free:style=Solid:size=13;4
 font-3 = NotoSans Nerd Font:style=Bold:size=12;4
 font-4 = NotoSans Nerd Font:style=Bold:size=15;4
+font-5 = Material Design Icons:style=Regular:size=14;4
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
@@ -51,30 +56,28 @@ modules-left = pulseaudio brightness
 
 modules-center = i3
 
-modules-right = redshift updates-combined fs battery date
+modules-right = wifi redshift updates-combined fs battery date
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = "%{T5}<label-volume>    %{T1}<bar-volume>"
-label-volume = ""
+format-volume = "<label-volume>    %{T1}<bar-volume>"
+label-volume = "%{T5}"
 label-muted = "%{T5}ﳌ"
-bar-volume-width = 20
-bar-volume-indicator = "%{F#bbcccc}"
-bar-volume-fill = "%{F#ff5370}"
-bar-volume-empty = "%{F#bbcccc}"
-bar-volume-foreground = "#bbcccc"
+bar-volume-indicator = "%{F#c91d39}"
+bar-volume-fill = "%{F#c91d39}"
+bar-volume-empty = "%{F#eeffff}"
+bar-volume-width = 14
 
 [module/brightness]
 type = internal/backlight
 card = intel_backlight
 
-format = <ramp>
-
-ramp-0 = "%{T7} %{T-}  "
-ramp-1 = "%{T7} %{T-}  "
-ramp-2 = "%{T7} %{T-}  "
-ramp-3 = "%{T2} %{T-}  "
-ramp-4 = "%{T2} %{T-}  "
+label = "%{T5}    "
+format = "<label>   %{T1}<bar>"
+bar-width = 14
+bar-indicator = "%{F#e4980c}"
+bar-fill = "%{F#e4980c}"
+bar-empty = "%{F#eeffff}"
 
 [module/i3]
 type = internal/i3
@@ -99,6 +102,21 @@ label-separator = " "
 
 label-urgent-padding = 1
 label-urgent-foreground = #ff5370
+
+[module/wifi]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+label-connected = "%essid%"
+format-connected = "<label-connected>    <ramp-signal>"
+format-disconnected = "%{T6}%{F#ff5370}󰤮"
+
+ramp-signal-0 = "%{F#82aaff}󰤯"
+ramp-signal-1 = "%{F#82aaff}󰤟"
+ramp-signal-2 = "%{F#82aaff}󰤢"
+ramp-signal-3 = "%{F#82aaff}󰤥"
+ramp-signal-4 = "%{F#82aaff}󰤨"
 
 [module/redshift]
 type = custom/script
@@ -126,23 +144,23 @@ adapter = AC0
 
 full-at = 98
 
-format-charging = <label-charging> <ramp-capacity>
-format-full = <label-full> <ramp-capacity>
+format-charging = "<label-charging> <ramp-capacity>      %{T3}%{F#ffcb6b}"
+format-full = "<label-full> <ramp-capacity>     %{T3}%{F#c3e88d}"
 
-format-discharging = <label-discharging> <ramp-capacity>
+format-discharging = "<label-discharging> <ramp-capacity>"
 format-discharging-foreground = ${colors.white}
 
-label-charging = "%percentage%"
-label-discharging = "%percentage%"
-label-full = "%percentage%"
+label-charging = "%percentage%%  "
+label-discharging = "%percentage%%  "
+label-full = "%percentage%%  "
 
-ramp-capacity-0 = ""
+ramp-capacity-0 = "%{T4}"
 ramp-capacity-0-foreground = ${colors.red}
-ramp-capacity-1 = ""
-ramp-capacity-1-foreground = ${colors.yellow}
-ramp-capacity-2 = ""
-ramp-capacity-3 = ""
-ramp-capacity-4 = ""
+ramp-capacity-1 = "%{T4}"
+ramp-capacity-1-foreground = ${colors.orange}
+ramp-capacity-2 = "%{T4}%{F#ffcb6b}"
+ramp-capacity-3 = "%{T4}%{F#ffcb6b}"
+ramp-capacity-4 = "%{T4}%{F#ffcb6b}"
 
 [module/date]
 type = internal/date
