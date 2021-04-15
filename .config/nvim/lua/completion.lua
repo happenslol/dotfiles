@@ -110,7 +110,6 @@ require "lspsaga".init_lsp_saga {
     quit = { "<C-c>", "<Esc>" },
     exec = "<CR>"
   },
-  -- 1: thin border | 2: rounded border | 3: thick border | 4: ascii border
-  border_style = 2,
+  border_style = "round",
   rename_prompt_prefix = " "
 }
