@@ -15,6 +15,7 @@ require "completion"
 require "statusline"
 
 bo.modeline = true
+o.modeline = true
 o.modelines = 5
 
 o.mouse = "a"
