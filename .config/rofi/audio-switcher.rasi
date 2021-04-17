@@ -1,0 +1,77 @@
+configuration {
+	font: "JetBrainsMonoMedium Nerd Font 12";
+  show-icons: false;
+  disable-history: false;
+  fullscreen: false;
+  hide-scrollbar: true;
+  sidebar-mode: false;
+}
+
+* {
+  background: #212121ff;
+  background-alt: #2c2c2cff;
+  foreground: #eeffffff;
+  foreground-alt: #eeffff66;
+  border: #ffcb6bff;
+  border-alt: #f78c6cff;
+  selected: #2c2c2cff;
+  active: #c3e88dFF;
+  blue: #82aaff;
+}
+
+window {
+  transparency: "real";
+  width: 500px;
+  background-color: @background;
+  location: north west;
+  border: 3px;
+  border-color: @blue;
+  anchor: north west;
+  y-offset: 70px;
+  x-offset: 15px;
+}
+
+mainbox {
+  background-color: @background;
+  children: [ listview ];
+}
+
+inputbar {
+  enabled: false;
+}
+
+prompt {
+  enabled: false;
+}
+
+listview {
+  backgorund-color: @background;
+  text-color: @foreground;
+  dynamic: true;
+  spacing: 0;
+  cycle: false;
+  lines: 5;
+  fixed-height: false;
+}
+
+element {
+  background-color: @background;
+  text-color: @foreground;
+  padding: 16px 24px 16px 24px;
+  border: 0%;
+}
+
+element-text {
+  vertical-align: 0.5;
+  padding: 0px 0px 0px 8px;
+}
+
+element selected {
+  background-color: @background-alt;
+}
+
+element-text active {
+  text-color: @active;
+}
+
+/* vim: ft=css
