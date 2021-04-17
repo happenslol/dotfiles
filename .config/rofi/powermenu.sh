@@ -22,6 +22,7 @@ case $chosen in
     systemctl reboot
     ;;
     $lock)
+    $HOME/.config/lock/lock.sh
     ;;
     $suspend)
     mpc -q pause
