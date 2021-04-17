@@ -1,129 +1,117 @@
 configuration {
-	font:							"JetBrainsMonoMedium Nerd Font 12";
-    show-icons:                     true;
-	icon-theme: 					"Vimix";
-    display-drun: 					"";
-    drun-display-format:            "{name}";
-    disable-history:                false;
-    fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+	font: "JetBrainsMonoMedium Nerd Font 12";
+  show-icons: true;
+  icon-theme: "Vimix-Doder-dark";
+  display-drun: "";
+  disable-history: false;
+  fullscreen: false;
+  hide-scrollbar: true;
+  sidebar-mode: false;
 }
 
-@import "launcher_colors.rasi"
+* {
+  background: #212121ff;
+  background-alt: #2c2c2cff;
+  foreground: #eeffffff;
+  foreground-alt: #eeffff66;
+  border: #ffcb6bff;
+  border-alt: #f78c6cff;
+  selected: #2c2c2cff;
+  urgent: #ff5370FF;
+  blue: #82aaff;
+}
 
 window {
-  transparency:                   "real";
-  background-color:               @background;
-  text-color:                     @foreground;
-	border:							0% 0% 0% 1.1%;
-	border-color:					@border;
-  border-radius:                  6px 6px 6px 6px;
-  height:                         49.50%;
-  width:                          40%;
-  location:                       center;
-  x-offset:                       0;
-  y-offset:                       0;
-}
-
-prompt {
-  enabled: 						true;
-	padding: 						0.18% 0.6% 0% 0%;
-	background-color: 				@background;
-	text-color: 					@foreground;
-	font:							"JetBrainsMonoMedium Nerd Font 12";
-}
-
-entry {
-    background-color:               @background;
-    text-color:                     @foreground;
-    placeholder-color:              @foreground;
-    expand:                         true;
-    horizontal-align:               0;
-    placeholder:                    "Search Applications";
-    padding:                        0.15% 0% 0% 0%;
-    blink:                          true;
-}
-
-inputbar {
-	children: 						[ prompt, entry ];
-  background-color:               @background;
-  text-color:                     @foreground;
-  expand:                         false;
-	border:							0% 0% 0.3% 0%;
-  border-radius:                  0% 0% 0% 0%;
-	border-color:					@border-alt;
-  margin:                         0% 17% 0% 0%;
-  padding:                        1%;
-  position:                       center;
-}
-
-listview {
-    background-color:               @background;
-    columns:                        4;
-    spacing:                        1%;
-    cycle:                          false;
-    dynamic:                        true;
-    layout:                         vertical;
+  transparency: "real";
+  width: 600px;
+  background-color: @background;
+  location: north;
+  border: 3px;
+  border-color: @blue;
+  anchor: north;
+  y-offset: 30%;
 }
 
 mainbox {
-  background-color:               @background;
-	border:							0% 0% 0% 1.2%;
-  border-radius:                  6px;
-	border-color:					@border-alt;
-  children:                       [ inputbar, listview ];
-  spacing:                       	2%;
-  padding:                        2.5% 2% 2.5% 2%;
+  background-color: @background;
+  children: [ inputbar, listview ];
+}
+
+listview {
+  backgorund-color: @background;
+  text-color: @foreground;
+  dynamic: true;
+  spacing: 0;
+  cycle: false;
+  lines: 5;
+  fixed-height: false;
+}
+
+prompt {
+	font: "JetBrainsMonoMedium Nerd Font 16";
+  background-color: @background;
+  text-color: @foreground;
+  padding: 32px 32px 32px 32px;
+}
+
+inputbar {
+	children: [ prompt, entry ];
+  background-color: @background;
+  text-color: @foreground;
+}
+
+entry {
+	font: "JetBrainsMonoMedium Nerd Font 15";
+  background-color: @background;
+  text-color: @foreground;
+  placeholder-color: @foreground-alt;
+  border: 0%;
+  padding: 32px 32px 32px 0;
+  placeholder: "Search Applications";
+  blink: true;
 }
 
 element {
-    background-color:               @background;
-    text-color:                     @foreground;
-    orientation:                    vertical;
-    border-radius:                  0%;
-    padding:                        2% 0% 2% 0%;
-}
-
-element-icon {
-    size:                           64px;
-    border:                         0px;
+  background-color: @background;
+  text-color: @foreground;
+  padding: 16px 24px 16px 24px;
+  border: 0%;
 }
 
 element-text {
-    expand:                         true;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    margin:                         0.5% 1% 0% 1%;
+  vertical-align: 0.5;
+  padding: 0px 0px 0px 8px;
+}
+
+element-icon {
+  size: 32px;
+  border: 0px;
+}
+
+element selected {
+  background-color: @background-alt;
 }
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-    border-radius:                  1%;
+  background-color: @urgent;
+  text-color: @foreground;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
-}
-
-element selected {
-    background-color:               @selected;
-    text-color:                     @foreground;
-	border:							0% 0% 0% 0%;
-    border-radius:                  6px;
-    border-color:                  	@border-alt;
+  background-color: @background-alt;
+  text-color: @foreground;
 }
 
 element selected.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
+  background-color: @urgent;
+  text-color: @foreground;
 }
 
 element selected.active {
-    background-color:               @background-alt;
-    color:                          @foreground;
+  background-color: @background-alt;
+  color: @foreground;
 }
+
+/* vim: ft=css

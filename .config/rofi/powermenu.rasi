@@ -1,7 +1,6 @@
 configuration {
 	font: "JetBrainsMonoMedium Nerd Font 14";
   show-icons: false;
-	icon-theme: "Vimix";
   drun-display-format: "{name}";
   disable-history: false;
   fullscreen: false;
@@ -9,110 +8,66 @@ configuration {
 	sidebar-mode: false;
 }
 
-@import "powermenu_colors.rasi"
+* {
+  background: #212121ff;
+  background-alt: #2c2c2cff;
+  foreground: #eeffffcc;
+  border: #ffcb6bff;
+  border-alt: #f78c6cff;
+  selected: #2c2c2cff;
+  urgent: #ff5370FF;
+  blue: #82aaff;
+}
 
 window {
-  transparency: "real";
   background-color: @background;
   text-color: @foreground;
   location: center;
   x-offset: 0;
   y-offset: 0;
-  border-radius: 6px;
-  border: 6px;
-  width: 715px;
-  height: 246px;
-  border-color: #89ddff;
+  width: 607px;
 }
 
-prompt {
-  enabled: true;
-  padding: 0.5% 0.5% 0.5% 0%;
-	background-color: @background-alt;
-	text-color: @foreground;
-}
-
-textbox-prompt-colon {
-	expand: false;
-	str: "System |";
-	background-color: @background-alt;
-	text-color: @foreground;
-  padding: 0.5% 0.5% 0.5% 0.5%;
+mainbox {
+  border: 3px;
+  border-color: @blue;
+  background-color: @background;
+  children: [ listview ];
 }
 
 inputbar {
-	children: [ textbox-prompt-colon, prompt ];
-  background-color: @background-alt;
-  text-color: @foreground;
-  expand: false;
-  border: 0% 0% 0% 0.2%;
-  border-radius: 6px;
-  border-color: @border;
-  margin: 0;
-  padding: 0.5%;
-  position: center;
+  enabled: false;
+}
+
+prompt {
+  enabled: false;
 }
 
 listview {
   background-color: @background;
-  margin: 0% 0% 0% 0%;
-  spacing: 1%;
   cycle: true;
-  dynamic: true;
   layout: horizontal;
-}
-
-mainbox {
-  background-color: @background;
-  children: [ inputbar, listview ];
-  spacing: 20px;
-  padding: 40px 40px 0 40px;
+  spacing: 0;
 }
 
 element {
   background-color: @background-alt;
   text-color: @foreground;
   orientation: horizontal;
-  border-radius: 6px;
-  padding: 0.5% 0 0 0;
-  width: 104px;
+  width: 120px;
+  padding: 30px 0 62px 0;
 }
 
 element-text {
 	font: "JetBrainsMonoMedium Nerd Font 32";
-  expand: true;
-  horizontal-align: 0.5;
+  horizontal-align: 0.48;
   vertical-align: 0.5;
-  margin: 14px 0 42px 0;
-}
-
-element normal.urgent,
-element alternate.urgent {
-  background-color: @urgent;
-  text-color: @foreground;
-  border-radius: 6px;
-}
-
-element normal.active,
-element alternate.active {
-  background-color: @background-alt;
-  text-color: @foreground;
+  expand: true;
 }
 
 element selected {
-  background-color: @selected;
-  text-color: @foreground;
-  border: 0 0 0 6px;
-  border-radius: 6px;
-  border-color: @border;
+  background-color: @blue;
+  text-color: @background;
 }
 
-element selected.urgent {
-  background-color: @urgent;
-  text-color: @foreground;
-}
-
-element selected.active {
-  background-color: @background-alt;
-  color: @foreground;
-}
+/* vim:ft=css
