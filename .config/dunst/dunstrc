@@ -1,10 +1,10 @@
  [global]
-    font = NotoSans Nerd Font 14
+    font = NotoSans Nerd Font 13
 
     ### Display ###
     monitor = 0
     follow = none
-    geometry = "400x400-15+70"
+    geometry = "500x6-15+70"
 
     indicate_hidden = yes
     shrink = no
@@ -13,7 +13,7 @@
     notification_height = 0
     separator_height = 1
 
-    padding = 16
+    padding = 13
     horizontal_padding = 18
     frame_width = 3
     frame_color = "#82aaff"
@@ -25,9 +25,10 @@
     line_height = 4
     markup = full
 
-    format = "<b>%s</b>\n%b"
+    format = <span foreground="#65737e" size="small">%a</span>\n<b>%s</b>\n%b
     alignment = left
     show_age_threshold = 60
+    ellipsize = end
 
     word_wrap = yes
     ignore_newline = no
@@ -35,9 +36,11 @@
     hide_duplicate_count = false
     show_indicators = no
 
-    icon_position = off
-    max_icon_size = 32
-    icon_folders = /usr/share/icons/Vimix-Doder-dark/24/actions/:/usr/share/icons/Vimix-Doder-dark/24/devices/
+    icon_position = left
+    min_icon_size = 42
+    max_icon_size = 42
+    icon_folders = /usr/share/icons/Vimix-Doder-dark/16/actions/:/usr/share/icons/Vimix-Doder-dark/16/devices/:/usr/share/icons/Vimix-Doder-dark/16/status/:/usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/legacy/
+    icon_path = /usr/share/icons/Vimix-Doder-dark/16/actions/:/usr/share/icons/Vimix-Doder-dark/16/devices/:/usr/share/icons/Vimix-Doder-dark/16/status/:/usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/legacy/
 
     ### History ###
     sticky_history = yes
