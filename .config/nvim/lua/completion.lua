@@ -29,14 +29,13 @@ local on_lsp_attach = function(client, bufnr)
   buf_set_keymap("gr", [[:lua vim.lsp.buf.references()<CR>]])
 
   buf_set_keymap("<C-h>", [[:Lspsaga hover_doc<CR>]])
+  buf_set_keymap("<C-j>", [[:Lspsaga show_line_diagnostics<CR>]])
 
   buf_set_keymap("<leader>a", [[:Lspsaga code_action<CR>]])
   buf_set_keymap("<leader>r", [[:Lspsaga rename<CR>]])
 
   buf_set_keymap("[c", [[:Lspsaga diagnostic_jump_prev<CR>]])
   buf_set_keymap("]c", [[:Lspsaga diagnostic_jump_next<CR>]])
-
-  vim.api.nvim_exec([[autocmd CursorHold * lua require"lspsaga.diagnostic".show_line_diagnostics()]], false)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
