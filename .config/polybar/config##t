@@ -74,6 +74,7 @@ modules-right = redshift updates-combined fs date
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume-offset = 8
+format-muted-offset = 8
 format-volume = "<label-volume>    %{T1}<bar-volume>"
 label-volume = "%{T5}"
 label-muted = "%{T5}ﳌ"
@@ -193,9 +194,7 @@ type = internal/date
 interval = 60
 date = %a %d
 time = %H:%M
-label = "%{T4}%time%"
+label = "%date% %{T4}   %time%"
 
 format-foreground = ${colors.white}
 format-background = #00000000
-
-; vim: ft=dosini
