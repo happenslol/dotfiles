@@ -22,12 +22,11 @@ case $chosen in
     systemctl reboot
     ;;
     $lock)
-    $HOME/.config/lock/lock.sh
+    amixer -D pulse sset Master off
+    i3lock -c 333333
     ;;
     $suspend)
-    mpc -q pause
-    amixer set Master mute
-    systemctl suspend
+    i3lock -c 333333 && systemctl suspend
     ;;
     $logout)
     i3-msg exit
