@@ -26,7 +26,7 @@ case $chosen in
     i3lock -c 333333
     ;;
     $suspend)
-    i3lock -c 333333 && systemctl suspend
+    systemctl suspend
     ;;
     $logout)
     i3-msg exit
