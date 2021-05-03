@@ -73,24 +73,17 @@ vimp.inoremap({ "expr", "silent" }, "<C-Space>", [[compe#complete()]])
 vimp.inoremap({ "expr", "silent" }, "<C-e>", [[compe#close('<C-e>')]])
 vimp.inoremap({ "expr", "silent" }, "<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
 
--- Make confirmation work with autopairs
-local npairs = require "nvim-autopairs"
-_G.confirm_completion = function()
-  if fn.pumvisible() == 0 then
-    return npairs.check_break_line_char()
-  end
+-- Confirm completion on enter
+vimp.inoremap({ "expr" }, "<CR>", [[compe#confirm('<CR>')]])
 
-  if fn.complete_info()["selected"] ~= -1 then
-    fn["compe#confirm"]()
-    return npairs.esc("")
-  end
-
-  vim.api.nvim_select_popupmenu_item(0, false, false, {})
-  fn["compe#confirm"]()
-  return npairs.esc("<c-n>")
-end
-
-vimp.inoremap({ "expr" }, "<CR>", [[v:lua.confirm_completion()]])
+-- lsp-trouble setup
+require "trouble".setup {
+  mode = "workspace",
+  indent_lines = false,
+  auto_preview = false,
+  auto_close = true,
+  use_lsp_diagnostic_signs = true,
+}
 
 -- Lspsaga setup
 require "lspsaga".init_lsp_saga {

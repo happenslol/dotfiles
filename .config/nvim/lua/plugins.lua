@@ -27,6 +27,7 @@ local packer = require "packer".startup(function()
   use "onsails/lspkind-nvim"
   use "ray-x/lsp_signature.nvim"
   use "glepnir/lspsaga.nvim"
+  use "folke/lsp-trouble.nvim"
 
   -- File browsing and status
   use "kyazdani42/nvim-tree.lua"

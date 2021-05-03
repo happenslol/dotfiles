@@ -24,3 +24,5 @@ vimp.nnoremap({ "silent" }, "<leader>e", [[:Telescope buffers<CR>]])
 
 vimp.nnoremap({ "silent" }, "<leader>w", [[:ArgWrap<CR>]])
 vimp.nnoremap({ "silent" }, "<leader>f", [[:Neoformat<CR>]])
+
+vimp.nnoremap({ "silent" }, "<leader>c", [[:LspTroubleToggle<CR>]])
