@@ -161,7 +161,10 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-exec_always --no-startup-id $HOME/.screenlayout/main.sh
+{% if yadm.hostname == "rem" %}
+exec_always --no-startup-id xrandr --output eDP-1-1 --right-of DP-4.8 --primary
+{% endif %}
+
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id killall xmousepasteblock; xmousepasteblock
 exec_always --no-startup-id xset r rate 170 60 # adjust repeat rate

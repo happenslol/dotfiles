@@ -3,9 +3,12 @@
 
 case $1 in
   "up" )
-    amixer -D pulse sset Master "5%+" > /dev/null;;
+    pactl set-sink-volume @DEFAULT_SINK@ +5% >> /dev/null
+    ;;
   "down" )
-    amixer -D pulse sset Master "5%-" > /dev/null;;
+    pactl set-sink-volume @DEFAULT_SINK@ -5% >> /dev/null
+    ;;
   "toggle" )
-    amixer -D pulse sset Master toggle > /dev/null;;
+    pactl set-sink-mute @DEFAULT_SINK@ toggle >> /dev/null
+    ;;
 esac

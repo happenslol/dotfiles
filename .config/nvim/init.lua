@@ -4,7 +4,7 @@ local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  cmd("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+  cmd("!git clone git@github.com:wbthomason/packer.nvim " .. install_path)
   cmd "packadd packer.nvim"
 end
 
