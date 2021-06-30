@@ -85,7 +85,7 @@ telescope.setup {
 -- nvim-tree
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 vim.g.nvim_tree_show_icons = {
-  ["git"] = 0,
+  ["git"] = 1,
   ["folders"] = 1,
   ["files"] = 1
 }
@@ -96,6 +96,7 @@ vim.g.nvim_tree_bindings = {
 }
 
 vim.g.nvim_tree_group_empty = 1
+vim.g.nvim_tree_lsp_diagnostics = 1
 
 -- Treesitter
 require "nvim-treesitter.configs".setup {

@@ -21,7 +21,7 @@ export GOPRIVATE=*.g51.dev,g51.dev
 export GOPATH="/home/happens/go"
 export GOBIN="$GOPATH/bin"
 
-export PATH="$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/git-ext:$HOME/android-studio/bin:$HOME/.linkerd2/bin:$HOME/.node_modules/bin"
+export PATH="$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/git-ext:$HOME/android-studio/bin:$HOME/.linkerd2/bin:$HOME/.node_modules/bin:$HOME/.local/bin:$HOME/android/studio/bin"
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "romkatv/powerlevel10k", as:theme, depth:1
@@ -51,6 +51,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 export ANDROID_SDK_ROOT="/opt/android-sdk"
+export ANDROID_NDK_HOME="/home/happens/android/sdk/ndk"
 export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"

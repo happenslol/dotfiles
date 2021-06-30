@@ -15,7 +15,11 @@ require "compe".setup {
 }
 
 local on_lsp_attach = function(client, bufnr)
-  require "lsp_signature".on_attach()
+  require "lsp_signature".on_attach{
+    bind = false,
+    hint_enable = false,
+    use_lspsaga = true,
+  }
 
   local function buf_set_keymap(key, command)
     vim.api.nvim_buf_set_keymap(bufnr, "n", key, command, { silent = true, noremap = true })
@@ -46,7 +50,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local servers = { "gopls", "tsserver" }
+local servers = { "gopls", "tsserver", "rls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_lsp_attach }
 end

@@ -12,3 +12,8 @@
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	rlg = log --color --no-merges --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s'
+  persona = !git-persona
+
+[persona]
+  home = Hilmar Wiegand <me@hwgnd.de>
+  work = Hilmar Wiegand <hilmar@garage51.de>
