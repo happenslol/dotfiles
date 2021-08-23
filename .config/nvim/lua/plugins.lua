@@ -59,11 +59,13 @@ local telescope_actions = require "telescope.actions"
 telescope.load_extension "fzy_native"
 telescope.setup {
   defaults = {
-    prompt_position = "top",
     sorting_strategy = "ascending",
     layout_strategy = "center",
-    width = 120,
-    results_height = 20,
+
+    layout_config = {
+      prompt_position = "top",
+      width = 120,
+    },
 
     borderchars = {
       { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
@@ -91,8 +93,8 @@ vim.g.nvim_tree_show_icons = {
 }
 
 vim.g.nvim_tree_bindings = {
-  ["s"] = tree_cb("vsplit"),
-  ["i"] = tree_cb("split")
+  { key = "s", cb = tree_cb("vsplit") },
+  { key = "i", cb = tree_cb("split") },
 }
 
 vim.g.nvim_tree_group_empty = 1

@@ -11,7 +11,7 @@
 	defaultBranch = main
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	rlg = log --color --no-merges --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s'
+  rlg = !git --no-pager log $(git describe --tags --abbrev=0)..HEAD --color --no-merges --pretty=format:'* %Cred%h%Creset - %s' && echo ""
   persona = !git-persona
 
 [persona]

@@ -23,7 +23,7 @@ case $chosen in
     ;;
     $lock)
     amixer -D pulse sset Master off
-    i3lock -c 333333
+    light-locker-command -l
     ;;
     $suspend)
     systemctl suspend

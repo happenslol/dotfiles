@@ -2,7 +2,7 @@ local cmd, fn = vim.cmd, vim.fn
 local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
 local vimp = require "vimp"
 
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = require "lspconfig"
 
 require "compe".setup {
   enabled = true,
@@ -78,7 +78,7 @@ vimp.inoremap({ "expr", "silent" }, "<C-e>", [[compe#close('<C-e>')]])
 vimp.inoremap({ "expr", "silent" }, "<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
 
 -- Confirm completion on enter
-vimp.inoremap({ "expr" }, "<CR>", [[compe#confirm('<CR>')]])
+vimp.inoremap({ "expr" }, "<CR>", [[compe#confirm({ 'keys': '<CR>', 'select': v:true })]])
 
 -- lsp-trouble setup
 require "trouble".setup {
