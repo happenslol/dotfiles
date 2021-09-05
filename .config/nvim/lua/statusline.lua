@@ -1,5 +1,4 @@
 local cmd, fn = vim.cmd, vim.fn
-local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
 
 local gl = require "galaxyline"
 local p_fileinfo = require "galaxyline.provider_fileinfo"

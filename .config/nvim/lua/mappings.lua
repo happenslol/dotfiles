@@ -1,28 +1,36 @@
-local cmd, fn = vim.cmd, vim.fn
-local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
-local vimp = require "vimp"
+local util = require "util"
+local nest = require "nest"
 
-g.mapleader = ","
+util.set_global { mapleader = "," }
 
--- Quickfix window mappings
-vimp.nmap({ "silent" }, "<c-f>k", [[:copen<CR>]])
-vimp.nmap({ "silent" }, "<c-f>j", [[:cclose<CR>]])
-vimp.nmap({ "silent" }, "<c-f>l", [[:cnext<CR>]])
-vimp.nmap({ "silent" }, "<c-f>h", [[:cprev<CR>]])
+nest.applyKeymaps {
+  -- Quickfix window mappings
+  { "<c-f>", {
+    { "k", [[:copen<CR>]] },
+    { "j", [[:cclose<CR>]] },
+    { "l", [[:cnext<CR>]] },
+    { "h", [[:cprev<CR>]] },
+  }},
 
--- Location list mappings
-vimp.nmap({ "silent" }, "<c-d>k", [[:lopen<CR>]])
-vimp.nmap({ "silent" }, "<c-d>j", [[:lclose<CR>]])
-vimp.nmap({ "silent" }, "<c-d>l", [[:lnext<CR>]])
-vimp.nmap({ "silent" }, "<c-d>h", [[:lprev<CR>]])
+  -- Location list mappings
+  { "<c-d>", {
+    { "k", [[:lopen<CR>]] },
+    { "j", [[:lclose<CR>]] },
+    { "l", [[:lnext<CR>]] },
+    { "h", [[:lprev<CR>]] },
+  }},
 
-vimp.nnoremap({ "silent" }, "<C-n>", [[:NvimTreeToggle<CR>]])
+  { "<C-n>", [[:NvimTreeToggle<CR>]] },
 
-vimp.nnoremap({ "silent" }, "<C-p>", [[:Telescope find_files<CR>]])
-vimp.nnoremap({ "silent" }, "<leader>q", [[:Telescope live_grep<CR>]])
-vimp.nnoremap({ "silent" }, "<leader>e", [[:Telescope buffers<CR>]])
+  { "<C-p>", [[:Telescope find_files<CR>]] },
 
-vimp.nnoremap({ "silent" }, "<leader>w", [[:ArgWrap<CR>]])
-vimp.nnoremap({ "silent" }, "<leader>f", [[:Neoformat<CR>]])
+  { "<leader>", {
+    { "q", [[:Telescope live_grep<CR>]] },
+    { "e", [[:Telescope buffers<CR>]] },
 
-vimp.nnoremap({ "silent" }, "<leader>c", [[:LspTroubleToggle<CR>]])
+    { "w", [[:ArgWrap<CR>]] },
+    { "f", [[:Neoformat<CR>]] },
+
+    { "c", [[:LspTroubleToggle<CR>]] },
+  }},
+}

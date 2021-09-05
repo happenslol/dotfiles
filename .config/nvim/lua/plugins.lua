@@ -1,16 +1,15 @@
-local cmd, fn = vim.cmd, vim.fn
-local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
+local util = require "util"
 
-local packer = require "packer".startup(function()
+require "packer".startup(function()
   use "wbthomason/packer.nvim"
 
   -- Util and libraries
-  use "svermeulen/vimpeccable"
+  use "LionC/nest.nvim"
   use "nvim-lua/plenary.nvim"
   use "nvim-lua/popup.nvim"
 
   -- Themeing
-  use { "kaicataldo/material.vim", branch = "main" }
+  use "kaicataldo/material.vim"
   use "kyazdani42/nvim-web-devicons"
   use { "RRethy/vim-hexokinase", run = "make hexokinase" }
 
@@ -23,28 +22,34 @@ local packer = require "packer".startup(function()
 
   -- LSP
   use "neovim/nvim-lspconfig"
-  use "hrsh7th/nvim-compe"
+  use "L3MON4D3/LuaSnip"
+  use { "hrsh7th/nvim-cmp", requires = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "saadparwaiz1/cmp_luasnip",
+  }}
+
   use "onsails/lspkind-nvim"
   use "ray-x/lsp_signature.nvim"
   use "glepnir/lspsaga.nvim"
-  use "folke/lsp-trouble.nvim"
 
   -- File browsing and status
   use "kyazdani42/nvim-tree.lua"
-  use { "glepnir/galaxyline.nvim", branch = "main" }
+  use "glepnir/galaxyline.nvim"
   use "farmergreg/vim-lastplace"
   use "airblade/vim-gitgutter"
 
   -- Code formatting
   use "tpope/vim-surround"
-  use { "b3nj5m1n/kommentary", branch = "main" }
+  use "b3nj5m1n/kommentary"
   use "windwp/nvim-autopairs"
   use "FooSoft/vim-argwrap"
   use "sbdchd/neoformat"
-  use { "windwp/nvim-ts-autotag", branch = "main" }
+  use "windwp/nvim-ts-autotag"
 
   -- Language plugins
-  use { "JoosepAlviste/nvim-ts-context-commentstring", branch = "main" }
+  use "JoosepAlviste/nvim-ts-context-commentstring"
   use "mattn/vim-goimpl"
 
 end)
@@ -86,19 +91,23 @@ telescope.setup {
 
 -- nvim-tree
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
-vim.g.nvim_tree_show_icons = {
-  ["git"] = 1,
-  ["folders"] = 1,
-  ["files"] = 1
-}
 
-vim.g.nvim_tree_bindings = {
-  { key = "s", cb = tree_cb("vsplit") },
-  { key = "i", cb = tree_cb("split") },
-}
+util.set_global {
+  nvim_tree_show_icons = {
+    ["git"] = 1,
+    ["folders"] = 1,
+    ["files"] = 1
+  },
 
-vim.g.nvim_tree_group_empty = 1
-vim.g.nvim_tree_lsp_diagnostics = 1
+  nvim_tree_bindings = {
+    { key = "s", cb = tree_cb("vsplit") },
+    { key = "i", cb = tree_cb("split") },
+  },
+
+  nvim_tree_group_empty = 1,
+  nvim_tree_lsp_diagnostics = 1,
+  nvim_tree_disabled_window_picker = 1,
+}
 
 -- Treesitter
 require "nvim-treesitter.configs".setup {
@@ -107,17 +116,19 @@ require "nvim-treesitter.configs".setup {
   highlight = { enable = true },
 }
 
-wo.foldmethod = "expr"
-wo.foldexpr = "nvim_treesitter#foldexpr()"
-o.foldlevelstart = 99
+util.set_opt {
+  foldmethod = "expr",
+  foldexpr = "nvim_treesitter#foldexpr()",
+  foldlevelstart = 99,
+}
 
--- neoformat
-g.neoformat_enabled_go = { "goimports" }
+util.set_global {
+  -- neoformat
+  neoformat_enabled_go = { "goimports" },
 
--- Hexokinase
-g.Hexokinase_highlighters = { "virtual" }
+  -- Hexokinase
+  Hexokinase_highlighters = { "virtual" },
 
--- GitGutter
-g.gitgutter_signs = 0
-
-return packer
+  -- GitGutter
+  gitgutter_signs = 0,
+}

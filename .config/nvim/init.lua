@@ -1,12 +1,6 @@
-local cmd, fn = vim.cmd, vim.fn
-local g, o, wo, bo = vim.g, vim.o, vim.wo, vim.bo
+local util = require "util"
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  cmd("!git clone git@github.com:wbthomason/packer.nvim " .. install_path)
-  cmd "packadd packer.nvim"
-end
+util.bootstrap_packer()
 
 require "plugins"
 require "theme"
@@ -14,51 +8,48 @@ require "mappings"
 require "completion"
 require "statusline"
 
-bo.modeline = true
-o.modeline = true
-o.modelines = 5
+vim.cmd [[filetype plugin indent on]]
+vim.cmd [[syntax on]]
 
-o.mouse = "a"
+util.set_opt {
+  modeline = true,
+  modeline = true,
+  modelines = 5,
 
-o.showmode = false
-o.laststatus = 2
+  mouse = "a",
 
-cmd [[filetype plugin indent on]]
-cmd [[syntax on]]
+  showmode = false,
+  laststatus = 2,
 
-wo.number = true
-wo.numberwidth = 4
-wo.signcolumn = "yes"
+  number = true,
+  numberwidth = 4,
+  signcolumn = "yes",
 
-o.clipboard = "unnamed"
-o.wildmenu = true
-o.backspace = "indent,eol,start"
-o.fileencoding = "utf-8"
+  clipboard = "unnamed",
+  wildmenu = true,
+  backspace = "indent,eol,start",
+  fileencoding = "utf-8",
 
-bo.binary = true
-bo.endofline = false
-o.startofline = false
-o.winminheight = 0
+  binary = true,
+  endofline = false,
+  startofline = false,
+  winminheight = 0,
 
-o.hlsearch = true
-o.ignorecase = true
-o.smartcase = true
-o.incsearch = true
-o.errorbells = false
-o.ruler = true
-o.shortmess = "atI"
-o.showcmd = true
-o.scrolloff = 5
+  hlsearch = true,
+  ignorecase = true,
+  smartcase = true,
+  incsearch = true,
+  inccommand = "nosplit",
+  errorbells = false,
+  ruler = true,
+  shortmess = "atI",
+  showcmd = true,
+  scrolloff = 5,
 
-o.expandtab = true
-o.tabstop = 2
-o.shiftwidth = 2
+  expandtab = true,
+  tabstop = 2,
+  shiftwidth = 2,
 
-bo.expandtab = true
-bo.tabstop = 2
-bo.shiftwidth = 2
-
-o.undofile = true
-bo.undofile = true
-
-o.updatetime = 500
+  undofile = true,
+  updatetime = 250,
+}
