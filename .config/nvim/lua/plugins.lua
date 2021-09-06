@@ -31,7 +31,6 @@ require "packer".startup(function()
   }}
 
   use "onsails/lspkind-nvim"
-  use "ray-x/lsp_signature.nvim"
   use "glepnir/lspsaga.nvim"
 
   -- File browsing and status
@@ -94,7 +93,7 @@ local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
 util.set_global {
   nvim_tree_show_icons = {
-    ["git"] = 1,
+    ["git"] = 0,
     ["folders"] = 1,
     ["files"] = 1
   },
@@ -105,8 +104,8 @@ util.set_global {
   },
 
   nvim_tree_group_empty = 1,
-  nvim_tree_lsp_diagnostics = 1,
-  nvim_tree_disabled_window_picker = 1,
+  nvim_tree_lsp_diagnostics = 0,
+  nvim_tree_disable_window_picker = 1,
 }
 
 -- Treesitter

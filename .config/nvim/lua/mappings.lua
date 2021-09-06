@@ -21,7 +21,6 @@ nest.applyKeymaps {
   }},
 
   { "<C-n>", [[:NvimTreeToggle<CR>]] },
-
   { "<C-p>", [[:Telescope find_files<CR>]] },
 
   { "<leader>", {
@@ -30,7 +29,5 @@ nest.applyKeymaps {
 
     { "w", [[:ArgWrap<CR>]] },
     { "f", [[:Neoformat<CR>]] },
-
-    { "c", [[:LspTroubleToggle<CR>]] },
   }},
 }

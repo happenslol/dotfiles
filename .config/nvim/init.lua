@@ -13,7 +13,6 @@ vim.cmd [[syntax on]]
 
 util.set_opt {
   modeline = true,
-  modeline = true,
   modelines = 5,
 
   mouse = "a",
@@ -51,5 +50,6 @@ util.set_opt {
   shiftwidth = 2,
 
   undofile = true,
+  undodir = vim.env.HOME .. "/.nvimundo",
   updatetime = 250,
 }

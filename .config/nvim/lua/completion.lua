@@ -3,13 +3,12 @@ local nest = require "nest"
 local lspconfig = require "lspconfig"
 local cmp = require "cmp"
 local luasnip = require "luasnip"
+local lspkind = require "lspkind"
 
 local on_lsp_attach = function()
-  require "lsp_signature".on_attach{
-    bind = false,
-    hint_enable = false,
-    use_lspsaga = true,
-  }
+  -- Show diagnostics and signature help on hover
+  vim.cmd [[autocmd CursorHold * :Lspsaga show_line_diagnostics]]
+  vim.cmd [[autocmd CursorHoldI * silent! :Lspsaga signature_help]]
 
   -- LSP mappings
   nest.applyKeymaps {
@@ -36,7 +35,7 @@ end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
+    virtual_text = false,
     update_in_insert = false
   }
 )
@@ -123,19 +122,27 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end,
   },
+
+  formatting = {
+    format = function(_, vim_item)
+      -- Only show items for kind
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      return vim_item
+    end,
+  },
+
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
     ["<Tab>"] = function(fallback)
       if vim.fn.pumvisible() == 1 then feed "<C-n>"
+      elseif luasnip.expand_or_jumpable() then feed [[<Plug>luasnip-expand-or-jump]]
       else fallback() end
     end,
     ["<S-Tab>"] = function(fallback)
@@ -144,6 +151,7 @@ cmp.setup {
       else fallback() end
     end,
   },
+
   sources = {
     { name = "nvim_lsp" },
     { name = "path" },
