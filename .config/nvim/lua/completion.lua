@@ -109,10 +109,10 @@ require "lspsaga".init_lsp_saga {
 }
 
 -- Configure completion engine
-local feed = function(key)
+local feed = function(key, mode)
   vim.fn.feedkeys(
     vim.api.nvim_replace_termcodes(key, true, true, true),
-    "n"
+    mode
   )
 end
 
@@ -141,13 +141,17 @@ cmp.setup {
       select = true,
     },
     ["<Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then feed "<C-n>"
-      elseif luasnip.expand_or_jumpable() then feed [[<Plug>luasnip-expand-or-jump]]
+      if vim.fn.pumvisible() == 1 then
+        feed("<C-n>", "n")
+      elseif luasnip.expand_or_jumpable() then
+        feed("<Plug>luasnip-expand-or-jump", "")
       else fallback() end
     end,
     ["<S-Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then feed "<C-p>"
-      elseif luasnip.jumpable(-1) then feed "<Plug>luasnip-jump-prev"
+      if vim.fn.pumvisible() == 1 then
+        feed("<C-p>", "n")
+      elseif luasnip.jumpable(-1) then
+        feed("<Plug>luasnip-jump-prev", "")
       else fallback() end
     end,
   },
