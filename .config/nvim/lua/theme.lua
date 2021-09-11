@@ -46,6 +46,10 @@ util.hi {
   { "LspDiagnosticsSignInformation", _G.colors.cyan, _G.colors.bg },
   { "LspDiagnosticsSignHint", _G.colors.paleblue, _G.colors.bg },
 
+  -- Style floating windows
+  { "NormalFloat", nil, _G.colors.selection, nil },
+  { "FloatBorder", nil, _G.colors.selection, nil },
+
   -- Hide "~" on empty lines
   { "EndOfBuffer", _G.colors.bg, _G.colors.bg },
 
@@ -56,20 +60,4 @@ util.hi {
 
   -- Style status messages
   { "errormsg", _G.colors.red, _G.colors.bg },
-
-  -- Lspsaga popup
-  { "LspFloatWinBorder", _G.colors.red, _G.colors.bg },
-
-  { "LspSagaCodeActionBorder", _G.colors.invisibles, "NONE" },
-  { "LspSagaCodeActionTruncateLine", _G.colors.invisibles, "NONE" },
-
-  { "LspSagaDiagnosticBorder", _G.colors.invisibles, "NONE" },
-  { "LspSagaDiagnosticTruncateLine", _G.colors.invisibles, "NONE" },
-
-  { "LspSagaHoverBorder", _G.colors.invisibles, "NONE" },
-  { "LspSagaDocTruncateLine", _G.colors.invisibles, "NONE" },
-
-  { "LspSagaRenameBorder", _G.colors.invisibles, "NONE" },
-  { "LspSagaSignatureHelpBorder", _G.colors.invisibles, "NONE" },
-  { "LspSagaDefPreviewBorder", _G.colors.invisibles, "NONE" }
 }

@@ -5,33 +5,15 @@ local cmp = require "cmp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 
-local on_lsp_attach = function()
-  -- Show diagnostics and signature help on hover
-  vim.cmd [[autocmd CursorHold * :Lspsaga show_line_diagnostics]]
-  vim.cmd [[autocmd CursorHoldI * silent! :Lspsaga signature_help]]
+_G.default_float_config = {
+	border = "rounded",
+	max_width = 120,
+	focusable = false,
+}
 
-  -- LSP mappings
-  nest.applyKeymaps {
-    buffer = true,
-
-    { "g", {
-      { "d", [[:lua vim.lsp.buf.definition()<CR>]] },
-      { "D", [[:lua vim.lsp.buf.declaration()<CR>]] },
-      { "i", [[:lua vim.lsp.buf.implementation()<CR>]] },
-      { "r", [[:lua vim.lsp.buf.references()<CR>]] },
-    }},
-
-    { "<C-h>", [[:Lspsaga hover_doc<CR>]] },
-
-    { "<leader>", {
-      { "aa", [[:Lspsaga code_action<CR>]] },
-      { "ar", [[:Lspsaga rename<CR>]] },
-    }},
-
-    { "[c", [[:Lspsaga diagnostic_jump_prev<CR>]] },
-    { "]c", [[:Lspsaga diagnostic_jump_next<CR>]] },
-  }
-end
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+	vim.lsp.handlers.hover, _G.default_float_config
+)
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -39,6 +21,40 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false
   }
 )
+
+local on_lsp_attach = function()
+  -- Show diagnostics and signature help on hover
+  util.cmd { [[autocmd CursorHold * silent! lua vim.lsp.diagnostic.show_line_diagnostics(_G.default_float_config)]] }
+
+	-- Attach signature help
+	require "lsp_signature".on_attach {
+		bind = true,
+		hint_enable = false,
+		max_width = 60,
+	}
+
+  -- LSP mappings
+  nest.applyKeymaps {
+    buffer = true,
+
+    { "g", {
+      { "d", [[<cmd>lua vim.lsp.buf.definition()<cr>]] },
+      { "D", [[<cmd>lua vim.lsp.buf.declaration()<cr>]] },
+      { "i", [[<cmd>lua vim.lsp.buf.implementation()<cr>]] },
+      { "r", [[<cmd>lua vim.lsp.buf.references()<cr>]] },
+    }},
+
+    { "<C-h>", [[<cmd>lua vim.lsp.buf.hover({ focusable = false, border = rounded })<cr>]] },
+
+    { "<leader>", {
+      { "aa", [[<cmd>lua vim.lsp.buf.code_action()<cr>]] },
+      { "ar", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
+    }},
+
+    { "[c", [[<cmd>lua vim.lsp.diagnostic.goto_next()<cr>]] },
+    { "]c", [[<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>]] },
+  }
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -84,28 +100,6 @@ vim.opt.shortmess:append "c"
 util.set_opt {
   completeopt = "menuone,noselect",
   pumheight = 12,
-}
-
--- Lspsaga setup
-require "lspsaga".init_lsp_saga {
-  use_saga_diagnostic_sign = false,
-  dianostic_header_icon = " ",
-  code_action_icon = " ",
-  code_action_prompt = {
-    enable = true,
-    sign = false,
-    virtual_text = false,
-  },
-  code_action_keys = {
-    quit = { "q", "<Esc>" },
-    exec = "<CR>"
-  },
-  rename_action_keys = {
-    quit = { "<C-c>", "<Esc>" },
-    exec = "<CR>"
-  },
-  border_style = "round",
-  rename_prompt_prefix = " "
 }
 
 -- Configure completion engine
