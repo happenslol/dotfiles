@@ -1,4 +1,4 @@
-require "packer".startup(function()
+require "packer".startup({function()
   use "wbthomason/packer.nvim"
 
   -- Util and libraries
@@ -75,6 +75,7 @@ require "packer".startup(function()
 
   -- LSP and completion
   use "neovim/nvim-lspconfig"
+	use "kabouzeid/nvim-lspinstall"
   use "onsails/lspkind-nvim"
   use "L3MON4D3/LuaSnip"
 
@@ -166,4 +167,11 @@ require "packer".startup(function()
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use "mattn/vim-goimpl"
 
-end)
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require "packer.util".float({ border = "rounded" })
+    end,
+  },
+}})
