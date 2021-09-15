@@ -4,6 +4,7 @@ local lspconfig = require "lspconfig"
 local cmp = require "cmp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
+local lspinstall = require "lspinstall"
 
 _G.default_float_config = {
 	border = "rounded",
@@ -52,43 +53,27 @@ local on_lsp_attach = function()
   }
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local function setup_servers()
+	lspinstall.setup()
+	local servers = lspinstall.installed_servers()
 
-local servers = { "gopls", "tsserver", "rust_analyzer" }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_lsp_attach,
-    capabilities = capabilities,
-  }
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = require "cmp_nvim_lsp".update_capabilities(capabilities)
+
+	for _, server in pairs(servers) do
+		lspconfig[server].setup {
+			on_attach = on_lsp_attach,
+			capabilities = capabilities,
+		}
+	end
 end
 
--- Setup lua completion
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
+setup_servers()
 
-lspconfig.sumneko_lua.setup {
-  cmd = {
-    "/usr/bin/lua-language-server", "-E",
-    "/usr/share/lua-language-server/main.lua"
-  },
-  on_attach = on_lsp_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-        path = runtime_path,
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-      },
-      diagnostics = { globals = { "vim", "use" }},
-      telemetry = { enable = false },
-    },
-  },
-}
+lspinstall.post_install_hook = function()
+	setup_servers()
+	util.cmd { [[bufdo e]] }
+end
 
 -- Avoid showing message extra message when using completion
 vim.opt.shortmess:append "c"

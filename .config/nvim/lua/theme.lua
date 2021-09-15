@@ -23,16 +23,6 @@ util.cmd {
 
 _G.colors = util.extract_colors(vim.g.material_colorscheme_map)
 
-util.hi {
-  -- Reverse bracket highlighting
-  { "MatchParen", _G.colors.cyan, _G.colors.comments, "bold" },
-
-  -- Style lsp diagnostics
-  { "LspDiagnosticsUnderlineError", nil, nil, "underline" },
-  { "LspDiagnosticsUnderlineWarning", nil, nil, "underline" },
-  { "LspDiagnosticsUnderlineInformation", nil, nil, "underline" },
-}
-
 util.hi_define {
   { "LspDiagnosticsSignError", "x" },
   { "LspDiagnosticsSignWarning", "!" },
@@ -41,6 +31,14 @@ util.hi_define {
 }
 
 util.hi {
+  -- Reverse bracket highlighting
+  { "MatchParen", _G.colors.cyan, _G.colors.comments, "bold" },
+
+  -- Style lsp diagnostics
+  { "LspDiagnosticsUnderlineError", nil, nil, "underline" },
+  { "LspDiagnosticsUnderlineWarning", nil, nil, "underline" },
+  { "LspDiagnosticsUnderlineInformation", nil, nil, "underline" },
+
   { "LspDiagnosticsSignError", _G.colors.red, _G.colors.bg },
   { "LspDiagnosticsSignWarning", _G.colors.orange, _G.colors.bg },
   { "LspDiagnosticsSignInformation", _G.colors.cyan, _G.colors.bg },

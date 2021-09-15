@@ -45,7 +45,7 @@ alias grep="rg"
 alias dot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+eval "$(zoxide init --cmd j zsh)"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
@@ -59,7 +59,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 
 # fnm
 export PATH=/home/happens/.fnm:$PATH
-eval "`fnm env`"
+eval "$(fnm env)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
