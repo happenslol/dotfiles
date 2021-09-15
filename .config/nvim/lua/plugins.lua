@@ -87,6 +87,16 @@ require "packer".startup(function()
 
 	use "ray-x/lsp_signature.nvim"
 
+  use { "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require "trouble".setup {
+				mode = "lsp_workspace_diagnostics",
+				auto_close = true,
+			}
+    end,
+  }
+
   -- File browsing and status
   use { "kyazdani42/nvim-tree.lua",
     config = function()

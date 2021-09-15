@@ -30,4 +30,9 @@ nest.applyKeymaps {
     { "w", [[:ArgWrap<CR>]] },
     { "f", [[:Neoformat<CR>]] },
   }},
+
+	{ "<space>", {
+		{ "w", [[<cmd>TroubleToggle lsp_workspace_diagnostics<cr>]] },
+		{ "d", [[<cmd>TroubleToggle lsp_document_diagnostics<cr>]] },
+	}},
 }

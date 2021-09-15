@@ -23,9 +23,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 local on_lsp_attach = function()
-  -- Show diagnostics and signature help on hover
-  util.cmd { [[autocmd CursorHold * silent! lua vim.lsp.diagnostic.show_line_diagnostics(_G.default_float_config)]] }
-
 	-- Attach signature help
 	require "lsp_signature".on_attach {
 		bind = true,
@@ -44,15 +41,14 @@ local on_lsp_attach = function()
       { "r", [[<cmd>lua vim.lsp.buf.references()<cr>]] },
     }},
 
-    { "<C-h>", [[<cmd>lua vim.lsp.buf.hover({ focusable = false, border = rounded })<cr>]] },
+    { "K", [[<cmd>lua vim.lsp.buf.hover({ focusable = false, border = rounded })<cr>]] },
 
-    { "<leader>", {
-      { "aa", [[<cmd>lua vim.lsp.buf.code_action()<cr>]] },
-      { "ar", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
+    { "<space>", {
+      { "a", [[<cmd>lua vim.lsp.buf.code_action()<cr>]] },
+      { "r", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
+			{ "c", [[<cmd>lua vim.lsp.diagnostic.goto_next({ border = rounded })<cr>]] },
+			{ "v", [[<cmd>lua vim.lsp.diagnostic.goto_prev({ border = rounded })<cr>]] },
     }},
-
-    { "[c", [[<cmd>lua vim.lsp.diagnostic.goto_next()<cr>]] },
-    { "]c", [[<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>]] },
   }
 end
 
