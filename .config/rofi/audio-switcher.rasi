@@ -2,8 +2,6 @@ configuration {
 	font: "JetBrainsMonoMedium Nerd Font 12";
   show-icons: false;
   disable-history: false;
-  fullscreen: false;
-  hide-scrollbar: true;
   sidebar-mode: false;
 }
 
@@ -55,7 +53,7 @@ listview {
 
 element {
   background-color: @background;
-  padding: 16px 24px 16px 24px;
+  padding: 12px 18px 12px 18px;
   border: 0%;
 }
 
