@@ -1,6 +1,4 @@
 #!/bin/bash
-uptime=$(uptime -p | sed -e 's/up //g')
-
 rofi_command="rofi -theme $HOME/.config/rofi/powermenu"
 
 # Options

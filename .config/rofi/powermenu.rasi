@@ -22,10 +22,10 @@ configuration {
 window {
   background-color: @background;
   text-color: @foreground;
-  location: center;
+  location: north;
   x-offset: 0;
-  y-offset: 0;
-  width: 607px;
+  y-offset: 70px;
+  width: 512px;
 }
 
 mainbox {
@@ -54,18 +54,25 @@ element {
   background-color: @background-alt;
   text-color: @foreground;
   orientation: horizontal;
-  width: 120px;
-  padding: 30px 0 62px 0;
+  width: 101px;
+  padding: 14px 0 14px 0;
 }
 
 element-text {
-	font: "JetBrainsMonoMedium Nerd Font 32";
+  background-color: @background-alt;
+  text-color: @foreground;
+	font: "JetBrainsMonoMedium Nerd Font 24";
   horizontal-align: 0.48;
   vertical-align: 0.5;
   expand: true;
 }
 
 element selected {
+  background-color: @blue;
+  text-color: @background;
+}
+
+element-text selected {
   background-color: @blue;
   text-color: @background;
 }

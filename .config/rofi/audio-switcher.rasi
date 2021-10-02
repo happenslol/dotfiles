@@ -45,8 +45,7 @@ prompt {
 }
 
 listview {
-  backgorund-color: @background;
-  text-color: @foreground;
+  background-color: @background;
   dynamic: true;
   spacing: 0;
   cycle: false;
@@ -56,12 +55,13 @@ listview {
 
 element {
   background-color: @background;
-  text-color: @foreground;
   padding: 16px 24px 16px 24px;
   border: 0%;
 }
 
 element-text {
+  background-color: @background;
+  text-color: @foreground;
   vertical-align: 0.5;
   padding: 0px 0px 0px 8px;
 }
@@ -70,7 +70,15 @@ element selected {
   background-color: @background-alt;
 }
 
+element-text selected {
+  background-color: @background-alt;
+}
+
 element-text active {
+  text-color: @active;
+}
+
+element-text selected active {
   text-color: @active;
 }
 
