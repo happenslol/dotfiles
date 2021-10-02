@@ -1,4 +1,6 @@
 #!/bin/bash
+set -eo pipefail
+
 STAMP=$(date +"%FT%T")
 MILLIS=$((`date +"%N"` / 1000))
 

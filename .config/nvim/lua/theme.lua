@@ -39,23 +39,23 @@ util.hi {
   { "LspDiagnosticsUnderlineWarning", nil, nil, "underline" },
   { "LspDiagnosticsUnderlineInformation", nil, nil, "underline" },
 
-  { "LspDiagnosticsError", _G.colors.red, _G.colors.bg },
-  { "LspDiagnosticsWarning", _G.colors.orange, _G.colors.bg },
+  { "LspDiagnosticsDefaultError", _G.colors.red },
+  { "LspDiagnosticsDefaultWarning", _G.colors.yellow },
 
-  { "NvimTreeGitDirty", _G.colors.orange, _G.colors.bg },
-  { "NvimTreeGitStaged", _G.colors.blue, _G.colors.bg },
-  { "NvimTreeGitMerge", _G.colors.red, _G.colors.bg },
-  { "NvimTreeGitNew", _G.colors.green, _G.colors.bg },
-  { "NvimTreeGitDeleted", _G.colors.red, _G.colors.bg },
+  { "NvimTreeGitDirty", _G.colors.orange },
+  { "NvimTreeGitStaged", _G.colors.blue },
+  { "NvimTreeGitMerge", _G.colors.red },
+  { "NvimTreeGitNew", _G.colors.green },
+  { "NvimTreeGitDeleted", _G.colors.red },
 
-  { "LspDiagnosticsSignError", _G.colors.red, _G.colors.bg },
-  { "LspDiagnosticsSignWarning", _G.colors.orange, _G.colors.bg },
-  { "LspDiagnosticsSignHint", _G.colors.cyan, _G.colors.bg },
-  { "LspDiagnosticsSignInformation", _G.colors.blue, _G.colors.bg },
+  { "LspDiagnosticsSignError", _G.colors.red },
+  { "LspDiagnosticsSignWarning", _G.colors.yellow },
+  { "LspDiagnosticsSignHint", _G.colors.cyan },
+  { "LspDiagnosticsSignInformation", _G.colors.invisibles },
 
   -- Style floating windows
-  { "NormalFloat", nil, _G.colors.selection, nil },
-  { "FloatBorder", nil, _G.colors.selection, nil },
+  { "NormalFloat", nil, _G.colors.selection },
+  { "FloatBorder", nil, _G.colors.selection },
 
   -- Hide "~" on empty lines
   { "EndOfBuffer", _G.colors.bg, _G.colors.bg },

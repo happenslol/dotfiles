@@ -51,7 +51,7 @@ local c = {
           file_modified_icon = " ",
         },
       },
-      hl = { fg = _G.colors.fg, },
+      hl = { fg = _G.colors.fg, style = nil },
 
       right_sep = " ",
       left_sep = " ",

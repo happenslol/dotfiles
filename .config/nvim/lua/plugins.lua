@@ -40,10 +40,12 @@ require "packer".startup({function()
       require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained",
         indent = { enable = true },
-        highlight = { enable = true },
-        context_commentstring = {
+        highlight = {
           enable = true,
+          additional_vim_regex_highlighting = true,
         },
+        autotag = { enable = false, },
+        context_commentstring = { enable = true, },
       }
 
       require "util".set_opt {
@@ -51,6 +53,8 @@ require "packer".startup({function()
         foldexpr = "nvim_treesitter#foldexpr()",
         foldlevelstart = 99,
       }
+
+      require "tstheme".setup_hi()
     end,
   }
 
@@ -97,18 +101,6 @@ require "packer".startup({function()
     "saadparwaiz1/cmp_luasnip",
   }}
 
-  use "ray-x/lsp_signature.nvim"
-
-  use { "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require "trouble".setup {
-        mode = "lsp_workspace_diagnostics",
-        auto_close = true,
-      }
-    end,
-  }
-
   -- File browsing and status
   use "famiu/feline.nvim"
   use { "kyazdani42/nvim-tree.lua",
@@ -125,12 +117,12 @@ require "packer".startup({function()
 
         nvim_tree_icons = {
           git = {
-            unstaged = "柳",
+            unstaged = "",
             staged = "",
             unmerged = "",
-            renamed = "",
-            untracked = "",
-            deleted = "",
+            renamed = "",
+            untracked = "",
+            deleted = "",
             ignored = "",
           },
           lsp = {
@@ -145,10 +137,16 @@ require "packer".startup({function()
       -- TODO: Use lua setup when it has feature parity
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
-        lsp_diagnostics = 1,
-        nvim_tree_bindings = {
-          { key = "s", cb = tree("vsplit") },
-          { key = "i", cb = tree("split") },
+        lsp_diagnostics = true,
+        update_cwd = true,
+        view = {
+          mappings = {
+            custom_only = false,
+            list = {
+              { key = "s", cb = tree("vsplit") },
+              { key = "i", cb = tree("split") },
+            },
+          },
         },
       }
     end,
@@ -185,11 +183,7 @@ require "packer".startup({function()
     end,
   }
 
-  use { "windwp/nvim-ts-autotag",
-    config = function()
-      require "nvim-ts-autotag".setup()
-    end,
-  }
+  use "windwp/nvim-ts-autotag"
 
   use { "windwp/nvim-autopairs",
     config = function()

@@ -1,73 +1,30 @@
 local util = require "util"
-local nest = require "nest"
 local lspconfig = require "lspconfig"
 local cmp = require "cmp"
+local cmp_lsp = require "cmp_nvim_lsp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 local lspinstall = require "lspinstall"
-local telescope_builtin = require "telescope.builtin"
-
-_G.default_float_config = {
-  border = "rounded",
-  max_width = 120,
-  focusable = false,
-}
+local mappings = require "mappings"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, _G.default_float_config
+  vim.lsp.handlers.hover, mappings.float_config
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.hover, mappings.float_config
 )
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
-    update_in_insert = false
+    update_in_insert = false,
   }
 )
 
-local code_actions_config = {
-  layout_strategy = "cursor",
-  results_title = false,
-  preview_title = false,
-  prompt_title = false,
-  prompt_prefix = " ",
-  previewer = false,
-  sorting_strategy = "ascending",
-  initial_mode = "normal",
-  layout_config = {
-    width = 60,
-    height = 10,
-  },
-}
-
 local on_lsp_attach = function()
-  -- Attach signature help
-  require "lsp_signature".on_attach {
-    bind = true,
-    hint_enable = false,
-    max_width = 60,
-    toggle_key = "<C-k>",
-  }
-
-  -- LSP mappings
-  nest.applyKeymaps {
-    buffer = true,
-
-    { "g", {
-      { "d", [[<cmd>lua vim.lsp.buf.definition()<cr>]] },
-      { "D", [[<cmd>lua vim.lsp.buf.declaration()<cr>]] },
-      { "i", [[<cmd>lua vim.lsp.buf.implementation()<cr>]] },
-      { "r", [[<cmd>lua vim.lsp.buf.references()<cr>]] },
-    }},
-
-    { "K", [[<cmd>lua vim.lsp.buf.hover({ focusable = false, border = rounded })<cr>]] },
-
-    { "<space>", {
-      { "a", function() telescope_builtin.lsp_code_actions(code_actions_config) end },
-      { "r", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
-      { "c", [[<cmd>lua vim.lsp.diagnostic.goto_next({ border = rounded })<cr>]] },
-      { "v", [[<cmd>lua vim.lsp.diagnostic.goto_prev({ border = rounded })<cr>]] },
-    }},
-  }
+  mappings.map_lsp_keys()
+  util.cmd { [[autocmd CursorHold * silent! lua show_line_diagnostics()]] }
 end
 
 -- Avoid showing message extra message when using completion
@@ -156,6 +113,7 @@ local custom_lsp_settings = {
 
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = cmp_lsp.update_capabilities(capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   return {
