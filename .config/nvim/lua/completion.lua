@@ -12,7 +12,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 )
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.hover, mappings.float_config
+  vim.lsp.handlers.signature_help, mappings.float_config
 )
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
