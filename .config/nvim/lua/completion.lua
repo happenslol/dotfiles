@@ -95,8 +95,8 @@ cmp.setup {
 
   formatting = {
     format = function(_, vim_item)
-      -- Only show items for kind
       vim_item.kind = lspkind.presets.default[vim_item.kind]
+        .. " [" .. vim_item.kind .. "]"
       return vim_item
     end,
   },
@@ -134,54 +134,46 @@ cmp.setup {
   },
 }
 
--- Custom LSP Config
-local lua_settings = {
-  Lua = {
-    runtime = {
-      version = "LuaJIT",
-      path = vim.split(package.path, ";"),
-    },
-    diagnostics = {
-      globals = {"vim", "use"},
-    },
-    workspace = {
-      library = {
-        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+local custom_lsp_settings = {
+  lua = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+        path = vim.split(package.path, ";"),
       },
-    },
-  }
+      diagnostics = {
+        globals = {"vim", "use"},
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+        },
+      },
+    }
+  },
 }
 
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   return {
-    -- enable snippet support
     capabilities = capabilities,
-    -- map buffer local keybindings when the language server attaches
     on_attach = on_lsp_attach,
   }
 end
 
-local function setup_servers()
-  lspinstall.setup()
-  local servers = lspinstall.installed_servers()
+-- Get automatically installed servers
+lspinstall.setup()
+local servers = lspinstall.installed_servers()
 
-  for _, server in pairs(servers) do
-    local config = make_config()
+for _, server in pairs(servers) do
+  local config = make_config()
 
-    if server == "lua" then
-      config.settings = lua_settings
-    end
-
-    lspconfig[server].setup(config)
+  if custom_lsp_settings[server] ~= nil then
+    config.settings = custom_lsp_settings[server]
   end
-end
 
-setup_servers()
-
-lspinstall.post_install_hook = function()
-  setup_servers()
-  util.cmd { [[bufdo e]] }
+  lspconfig[server].setup(config)
 end
