@@ -24,10 +24,10 @@ util.cmd {
 _G.colors = util.extract_colors(vim.g.material_colorscheme_map)
 
 util.hi_define {
-  { "LspDiagnosticsSignError", "x" },
-  { "LspDiagnosticsSignWarning", "!" },
-  { "LspDiagnosticsSignInformation", "i" },
-  { "LspDiagnosticsSignHint", "?" },
+  { "LspDiagnosticsSignError", "" },
+  { "LspDiagnosticsSignWarning", "" },
+  { "LspDiagnosticsSignInformation", "" },
+  { "LspDiagnosticsSignHint", "" },
 }
 
 util.hi {
@@ -39,10 +39,19 @@ util.hi {
   { "LspDiagnosticsUnderlineWarning", nil, nil, "underline" },
   { "LspDiagnosticsUnderlineInformation", nil, nil, "underline" },
 
+  { "LspDiagnosticsError", _G.colors.red, _G.colors.bg },
+  { "LspDiagnosticsWarning", _G.colors.orange, _G.colors.bg },
+
+  { "NvimTreeGitDirty", _G.colors.orange, _G.colors.bg },
+  { "NvimTreeGitStaged", _G.colors.blue, _G.colors.bg },
+  { "NvimTreeGitMerge", _G.colors.red, _G.colors.bg },
+  { "NvimTreeGitNew", _G.colors.green, _G.colors.bg },
+  { "NvimTreeGitDeleted", _G.colors.red, _G.colors.bg },
+
   { "LspDiagnosticsSignError", _G.colors.red, _G.colors.bg },
   { "LspDiagnosticsSignWarning", _G.colors.orange, _G.colors.bg },
-  { "LspDiagnosticsSignInformation", _G.colors.cyan, _G.colors.bg },
-  { "LspDiagnosticsSignHint", _G.colors.paleblue, _G.colors.bg },
+  { "LspDiagnosticsSignHint", _G.colors.cyan, _G.colors.bg },
+  { "LspDiagnosticsSignInformation", _G.colors.blue, _G.colors.bg },
 
   -- Style floating windows
   { "NormalFloat", nil, _G.colors.selection, nil },
@@ -50,11 +59,6 @@ util.hi {
 
   -- Hide "~" on empty lines
   { "EndOfBuffer", _G.colors.bg, _G.colors.bg },
-
-  -- Style gitgutter icons
-  { "GitGutterAdd", _G.colors.green, _G.colors.bg },
-  { "GitGutterChange", _G.colors.yellow, _G.colors.bg },
-  { "GitGutterDelete", _G.colors.red, _G.colors.bg },
 
   -- Style status messages
   { "errormsg", _G.colors.red, _G.colors.bg },

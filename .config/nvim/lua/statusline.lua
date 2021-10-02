@@ -1,153 +1,197 @@
-local cmd, fn = vim.cmd, vim.fn
+local vi_mode_colors = {
+  NORMAL = _G.colors.blue,
+  INSERT = _G.colors.green,
+  VISUAL = _G.colors.yellow,
+  OP = _G.colors.green,
+  BLOCK = _G.colors.blue,
+  REPLACE = _G.colors.red,
+  ["V-REPLACE"] = _G.colors.red,
+  ENTER = _G.colors.cyan,
+  MORE = _G.colors.cyan,
+  SELECT = _G.colors.orange,
+  COMMAND = _G.colors.selection,
+  SHELL = _G.colors.green,
+  TERM = _G.colors.blue,
+  NONE = _G.colors.purple,
+}
 
-local gl = require "galaxyline"
-local p_fileinfo = require "galaxyline.provider_fileinfo"
-local condition = require "galaxyline.condition"
+local lsp = require "feline.providers.lsp"
+local vi_mode_utils = require "feline.providers.vi_mode"
+local cursor = require "feline.providers.cursor"
 
-local mode_alias = function()
-  local mode_aliases = {
-    ["n"] = "NORMAL",
-    ["i"] = "INSERT",
-    ["c"] = "COMMAND",
-    ["V"] = "VISUAL",
-    [""] = "BLOCK",
-    ["v"] = "VISUAL",
-    ["R"] = "REPLACE",
-  }
+local c = {
+  vi_mode = {
+    provider = function()
+      return " " .. vi_mode_utils.get_vim_mode() .. " "
+    end,
 
-  return mode_aliases[fn.mode()] or "NORMAL"
-end
+    hl = function()
+      local name = vi_mode_utils.get_mode_highlight_name()
+      local fg = _G.colors.selection
+      if vi_mode_utils.get_vim_mode() == "COMMAND" then
+        fg = _G.colors.fg
+      end
 
-local mode_color = function()
-  local mode_colors = {
-    ["n"] = _G.colors.blue,
-    ["i"] = _G.colors.green,
-    ["c"] = _G.colors.orange,
-    ["V"] = _G.colors.magenta,
-    [""] = _G.colors.magenta,
-    ["v"] = _G.colors.magenta,
-    ["R"] = _G.colors.red,
-  }
+      return {
+        name = name,
+        fg = fg,
+        bg = vi_mode_utils.get_mode_color(),
+        style = "bold"
+      }
+    end,
 
-  return mode_colors[fn.mode()] or _G.colors.purple
-end
+    right_sep = " ",
+  },
+  file = function (mode)
+    local result = {
+      provider = {
+        name = "file_info",
+        opts = {
+          type = "unique",
+          file_modified_icon = " ",
+        },
+      },
+      hl = { fg = _G.colors.fg, },
 
-local spacing = function(count)
-  return function() return string.rep(" ", count) end
-end
+      right_sep = " ",
+      left_sep = " ",
+    }
 
-local str = function(s)
-  return function() return s end
-end
+    if mode == "active" then
+      result.hl.style = "bold"
+    end
 
-local append = function(section, name, value)
-  local to_append = { [name] = value }
-  section[#section + 1] = to_append
-end
-
--- Show short statusline for plugin windows
-gl.short_line_list = { "NvimTree", "packer" }
-
--- Left
-
-append(gl.section.left, "ViMode", {
-  provider = function()
-    cmd("hi GalaxyViMode guibg=" .. mode_color())
-    return "  " .. mode_alias() .. " "
+    return result
   end,
-  highlight = { _G.colors.bg, _G.colors.bg, "bold" },
-  separator = "  ",
-  separator_highlight = { _G.colors.guides, _G.colors.guides },
-})
+  line_percentage = {
+    provider = "line_percentage",
+    hl = { style = "bold" },
 
-append(gl.section.left, "FileIcon", {
-  provider = "FileIcon",
-  highlight = { p_fileinfo.get_file_icon_color, _G.colors.guides },
-})
+    left_sep = " ",
+    right_sep = " ",
+  },
+  position = {
+    provider = function()
+      return " " .. cursor.position() .. " "
+    end,
 
-append(gl.section.left, "FileName", {
-  provider = { "FileName", spacing(1) },
-  highlight = { _G.colors.fg, _G.colors.guides },
-  separator = "  ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection },
-})
+    hl = function()
+      return {
+        name = vi_mode_utils.get_mode_highlight_name(),
+        fg = _G.colors.bg,
+        bg = vi_mode_utils.get_mode_color(),
+        style = "bold"
+      }
+    end,
 
-append(gl.section.left, "DiagnosticError", {
-  provider = "DiagnosticError",
-  icon = " ",
-  highlight = { _G.colors.red, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection }
-})
+    left_sep = " ",
+  },
+  diag = {
+    err = {
+      provider = "diagnostic_errors",
+      enabled = function()
+        return lsp.diagnostics_exist("Error")
+      end,
+      hl = { fg = _G.colors.red },
+    },
+    warn = {
+      provider = "diagnostic_warnings",
+      enabled = function()
+        return lsp.diagnostics_exist("Warning")
+      end,
+      hl = { fg = _G.colors.yellow }
+    },
+    hint = {
+      provider = "diagnostic_hints",
+      enabled = function()
+        return lsp.diagnostics_exist("Hint")
+      end,
+      hl = { fg = _G.colors.cyan }
+    },
+    info = {
+      provider = "diagnostic_info",
+      enabled = function()
+        return lsp.diagnostics_exist("Information")
+      end,
+      hl = { fg = _G.colors.blue }
+    },
+  },
+  lsp = {
+    provider = "lsp_client_names",
+    hl = { fg = _G.colors.yellow },
 
-append(gl.section.left, "DiagnosticWarn", {
-  provider = "DiagnosticWarn",
-  icon = " ",
-  highlight = { _G.colors.orange, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection }
-})
+    right_sep = " ",
+    left_sep = " ",
+  },
+  git = {
+    branch = {
+      provider = "git_branch",
+      icon = " ",
+      hl = { fg = _G.colors.fg },
+    },
+    add = {
+      provider = "git_diff_added",
+      hl = { fg = _G.colors.green }
+    },
+    change = {
+      provider = "git_diff_changed",
+      hl = { fg = _G.colors.orange }
+    },
+    remove = {
+      provider = "git_diff_removed",
+      hl = { fg = _G.colors.red },
+      right_sep = " ",
+    }
+  }
+}
 
-append(gl.section.left, "DiagnosticInfo", {
-  provider = "DiagnosticInfo",
-  icon = "  ",
-  highlight = { _G.colors.cyan, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection }
-})
+local properties = {
+  force_inactive = {
+    filetypes = {
+      "NvimTree",
+      "packer",
+    },
+    buftypes = { "terminal" },
+    bufnames = {}
+  }
+}
 
--- Right
+require "feline".setup {
+  colors = {
+    bg = colors.selection,
+    fg = colors.fg,
+  },
+  properties = properties,
+  vi_mode_colors = vi_mode_colors,
+  components = {
+    active = {
+      -- Left
+      {
+        c.vi_mode,
+        c.file "active",
+        c.lsp,
+        c.diag.err,
+        c.diag.warn,
+        c.diag.hint,
+        c.diag.info,
+      },
 
-append(gl.section.right, "DiffAdd", {
-  provider = "DiffAdd",
-  condition = condition.check_git_workspace,
-  icon = "+",
-  highlight = { _G.colors.green, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection },
-})
+      -- Middle
+      {},
 
-append(gl.section.right, "DiffModified", {
-  provider = "DiffModified",
-  condition = condition.check_git_workspace,
-  icon = "~",
-  highlight = { _G.colors.yellow, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection },
-})
-
-append(gl.section.right, "DiffRemove", {
-  provider = "DiffRemove",
-  condition = condition.check_git_workspace,
-  icon = "-",
-  highlight = { _G.colors.red, _G.colors.selection },
-  separator = " ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection },
-})
-
-append(gl.section.right, "GitBranch", {
-  provider = { str(" "), "GitBranch", spacing(3) },
-  condition = condition.check_git_workspace,
-  highlight = { _G.colors.fg, _G.colors.selection },
-  separator = "  ",
-  separator_highlight = { _G.colors.selection, _G.colors.selection },
-})
-
-append(gl.section.right, "LinePercent", {
-  provider = { spacing(2), "LinePercent" },
-  highlight = { _G.colors.fg, _G.colors.guides }
-})
-
-append(gl.section.right, "LineInfo", {
-  provider = function()
-    cmd("hi GalaxyLineInfo guibg=" .. mode_color())
-    local line = fn.line(".")
-    local column = fn.col(".")
-    return string.format(" %3d:%2d ", line, column)
-  end,
-  highlight = { _G.colors.bg, _G.colors.bg, "bold" },
-  separator = " ",
-  separator_highlight = { _G.colors.guides, _G.colors.guides },
-})
-
-gl.load_galaxyline()
+      -- Right
+      {
+        c.git.add,
+        c.git.change,
+        c.git.remove,
+        c.line_percentage,
+        c.position,
+      },
+    },
+    inactive = {
+      { c.file "inactive" },
+      {},
+      {},
+    },
+  },
+}

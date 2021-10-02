@@ -7,13 +7,13 @@ local lspkind = require "lspkind"
 local lspinstall = require "lspinstall"
 
 _G.default_float_config = {
-	border = "rounded",
-	max_width = 120,
-	focusable = false,
+  border = "rounded",
+  max_width = 120,
+  focusable = false,
 }
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-	vim.lsp.handlers.hover, _G.default_float_config
+  vim.lsp.handlers.hover, _G.default_float_config
 )
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -24,12 +24,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 local on_lsp_attach = function()
-	-- Attach signature help
-	require "lsp_signature".on_attach {
-		bind = true,
-		hint_enable = false,
-		max_width = 60,
-	}
+  -- Attach signature help
+  require "lsp_signature".on_attach {
+    bind = true,
+    hint_enable = false,
+    max_width = 60,
+    toggle_key = "<C-k>",
+  }
 
   -- LSP mappings
   nest.applyKeymaps {
@@ -47,32 +48,10 @@ local on_lsp_attach = function()
     { "<space>", {
       { "a", [[<cmd>lua vim.lsp.buf.code_action()<cr>]] },
       { "r", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
-			{ "c", [[<cmd>lua vim.lsp.diagnostic.goto_next({ border = rounded })<cr>]] },
-			{ "v", [[<cmd>lua vim.lsp.diagnostic.goto_prev({ border = rounded })<cr>]] },
+      { "c", [[<cmd>lua vim.lsp.diagnostic.goto_next({ border = rounded })<cr>]] },
+      { "v", [[<cmd>lua vim.lsp.diagnostic.goto_prev({ border = rounded })<cr>]] },
     }},
   }
-end
-
-local function setup_servers()
-	lspinstall.setup()
-	local servers = lspinstall.installed_servers()
-
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require "cmp_nvim_lsp".update_capabilities(capabilities)
-
-	for _, server in pairs(servers) do
-		lspconfig[server].setup {
-			on_attach = on_lsp_attach,
-			capabilities = capabilities,
-		}
-	end
-end
-
-setup_servers()
-
-lspinstall.post_install_hook = function()
-	setup_servers()
-	util.cmd { [[bufdo e]] }
 end
 
 -- Avoid showing message extra message when using completion
@@ -113,7 +92,7 @@ cmp.setup {
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
+      select = false,
     },
     ["<Tab>"] = function(fallback)
       if vim.fn.pumvisible() == 1 then
@@ -138,3 +117,55 @@ cmp.setup {
     { name = "luasnip" },
   },
 }
+
+-- Custom LSP Config
+local lua_settings = {
+  Lua = {
+    runtime = {
+      version = "LuaJIT",
+      path = vim.split(package.path, ";"),
+    },
+    diagnostics = {
+      globals = {"vim", "use"},
+    },
+    workspace = {
+      library = {
+        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+      },
+    },
+  }
+}
+
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_lsp_attach,
+  }
+end
+
+local function setup_servers()
+  lspinstall.setup()
+  local servers = lspinstall.installed_servers()
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+    if server == "lua" then
+      config.settings = lua_settings
+    end
+
+    lspconfig[server].setup(config)
+  end
+end
+
+setup_servers()
+
+lspinstall.post_install_hook = function()
+  setup_servers()
+  util.cmd { [[bufdo e]] }
+end

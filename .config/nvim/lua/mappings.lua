@@ -1,6 +1,27 @@
 local util = require "util"
 local nest = require "nest"
 
+local telescope = require "telescope"
+local telescope_builtin = require "telescope.builtin"
+local telescope_themes = require "telescope.themes"
+
+local find_files_config = telescope_themes.get_dropdown {
+  previewer = false,
+  layout_config = {
+    width = 0.4,
+    height = 0.6,
+  },
+}
+
+local live_grep_config = {
+  layout_strategy = "horizontal",
+  layout_config = {
+    prompt_position = "top",
+    width = 0.9,
+    height = 0.8,
+  },
+}
+
 util.set_global { mapleader = "," }
 
 nest.applyKeymaps {
@@ -21,11 +42,11 @@ nest.applyKeymaps {
   }},
 
   { "<C-n>", [[:NvimTreeToggle<CR>]] },
-  { "<C-p>", [[:Telescope find_files<CR>]] },
+  { "<C-p>", function() telescope_builtin.find_files(find_files_config) end },
 
   { "<leader>", {
-    { "q", [[:Telescope live_grep<CR>]] },
-    { "e", [[:Telescope buffers<CR>]] },
+    { "q", function() telescope_builtin.live_grep(live_grep_config) end },
+    { "ii", function() telescope.extensions.goimpl.goimpl() end },
 
     { "w", [[:ArgWrap<CR>]] },
     { "f", [[:Neoformat<CR>]] },

@@ -14,6 +14,16 @@
   rlg = !git --no-pager log $(git describe --tags --abbrev=0)..HEAD --color --no-merges --pretty=format:'* %Cred%h%Creset - %s' && echo ""
   persona = !git-persona
 
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE
+
+[merge]
+	tool = nvimdiff2
+[mergetool "nvimdiff2"]
+	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
 [persona]
   home = Hilmar Wiegand <me@hwgnd.de>
   work = Hilmar Wiegand <hilmar@garage51.de>
