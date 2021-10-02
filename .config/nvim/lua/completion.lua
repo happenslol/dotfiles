@@ -5,6 +5,7 @@ local cmp = require "cmp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 local lspinstall = require "lspinstall"
+local telescope_builtin = require "telescope.builtin"
 
 _G.default_float_config = {
   border = "rounded",
@@ -22,6 +23,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false
   }
 )
+
+local code_actions_config = {
+  layout_strategy = "cursor",
+  results_title = false,
+  preview_title = false,
+  prompt_title = false,
+  prompt_prefix = " ",
+  previewer = false,
+  sorting_strategy = "ascending",
+  initial_mode = "normal",
+  layout_config = {
+    width = 60,
+    height = 10,
+  },
+}
 
 local on_lsp_attach = function()
   -- Attach signature help
@@ -46,7 +62,7 @@ local on_lsp_attach = function()
     { "K", [[<cmd>lua vim.lsp.buf.hover({ focusable = false, border = rounded })<cr>]] },
 
     { "<space>", {
-      { "a", [[<cmd>lua vim.lsp.buf.code_action()<cr>]] },
+      { "a", function() telescope_builtin.lsp_code_actions(code_actions_config) end },
       { "r", [[<cmd>lua vim.lsp.buf.rename()<cr>]] },
       { "c", [[<cmd>lua vim.lsp.diagnostic.goto_next({ border = rounded })<cr>]] },
       { "v", [[<cmd>lua vim.lsp.diagnostic.goto_prev({ border = rounded })<cr>]] },
