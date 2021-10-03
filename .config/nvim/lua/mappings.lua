@@ -93,7 +93,7 @@ M.float_config = {
   }
 }
 
-local function get_existing_float()
+function M.get_existing_float()
   local bufnr = vim.api.nvim_get_current_buf()
   local existing_float = vim.F.npcall(vim.api.nvim_buf_get_var, bufnr, "lsp_floating_preview")
   if existing_float and vim.api.nvim_win_is_valid(existing_float) then
@@ -102,7 +102,7 @@ local function get_existing_float()
 end
 
 local function close_previous_float()
-  local existing_float = get_existing_float()
+  local existing_float = M.get_existing_float()
   if existing_float == nil then return end
 
   vim.api.nvim_win_close(existing_float, true)
@@ -116,11 +116,6 @@ end
 local function goto_prev_diagnostic()
   close_previous_float()
   vim.lsp.diagnostic.goto_prev(M.float_config)
-end
-
-function _G.show_line_diagnostics()
-  if get_existing_float() ~= nil then return end
-  vim.lsp.diagnostic.show_line_diagnostics()
 end
 
 function M.map_lsp_keys()

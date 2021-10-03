@@ -41,7 +41,7 @@ util.set_opt {
   inccommand = "nosplit",
   errorbells = false,
   ruler = true,
-  shortmess = "atI",
+  shortmess = "atIO",
   showcmd = true,
   scrolloff = 5,
 

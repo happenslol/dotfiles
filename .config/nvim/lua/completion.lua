@@ -22,6 +22,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+function _G.show_line_diagnostics()
+  if util.get_vim_mode() ~= "NORMAL" then return end
+  if mappings.get_existing_float() ~= nil then return end
+  vim.lsp.diagnostic.show_line_diagnostics()
+end
+
 local on_lsp_attach = function()
   mappings.map_lsp_keys()
   util.cmd { [[autocmd CursorHold * silent! lua show_line_diagnostics()]] }

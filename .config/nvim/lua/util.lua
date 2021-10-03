@@ -60,4 +60,42 @@ function M.hi_define(hl, text)
   end
 end
 
+local mode_alias = {
+    ['n'] = 'NORMAL',
+    ['no'] = 'OP',
+    ['nov'] = 'OP',
+    ['noV'] = 'OP',
+    ['no'] = 'OP',
+    ['niI'] = 'NORMAL',
+    ['niR'] = 'NORMAL',
+    ['niV'] = 'NORMAL',
+    ['v'] = 'VISUAL',
+    ['V'] = 'LINES',
+    [''] = 'BLOCK',
+    ['s'] = 'SELECT',
+    ['S'] = 'SELECT',
+    [''] = 'BLOCK',
+    ['i'] = 'INSERT',
+    ['ic'] = 'INSERT',
+    ['ix'] = 'INSERT',
+    ['R'] = 'REPLACE',
+    ['Rc'] = 'REPLACE',
+    ['Rv'] = 'V-REPLACE',
+    ['Rx'] = 'REPLACE',
+    ['c'] = 'COMMAND',
+    ['cv'] = 'COMMAND',
+    ['ce'] = 'COMMAND',
+    ['r'] = 'ENTER',
+    ['rm'] = 'MORE',
+    ['r?'] = 'CONFIRM',
+    ['!'] = 'SHELL',
+    ['t'] = 'TERM',
+    ['null'] = 'NONE',
+}
+
+function M.get_vim_mode()
+    local mode = vim.api.nvim_get_mode().mode
+    return mode_alias[mode]
+end
+
 return M
