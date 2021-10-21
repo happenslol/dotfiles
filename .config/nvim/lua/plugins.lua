@@ -101,6 +101,15 @@ require "packer".startup({function()
     "saadparwaiz1/cmp_luasnip",
   }}
 
+	use { "folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("trouble").setup {
+				use_lsp_diagnostic_signs = true,
+			}
+		end
+	}
+
   -- File browsing and status
   use "famiu/feline.nvim"
   use { "kyazdani42/nvim-tree.lua",
@@ -126,10 +135,6 @@ require "packer".startup({function()
             ignored = "",
           },
           lsp = {
-            hint = "",
-            info = "",
-            warning = "",
-            error = "",
           },
         },
       }
@@ -137,7 +142,15 @@ require "packer".startup({function()
       -- TODO: Use lua setup when it has feature parity
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
-        lsp_diagnostics = true,
+        diagnostics = {
+					enable = true,
+					icons = {
+            hint = "",
+            info = "",
+            warning = "",
+            error = "",
+					},
+				},
         update_cwd = true,
         view = {
           mappings = {
