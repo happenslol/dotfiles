@@ -1,6 +1,6 @@
 local util = require "util"
 local nest = require "nest"
-
+local cmp = require "cmp"
 local telescope = require "telescope"
 local telescope_builtin = require "telescope.builtin"
 local telescope_themes = require "telescope.themes"
@@ -152,5 +152,26 @@ function M.map_lsp_keys()
     }},
   }
 end
+
+M.cmp_mappings = {
+  ["<Tab>"] = function(fallback)
+    if cmp.visible() then cmp.select_next_item()
+    else fallback() end
+  end,
+
+  ["<S-Tab>"] = function(fallback)
+    if cmp.visible() then cmp.select_prev_item()
+    else fallback() end
+  end,
+
+  ["<C-p>"] = cmp.mapping.select_prev_item(),
+  ["<C-n>"] = cmp.mapping.select_next_item(),
+  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<C-e>"] = cmp.mapping.close(),
+  ["<CR>"] = cmp.mapping.confirm {
+    behavior = cmp.ConfirmBehavior.Insert,
+    select = false,
+  },
+}
 
 return M

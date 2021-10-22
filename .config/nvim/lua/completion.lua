@@ -25,7 +25,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 function _G.show_line_diagnostics()
   if util.get_vim_mode() ~= "NORMAL" then return end
   if mappings.get_existing_float() ~= nil then return end
-  vim.lsp.diagnostic.show_line_diagnostics()
+  vim.lsp.diagnostic.show_line_diagnostics(mappings.float_config)
 end
 
 local on_lsp_attach = function()
@@ -40,14 +40,6 @@ util.set_opt {
   completeopt = "menuone,noselect",
   pumheight = 12,
 }
-
--- Configure completion engine
-local feed = function(key, mode)
-  vim.fn.feedkeys(
-    vim.api.nvim_replace_termcodes(key, true, true, true),
-    mode
-  )
-end
 
 cmp.setup {
   snippet = {
@@ -64,30 +56,7 @@ cmp.setup {
     end,
   },
 
-  mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = false,
-    },
-    ["<Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        feed("<C-n>", "n")
-      elseif luasnip.expand_or_jumpable() then
-        feed("<Plug>luasnip-expand-or-jump", "")
-      else fallback() end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        feed("<C-p>", "n")
-      elseif luasnip.jumpable(-1) then
-        feed("<Plug>luasnip-jump-prev", "")
-      else fallback() end
-    end,
-  },
+  mapping = mappings.cmp_mappings,
 
   sources = {
     { name = "nvim_lsp" },
