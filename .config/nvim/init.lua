@@ -53,6 +53,3 @@ util.set_opt {
   undodir = vim.env.HOME .. "/.nvimundo",
   updatetime = 250,
 }
-
--- DEBUG
-vim.lsp.set_log_level(0)

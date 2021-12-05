@@ -4,7 +4,7 @@ local cmp = require "cmp"
 local cmp_lsp = require "cmp_nvim_lsp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
-local lspinstall = require "lspinstall"
+local lspinstaller = require "nvim-lsp-installer"
 local mappings = require "mappings"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -37,7 +37,7 @@ end
 vim.opt.shortmess:append "c"
 
 util.set_opt {
-  completeopt = "menuone,noselect",
+  completeopt = "menu,menuone,noselect",
   pumheight = 12,
 }
 
@@ -49,14 +49,11 @@ cmp.setup {
   },
 
   formatting = {
-    format = function(_, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
-        .. " [" .. vim_item.kind .. "]"
-      return vim_item
-    end,
+    format = lspkind.cmp_format(),
   },
 
   mapping = mappings.cmp_mappings,
+  preselect = cmp.PreselectMode.None,
 
   sources = {
     { name = "nvim_lsp" },
@@ -98,15 +95,12 @@ local function make_config()
 end
 
 -- Get automatically installed servers
-lspinstall.setup()
-local servers = lspinstall.installed_servers()
-
-for _, server in pairs(servers) do
+lspinstaller.on_server_ready(function(server)
   local config = make_config()
 
   if custom_lsp_settings[server] ~= nil then
     config.settings = custom_lsp_settings[server]
   end
 
-  lspconfig[server].setup(config)
-end
+  server:setup(config)
+end)

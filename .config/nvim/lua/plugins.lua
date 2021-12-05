@@ -90,7 +90,7 @@ require "packer".startup({function()
 
   -- LSP and completion
   use "neovim/nvim-lspconfig"
-  use "kabouzeid/nvim-lspinstall"
+  use "williamboman/nvim-lsp-installer"
   use "onsails/lspkind-nvim"
   use "L3MON4D3/LuaSnip"
 
@@ -207,5 +207,8 @@ require "packer".startup({function()
   -- Language plugins
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use "mattn/vim-goimpl"
+
+	-- LaTeX
+	use "lervag/vimtex"
 
 end, config = packer_config})
