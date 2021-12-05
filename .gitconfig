@@ -1,6 +1,5 @@
 [user]
 	name = Hilmar Wiegand
-	email = me@hwgnd.de
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [url "git@gitlab.com:"]
