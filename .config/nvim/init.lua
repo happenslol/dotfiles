@@ -50,6 +50,7 @@ util.set_opt {
   shiftwidth = 2,
 
   undofile = true,
-  undodir = vim.env.HOME .. "/.nvimundo",
+  undodir = vim.fn.stdpath("data") .. "/undo",
+  directory = vim.fn.stdpath("data") .. "/swap",
   updatetime = 250,
 }
