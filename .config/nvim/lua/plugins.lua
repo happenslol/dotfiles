@@ -24,12 +24,9 @@ require "packer".startup({function()
   -- Themeing
   use "kaicataldo/material.vim"
   use "kyazdani42/nvim-web-devicons"
-  use { "RRethy/vim-hexokinase",
-    run = "make hexokinase",
+  use { "norcalli/nvim-colorizer.lua",
     config = function()
-      require "util".set_global {
-        Hexokinase_highlighters = { "virtual" },
-      }
+      require "colorizer".setup()
     end,
   }
 
@@ -151,6 +148,11 @@ require "packer".startup({function()
             error = "",
 					},
 				},
+        git = {
+          enable = true,
+          ignore = false,
+          timeout = 500
+        },
         update_cwd = true,
         view = {
           mappings = {
@@ -188,6 +190,10 @@ require "packer".startup({function()
   use "tpope/vim-commentary"
   use "FooSoft/vim-argwrap"
 
+  use { "JoosepAlviste/nvim-ts-context-commentstring",
+    event = "BufReadPost",
+  }
+
   use { "sbdchd/neoformat",
     config = function()
       require "util".set_global {
@@ -200,13 +206,19 @@ require "packer".startup({function()
 
   use { "windwp/nvim-autopairs",
     config = function()
-      require "nvim-autopairs".setup()
+      require "nvim-autopairs".setup {
+        check_ts = true,
+      }
     end,
   }
 
   -- Language plugins
-  use "JoosepAlviste/nvim-ts-context-commentstring"
   use "mattn/vim-goimpl"
+  use { "nvim-ts-autotag",
+    config = function ()
+      require "nvim-ts-autotag".setup()
+    end
+  }
 
 	-- LaTeX
 	use "lervag/vimtex"

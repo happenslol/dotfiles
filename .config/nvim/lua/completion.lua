@@ -1,7 +1,7 @@
 local util = require "util"
-local lspconfig = require "lspconfig"
 local cmp = require "cmp"
 local cmp_lsp = require "cmp_nvim_lsp"
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 local lspinstaller = require "nvim-lsp-installer"
@@ -63,8 +63,10 @@ cmp.setup {
   },
 }
 
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { text = "" }}))
+
 local custom_lsp_settings = {
-  lua = {
+  sumneko_lua = {
     Lua = {
       runtime = {
         version = "LuaJIT",
@@ -98,8 +100,8 @@ end
 lspinstaller.on_server_ready(function(server)
   local config = make_config()
 
-  if custom_lsp_settings[server] ~= nil then
-    config.settings = custom_lsp_settings[server]
+  if custom_lsp_settings[server.name] ~= nil then
+    config.settings = custom_lsp_settings[server.name]
   end
 
   server:setup(config)

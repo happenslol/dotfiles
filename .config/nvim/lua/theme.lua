@@ -3,6 +3,7 @@ local util = require "util"
 util.set_opt {
   termguicolors = true,
   background = "dark",
+  fillchars = "eob: "
 }
 
 util.set_global {
@@ -24,10 +25,10 @@ util.cmd {
 _G.colors = util.extract_colors(vim.g.material_colorscheme_map)
 
 util.hi_define {
-  { "LspDiagnosticsSignError", "" },
-  { "LspDiagnosticsSignWarning", "" },
-  { "LspDiagnosticsSignInformation", "" },
-  { "LspDiagnosticsSignHint", "" },
+  { "DiagnosticSignError", "" },
+  { "DiagnosticSignWarn", "" },
+  { "DiagnosticSignInfo", "" },
+  { "DiagnosticSignHint", "" },
 }
 
 util.hi {
@@ -35,12 +36,12 @@ util.hi {
   { "MatchParen", _G.colors.cyan, _G.colors.comments, "bold" },
 
   -- Style lsp diagnostics
-  { "LspDiagnosticsUnderlineError", nil, nil, "underline" },
-  { "LspDiagnosticsUnderlineWarning", nil, nil, "underline" },
-  { "LspDiagnosticsUnderlineInformation", nil, nil, "underline" },
+  { "DiagnosticUnderlineError", nil, nil, "underline guisp=" .. _G.colors.red },
+  { "DiagnosticUnderlineWarn", nil, nil, "underline guisp=" .. _G.colors.yellow },
+  { "DiagnosticUnderlineInfo", nil, nil, "underline guisp=" .. _G.colors.invisibles },
 
-  { "LspDiagnosticsDefaultError", _G.colors.red },
-  { "LspDiagnosticsDefaultWarning", _G.colors.yellow },
+  { "DiagnosticError", _G.colors.red },
+  { "DiagnosticWarn", _G.colors.yellow },
 
   { "NvimTreeGitDirty", _G.colors.orange },
   { "NvimTreeGitStaged", _G.colors.blue },
@@ -48,10 +49,10 @@ util.hi {
   { "NvimTreeGitNew", _G.colors.green },
   { "NvimTreeGitDeleted", _G.colors.red },
 
-  { "LspDiagnosticsSignError", _G.colors.red },
-  { "LspDiagnosticsSignWarning", _G.colors.yellow },
-  { "LspDiagnosticsSignHint", _G.colors.cyan },
-  { "LspDiagnosticsSignInformation", _G.colors.invisibles },
+  { "DiagnosticSignError", _G.colors.red },
+  { "DiagnosticSignWarn", _G.colors.yellow },
+  { "DiagnosticSignHint", _G.colors.cyan },
+  { "DiagnosticSignInfo", _G.colors.invisibles },
 
   -- Style floating windows
   { "NormalFloat", nil, _G.colors.selection },
@@ -59,7 +60,21 @@ util.hi {
 
   -- Hide "~" on empty lines
   { "EndOfBuffer", _G.colors.bg, _G.colors.bg },
+  { "NvimTreeEndOfBuffer", _G.colors.bg, _G.colors.bg },
 
   -- Style status messages
-  { "errormsg", _G.colors.red, _G.colors.bg },
+  { "ErrorMsg", _G.colors.red, _G.colors.bg },
+  { "Error", _G.colors.red, _G.colors.bg },
+  { "NvimInternalError", _G.colors.red, _G.colors.bg },
+
+  -- Style cmp completion
+  { "CmpItemAbbr", "#666666", nil },
+  { "CmpItemAbbrDeprecated", _G.colors.guides, nil, "strikethrough" },
+  { "CmpItemAbbrMatch", _G.colors.fg, nil, "bold" },
+  { "CmpItemAbbrMatchFuzzy", _G.colors.invisibles, nil },
+  { "CmpItemMenu", _G.colors.invisibles, nil },
+
+  { "CmpItemKindDefault", _G.colors.paleblue, nil },
+  { "CmpItemKindText", _G.colors.invisibles, nil },
+  { "CmpItemKindFolder", _G.colors.cyan, nil },
 }
