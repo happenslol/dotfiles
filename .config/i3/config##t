@@ -3,9 +3,7 @@
 set $mod Mod4
 
 bindsym $mod+z exec firefox
-bindsym $mod+x exec "alacritty -e tmux new -A -s main"
-bindsym $mod+Shift+x exec "alacritty"
-bindsym $mod+c exec "alacritty -e ncmpcpp"
+bindsym $mod+x exec kitty
 bindsym $mod+e exec Thunar
 
 # window border
@@ -163,6 +161,13 @@ mode "resize" {
 
 {% if yadm.hostname == "rem" %}
 exec_always --no-startup-id xrandr --output eDP-1-1 --right-of DP-4.8 --primary
+exec_always --no-startup-id xinput set-prop 'ELAN0406:00 04F3:30A6 Touchpad' 'libinput Tapping Enabled' 1 # set tapping enabled
+{% endif %}
+
+{% if yadm.hostname == "kougami" %}
+exec_always --no-startup-id xrandr --output DP-4 --auto --primary \
+  --output DP-0 --left-of DP-4 --auto \
+  --output DP-2 --right-of DP-4 --auto
 {% endif %}
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -177,8 +182,6 @@ exec_always --no-startup-id xset -dpms # disable display power management
 exec_always --no-startup-id picom -b
 exec_always /usr/lib/geoclue-2.0/demos/agent
 exec_always --no-startup-id unclutter
-
-exec_always --no-startup-id xinput set-prop 'ELAN0406:00 04F3:30A6 Touchpad' 'libinput Tapping Enabled' 1 # set tapping enabled
 
 exec_always --no-startup-id dunst
 exec_always --no-startup-id setxkbmap -option compose:ralt
