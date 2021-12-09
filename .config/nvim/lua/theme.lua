@@ -68,8 +68,8 @@ util.hi {
   { "NvimInternalError", _G.colors.red, _G.colors.bg },
 
   -- Style cmp completion
+  { "CmpItemAbbrDeprecated", _G.colors.comments, nil, "strikethrough" },
   { "CmpItemAbbr", "#666666", nil },
-  { "CmpItemAbbrDeprecated", _G.colors.guides, nil, "strikethrough" },
   { "CmpItemAbbrMatch", _G.colors.fg, nil, "bold" },
   { "CmpItemAbbrMatchFuzzy", _G.colors.invisibles, nil },
   { "CmpItemMenu", _G.colors.invisibles, nil },

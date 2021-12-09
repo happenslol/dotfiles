@@ -93,19 +93,20 @@ require "packer".startup({function()
 
   use { "hrsh7th/nvim-cmp", requires = {
     "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lua",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
   }}
 
-	use { "folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup {
-				use_lsp_diagnostic_signs = true,
-			}
-		end
-	}
+  use { "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        use_lsp_diagnostic_signs = true,
+      }
+    end
+  }
 
   -- File browsing and status
   use "famiu/feline.nvim"
@@ -140,14 +141,14 @@ require "packer".startup({function()
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
         diagnostics = {
-					enable = true,
-					icons = {
+          enable = true,
+          icons = {
             hint = "",
             info = "",
             warning = "",
             error = "",
-					},
-				},
+          },
+        },
         git = {
           enable = true,
           ignore = false,
@@ -187,7 +188,6 @@ require "packer".startup({function()
 
   -- Code formatting
   use "tpope/vim-surround"
-  use "tpope/vim-commentary"
   use "FooSoft/vim-argwrap"
 
   use { "JoosepAlviste/nvim-ts-context-commentstring",
@@ -203,6 +203,12 @@ require "packer".startup({function()
   }
 
   use "windwp/nvim-ts-autotag"
+
+  use { "numToStr/Comment.nvim",
+    config = function()
+      require "Comment".setup()
+    end
+  }
 
   use { "windwp/nvim-autopairs",
     config = function()
@@ -220,7 +226,7 @@ require "packer".startup({function()
     end
   }
 
-	-- LaTeX
-	use "lervag/vimtex"
+  -- LaTeX
+  use { "lervag/vimtex", ft = "latex" }
 
 end, config = packer_config})
