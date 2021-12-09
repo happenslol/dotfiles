@@ -9,4 +9,7 @@ source ~/.config/zsh/env.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/nnn/config
 
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 eval "$(zoxide init --cmd j zsh)"

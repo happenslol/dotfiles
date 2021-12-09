@@ -8,6 +8,14 @@ alias ls="exa"
 alias ll="exa -la"
 alias lt="exa --tree"
 
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias md='mkdir -p'
+alias rd=rmdir
+
 # Configure history
 export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
@@ -22,18 +30,45 @@ setopt share_history
 
 # Configure completion
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USERNAME -o pid,user,comm -w -w"
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
 autoload -U +X bashcompinit && bashcompinit
 
 # Keybinds
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+  function zle-line-init() {
+    echoti smkx
+  }
+  function zle-line-finish() {
+    echoti rmkx
+  }
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
 bindkey -M emacs '^[[1;5C' forward-word
 bindkey -M viins '^[[1;5C' forward-word
 bindkey -M vicmd '^[[1;5C' forward-word
+
 bindkey -M emacs '^[[1;5D' backward-word
 bindkey -M viins '^[[1;5D' backward-word
 bindkey -M vicmd '^[[1;5D' backward-word
+
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+
+bindkey -M emacs "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
