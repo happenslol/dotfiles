@@ -61,7 +61,6 @@ require "packer".startup({function()
       "nvim-telescope/telescope-fzy-native.nvim",
       "edolphin-ydf/goimpl.nvim",
       "tami5/sqlite.lua",
-      "nvim-telescope/telescope-frecency.nvim",
     },
     config = function()
       local telescope = require "telescope"
@@ -69,7 +68,6 @@ require "packer".startup({function()
 
       telescope.load_extension "fzy_native"
       telescope.load_extension "goimpl"
-      telescope.load_extension "frecency"
 
       telescope.setup {
         defaults = {
@@ -89,7 +87,14 @@ require "packer".startup({function()
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
   use "onsails/lspkind-nvim"
+
   use "L3MON4D3/LuaSnip"
+
+  use { "rafamadriz/friendly-snippets",
+    config = function()
+      require "luasnip/loaders/from_vscode".lazy_load()
+    end,
+  }
 
   use { "hrsh7th/nvim-cmp", requires = {
     "hrsh7th/cmp-nvim-lsp",
@@ -97,6 +102,7 @@ require "packer".startup({function()
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/vim-vsnip",
   }}
 
   use { "folke/trouble.nvim",
@@ -202,8 +208,6 @@ require "packer".startup({function()
     end,
   }
 
-  use "windwp/nvim-ts-autotag"
-
   use { "numToStr/Comment.nvim",
     config = function()
       require "Comment".setup()
@@ -218,13 +222,14 @@ require "packer".startup({function()
     end,
   }
 
-  -- Language plugins
-  use "mattn/vim-goimpl"
-  use { "nvim-ts-autotag",
+  use { "windwp/nvim-ts-autotag",
     config = function ()
       require "nvim-ts-autotag".setup()
     end
   }
+
+  -- Language plugins
+  use "mattn/vim-goimpl"
 
   -- LaTeX
   use { "lervag/vimtex", ft = "latex" }

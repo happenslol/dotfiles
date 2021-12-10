@@ -52,6 +52,11 @@ cmp.setup {
     format = lspkind.cmp_format(),
   },
 
+  experimental = {
+    ghost_text = true,
+    native_menu = false,
+  },
+
   mapping = mappings.cmp_mappings,
   preselect = cmp.PreselectMode.None,
 
@@ -61,6 +66,10 @@ cmp.setup {
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
+  },
+
+  documentation = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   },
 }
 
