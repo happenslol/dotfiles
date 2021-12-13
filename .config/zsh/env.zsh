@@ -26,7 +26,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # deno
 export DENO_INSTALL="/home/happens/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="$PATH:$DENO_INSTALL/bin"
 
 # snap
 export PATH="$PATH:/var/lib/snapd/snap/bin"
@@ -39,3 +39,10 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/tools"
 export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
 export PATH="$PATH:$ANDROID_SDK_ROOT/build-tools"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+
+# gcloud sdk
+if [ -f '/home/happens/google-cloud-sdk/path.zsh.inc' ]; then . '/home/happens/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/happens/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/happens/google-cloud-sdk/completion.zsh.inc'; fi
+
+# ruby gems
+export PATH="$PATH:/home/happens/.gem/ruby/3.0.0/bin"
