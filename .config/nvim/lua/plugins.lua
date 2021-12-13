@@ -109,7 +109,7 @@ require "packer".startup({function()
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("trouble").setup {
-        use_lsp_diagnostic_signs = true,
+        use_diagnostic_signs = true,
       }
     end
   }
