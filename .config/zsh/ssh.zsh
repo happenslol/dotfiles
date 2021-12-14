@@ -1,7 +1,7 @@
 SSH_ENV="$HOME/.ssh/agent-environment"
 
 start_agent() {
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}" &> /dev/null
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
     /usr/bin/ssh-add > /dev/null
@@ -11,7 +11,6 @@ start_agent() {
 
 if [ -f "${SSH_ENV}" ]; then
   . "${SSH_ENV}" > /dev/null
-  #ps ${SSH_AGENT_PID} doesn't work under cywgin
   ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
       start_agent
   }
