@@ -149,9 +149,7 @@ function M.map_lsp_keys()
 				{ "r", function() telescope_builtin.lsp_references(lsp_goto_config) end },
 
 				{ "s", function() telescope_builtin.lsp_document_symbols(lsp_goto_config) end },
-				{ "e", function() telescope_builtin.lsp_document_diagnostics(lsp_goto_config) end },
-				{ "E", function() telescope_builtin.lsp_workspace_diagnostics(lsp_goto_config) end },
-				{ "S", function() telescope_builtin.lsp_workspace_symbols(lsp_goto_config) end },
+				{ "e", function() telescope_builtin.diagnostics(lsp_goto_config) end },
 				{ "t", function() telescope_builtin.lsp_type_definitions(lsp_goto_config) end },
 			}},
 		}},
