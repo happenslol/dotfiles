@@ -33,6 +33,7 @@ util.set_opt {
   endofline = false,
   startofline = false,
   winminheight = 0,
+  title = true,
 
   hlsearch = true,
   ignorecase = true,

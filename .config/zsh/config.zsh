@@ -16,6 +16,7 @@ alias md='mkdir -p'
 alias rd=rmdir
 
 alias vagrant="TERM=xterm-256color vagrant"
+alias ssh="TERM=xterm-256color ssh"
 
 # Configure history
 export HISTFILE=~/.zsh_history
