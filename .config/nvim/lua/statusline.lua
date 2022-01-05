@@ -72,7 +72,7 @@ local c = {
   },
   position = {
     provider = function()
-      return " " .. cursor.position() .. " "
+      return " " .. cursor.position(nil, {}) .. " "
     end,
 
     hl = function()
@@ -97,7 +97,7 @@ local c = {
     warn = {
       provider = "diagnostic_warnings",
       enabled = function()
-        return lsp.diagnostics_exist("Warning")
+        return lsp.diagnostics_exist("Warn")
       end,
       hl = { fg = _G.colors.yellow }
     },
@@ -111,7 +111,7 @@ local c = {
     info = {
       provider = "diagnostic_info",
       enabled = function()
-        return lsp.diagnostics_exist("Information")
+        return lsp.diagnostics_exist("Info")
       end,
       hl = { fg = _G.colors.blue }
     },
@@ -158,8 +158,8 @@ local properties = {
 
 require "feline".setup {
   colors = {
-    bg = colors.selection,
-    fg = colors.fg,
+    bg = _G.colors.selection,
+    fg = _G.colors.fg,
   },
   properties = properties,
   vi_mode_colors = vi_mode_colors,

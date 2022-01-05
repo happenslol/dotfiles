@@ -230,8 +230,9 @@ require "packer".startup({function()
 
   -- Language plugins
   use "mattn/vim-goimpl"
+  use "cappyzawa/starlark.vim"
 
   -- LaTeX
-  use { "lervag/vimtex", ft = "latex" }
+  use { "lervag/vimtex", ft = "tex" }
 
 end, config = packer_config})
