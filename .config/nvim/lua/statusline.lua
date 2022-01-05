@@ -157,7 +157,7 @@ local properties = {
 }
 
 require "feline".setup {
-  colors = {
+  theme = {
     bg = _G.colors.selection,
     fg = _G.colors.fg,
   },
