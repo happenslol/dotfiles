@@ -114,12 +114,12 @@ end
 
 local function goto_next_diagnostic()
 	close_previous_float()
-	vim.lsp.diagnostic.goto_next(M.float_config)
+	vim.diagnostic.goto_next(M.float_config)
 end
 
 local function goto_prev_diagnostic()
 	close_previous_float()
-	vim.lsp.diagnostic.goto_prev(M.float_config)
+	vim.diagnostic.goto_prev(M.float_config)
 end
 
 function M.map_lsp_keys()
@@ -172,7 +172,7 @@ M.cmp_mappings = {
   ["<C-Space>"] = cmp.mapping.complete(),
   ["<C-e>"] = cmp.mapping.close(),
   ["<CR>"] = cmp.mapping.confirm {
-    behavior = cmp.ConfirmBehavior.Insert,
+    behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
 }
