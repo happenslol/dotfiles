@@ -33,7 +33,9 @@ util.set_opt {
   endofline = false,
   startofline = false,
   winminheight = 0,
+
   title = true,
+  titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}",
 
   hlsearch = true,
   ignorecase = true,
