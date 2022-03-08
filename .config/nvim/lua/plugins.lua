@@ -90,6 +90,14 @@ require "packer".startup({function()
 
   use "L3MON4D3/LuaSnip"
 
+  use { "tamago324/nlsp-settings.nvim",
+    config = function()
+      require "nlspsettings".setup {
+        local_settings_root_markers = { '.git' },
+      }
+    end,
+  }
+
   use { "rafamadriz/friendly-snippets",
     config = function()
       require "luasnip/loaders/from_vscode".lazy_load()
@@ -126,7 +134,6 @@ require "packer".startup({function()
         },
 
         nvim_tree_group_empty = 1,
-        nvim_tree_disable_window_picker = 1,
 
         nvim_tree_icons = {
           git = {
@@ -146,6 +153,7 @@ require "packer".startup({function()
       -- TODO: Use lua setup when it has feature parity
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
+        disable_window_picker = 1,
         diagnostics = {
           enable = true,
           icons = {
