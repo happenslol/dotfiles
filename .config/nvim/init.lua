@@ -57,3 +57,6 @@ util.set_opt {
   directory = vim.fn.stdpath("data") .. "/swap",
   updatetime = 250,
 }
+
+-- LSP Debugging
+-- vim.lsp.set_log_level(2)

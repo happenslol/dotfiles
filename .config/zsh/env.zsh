@@ -32,13 +32,16 @@ export PATH="$PATH:$DENO_INSTALL/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
 
 # java/android
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
-export ANDROID_SDK_ROOT="/home/happens/android/sdk"
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
 export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk"
-export PATH="$PATH:$ANDROID_SDK_ROOT/tools"
+export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin"
 export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
 export PATH="$PATH:$ANDROID_SDK_ROOT/build-tools"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+
+# chrome/flutter
+export CHROME_EXECUTABLE="google-chrome-stable"
 
 # ruby gems
 export PATH="$PATH:/home/happens/.gem/ruby/3.0.0/bin"

@@ -8,10 +8,8 @@ source ~/.config/zsh/plugins.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/ssh.zsh
+source ~/.config/zsh/completions.zsh
 
 source ~/.config/nnn/config.zsh
 
 source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-eval "$(zoxide init --cmd j zsh)"
