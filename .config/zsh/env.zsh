@@ -13,7 +13,12 @@ export GOPATH="/home/happens/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-export PATH="$PATH:$HOME/.cargo/bin:$HOME/git-ext:$HOME/android-studio/bin:$HOME/.linkerd2/bin:$HOME/.node_modules/bin:$HOME/android/studio/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/git-ext"
+export PATH="$PATH:$HOME/android-studio/bin"
+export PATH="$PATH:$HOME/.linkerd2/bin"
+export PATH="$PATH:$HOME/.node_modules/bin"
+export PATH="$PATH:$HOME/android/studio/bin"
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden"
@@ -45,3 +50,6 @@ export CHROME_EXECUTABLE="google-chrome-stable"
 
 # ruby gems
 export PATH="$PATH:/home/happens/.gem/ruby/3.0.0/bin"
+
+# yarn modules
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
