@@ -153,7 +153,6 @@ require "packer".startup({function()
       -- TODO: Use lua setup when it has feature parity
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
-        disable_window_picker = 1,
         diagnostics = {
           enable = true,
           icons = {
@@ -169,6 +168,12 @@ require "packer".startup({function()
           timeout = 500
         },
         update_cwd = true,
+        actions = {
+          window_picker = {
+            enable = true,
+            chars = "1234567890",
+          },
+        },
         view = {
           mappings = {
             custom_only = false,
@@ -182,6 +187,7 @@ require "packer".startup({function()
     end,
   }
 
+	use "kevinhwang91/nvim-bqf"
   use "farmergreg/vim-lastplace"
 
   -- Git integration
