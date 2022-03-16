@@ -49,9 +49,7 @@ foreground = #eeffff
 font-0 = NotoSans Nerd Font:style=Bold:size=11;3
 font-1 = JetBrainsMono Nerd Font:style=Bold:size=12;3
 font-2 = Font Awesome 5 Free:style=Solid:size=13;4
-font-3 = NotoSans Nerd Font:style=Bold:size=12;4
-font-4 = NotoSans Nerd Font:style=Bold:size=15;4
-font-5 = Material Design Icons:style=Regular:size=14;4
+font-3 = NotoSans Nerd Font:style=Bold:size=14;3
 
 ;---------------------------------------
 ;	     MODULES LAYOUT
@@ -76,8 +74,10 @@ type = internal/pulseaudio
 format-volume-offset = 8
 format-muted-offset = 8
 format-volume = "<label-volume>    %{T1}<bar-volume>"
-label-volume = "%{T5}"
-label-muted = "%{T5}ﳌ"
+label-volume-font = 3
+label-muted-font = 3
+label-volume = ""
+label-muted = ""
 bar-volume-indicator = "%{F#c91d39}"
 bar-volume-fill = "%{F#c91d39}"
 bar-volume-empty = "%{F#eeffff}"
