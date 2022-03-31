@@ -1,0 +1,2 @@
+autocmd BufNewFile,BufRead Tiltfile setlocal filetype=python shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNewFile,BufRead *.Tiltfile setlocal filetype=python shiftwidth=2 tabstop=2 softtabstop=2 expandtab

@@ -55,6 +55,8 @@ require "packer".startup({function()
     end,
   }
 
+  use "earthly/earthly.vim"
+
   -- Fuzzy finding
   use { "nvim-telescope/telescope.nvim",
     requires = {
