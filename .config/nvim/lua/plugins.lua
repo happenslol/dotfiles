@@ -30,12 +30,22 @@ require "packer".startup({function()
     end,
   }
 
+	use { "folke/zen-mode.nvim",
+		config = function()
+			require("zen-mode").setup {
+				backdrop = 1,
+				width = 100,
+				height = 1,
+			}
+		end
+	}
+
   -- Syntax highlighting
   use { "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = function()
       require "nvim-treesitter.configs".setup {
-        ensure_installed = "maintained",
+        ensure_installed = "all",
         indent = { enable = true },
         highlight = {
           enable = true,

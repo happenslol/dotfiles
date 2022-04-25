@@ -13,3 +13,5 @@ source ~/.config/zsh/completions.zsh
 source ~/.config/nnn/config.zsh
 
 source /usr/share/fzf/key-bindings.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

@@ -1,6 +1,8 @@
 local util = require "util"
 local nest = require "nest"
 local cmp = require "cmp"
+local cmp_mapping = require "cmp.config.mapping"
+local cmp_types = require "cmp.types"
 local telescope = require "telescope"
 local telescope_builtin = require "telescope.builtin"
 local telescope_themes = require "telescope.themes"
@@ -166,6 +168,14 @@ M.cmp_mappings = {
     if cmp.visible() then cmp.select_prev_item()
     else fallback() end
   end,
+
+  ['<Down>'] = cmp_mapping({
+    i = cmp_mapping.select_next_item({ behavior = cmp_types.cmp.SelectBehavior.Select }),
+  }),
+
+  ['<Up>'] = cmp_mapping({
+    i = cmp_mapping.select_prev_item({ behavior = cmp_types.cmp.SelectBehavior.Select }),
+  }),
 
   ["<C-p>"] = cmp.mapping.select_prev_item(),
   ["<C-n>"] = cmp.mapping.select_next_item(),

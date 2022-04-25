@@ -12,6 +12,7 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   rlg = !git --no-pager log $(git describe --tags --abbrev=0)..HEAD --color --no-merges --pretty=format:'* %Cred%h%Creset - %s' && echo ""
   persona = !git-persona
+  cm = !git switch main && git pull && git cleanr
 	dt = difftool
 	mt = mergetool
 
@@ -28,3 +29,5 @@
 	prompt = false
 [mergetool "nvimdiff2"]
 	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[safe]
+	directory = /opt/flutter

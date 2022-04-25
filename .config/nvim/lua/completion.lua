@@ -2,6 +2,7 @@ local util = require "util"
 local cmp = require "cmp"
 local cmp_lsp = require "cmp_nvim_lsp"
 local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+local cmp_compare = require "cmp.config.compare"
 local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 local lspinstaller = require "nvim-lsp-installer"
@@ -60,17 +61,30 @@ cmp.setup {
   mapping = mappings.cmp_mappings,
   preselect = cmp.PreselectMode.None,
 
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "path" },
-    { name = "buffer" },
-    { name = "luasnip" },
+  sorting = {
+    priority_weight = 1.0,
+    comparators = {
+      cmp_compare.locality,
+      cmp_compare.recently_used,
+      cmp_compare.score,
+      cmp_compare.offset,
+      cmp_compare.order,
+    },
   },
 
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  sources = {
+    { name = "nvim_lsp", priority = 4 },
+    { name = "nvim_lua", priority = 3 },
+    { name = "path", priority = 2 },
+    { name = "luasnip", priority = 1 },
+    { name = "buffer", priority = 0 },
   },
+
+  window = {
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    },
+  }
 }
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { text = "" }}))
