@@ -181,10 +181,12 @@ require "packer".startup({function()
         },
         update_cwd = true,
         actions = {
-          window_picker = {
-            enable = true,
-            chars = "1234567890",
-          },
+          open_file = {
+            window_picker = {
+              enable = true,
+              chars = "1234567890",
+            },
+          }
         },
         view = {
           mappings = {
