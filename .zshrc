@@ -1,8 +1,8 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+#
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source ~/.config/zsh/plugins.zsh
 source ~/.config/zsh/env.zsh
@@ -15,3 +15,5 @@ source ~/.config/nnn/config.zsh
 source /usr/share/fzf/key-bindings.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+eval "$(starship init zsh)"
