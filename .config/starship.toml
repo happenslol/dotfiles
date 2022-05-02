@@ -11,22 +11,21 @@ truncate_to_repo = false
 
 [git_branch]
 style = "bold green"
-format = '[|](bright-black) [$symbol$branch(:$remote_branch)]($style) '
+format = '[|](bright-black) [$symbol$branch(:$remote_branch)]($style)'
 
 [git_status]
-style = "bold yellow"
-format = '[$all_status$ahead_behind]($style)'
+format = '$all_status$ahead_behind '
 
 conflicted = "[](bold red)"
-ahead = "﯁"
-behind = "﮾"
-diverged = "ﬕ"
-untracked = ""
-stashed = ""
-modified = ""
-staged = ""
-renamed = ""
-deleted = ""
+ahead = "[﯁](green)"
+behind = "[﮾](green)"
+diverged = "[ﬕ](yellow)"
+untracked = "[](yellow)"
+stashed = "[](red dimmed)"
+modified = "[](yellow dimmed)"
+staged = "[](green)"
+renamed = "[](yellow dimmed)"
+deleted = "[](red dimmed)"
 
 [gcloud]
 symbol = "[](cyan)"
@@ -34,3 +33,13 @@ format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$do
 
 [terraform]
 disabled = true
+
+[nodejs]
+symbol = " "
+style = "yellow"
+format = "[|](bright-black) [$symbol($version)]($style) "
+
+[golang]
+symbol = "ﳑ "
+style = "cyan"
+format = '[|](bright-black) [$symbol($version)]($style) '
