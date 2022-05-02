@@ -4,28 +4,30 @@ add_newline = true
 
 [character]
 success_symbol = "[»](bold green)"
-error_symbol = "[×](bold red)"
+error_symbol = "[](bold red)"
 
 [directory]
 truncate_to_repo = false
 
 [git_branch]
-style = "bold green"
+style = "yellow"
+symbol = "[ ](#f54c27)"
 format = '[|](bright-black) [$symbol$branch(:$remote_branch)]($style)'
 
 [git_status]
 format = '$all_status$ahead_behind '
 
-conflicted = "[](bold red)"
-ahead = "[﯁](green)"
-behind = "[﮾](green)"
-diverged = "[ﬕ](yellow)"
-untracked = "[](yellow)"
-stashed = "[](red dimmed)"
-modified = "[](yellow dimmed)"
-staged = "[](green)"
-renamed = "[](yellow dimmed)"
-deleted = "[](red dimmed)"
+conflicted = " [](bold red)"
+ahead = " [](green)"
+behind = " [](green)"
+diverged = " [](yellow)"
+untracked = " [](yellow)"
+stashed = " [](red dimmed)"
+up_to_date = ""
+modified = " [](yellow)"
+staged = " [](green)"
+renamed = " [](yellow)"
+deleted = " [](red dimmed)"
 
 [gcloud]
 symbol = "[](cyan)"
@@ -40,6 +42,6 @@ style = "yellow"
 format = "[|](bright-black) [$symbol($version)]($style) "
 
 [golang]
-symbol = "ﳑ "
-style = "cyan"
+symbol = "[ﳑ](#79d4fd) "
+style = "cyan dimmed"
 format = '[|](bright-black) [$symbol($version)]($style) '
