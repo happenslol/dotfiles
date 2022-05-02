@@ -1,0 +1,36 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+[character]
+success_symbol = "[»](bold green)"
+error_symbol = "[×](bold red)"
+
+[directory]
+truncate_to_repo = false
+
+[git_branch]
+style = "bold green"
+format = '[|](bright-black) [$symbol$branch(:$remote_branch)]($style) '
+
+[git_status]
+style = "bold yellow"
+format = '[$all_status$ahead_behind]($style)'
+
+conflicted = "[](bold red)"
+ahead = "﯁"
+behind = "﮾"
+diverged = "ﬕ"
+untracked = ""
+stashed = ""
+modified = ""
+staged = ""
+renamed = ""
+deleted = ""
+
+[gcloud]
+symbol = "[](cyan)"
+format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain)](blue dimmed) '
+
+[terraform]
+disabled = true
