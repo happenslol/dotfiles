@@ -6,6 +6,11 @@ add_newline = true
 success_symbol = "[»](bold green)"
 error_symbol = "[](bold red)"
 
+[cmd_duration]
+min_time = 0
+style = "white dimmed"
+format = '[|](bright-black) [ $duration]($style) '
+
 [directory]
 truncate_to_repo = false
 
