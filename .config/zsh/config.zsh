@@ -9,6 +9,8 @@ alias lt="exa --tree"
 
 alias watch="watch --color "
 
+alias k="kubectl "
+
 alias -g ...="cd ../.."
 alias -g ....="cd ../../.."
 alias -g .....="cd ../../../.."

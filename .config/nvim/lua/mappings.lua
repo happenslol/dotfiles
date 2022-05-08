@@ -25,21 +25,6 @@ local live_grep_config = {
 	},
 }
 
-local code_actions_config = {
-	layout_strategy = "cursor",
-	results_title = false,
-	preview_title = false,
-	prompt_title = false,
-	prompt_prefix = " ",
-	previewer = false,
-	sorting_strategy = "ascending",
-	initial_mode = "normal",
-	layout_config = {
-		width = 60,
-		height = 10,
-	},
-}
-
 local lsp_goto_config = {
 	layout_strategy = "horizontal",
 	sorting_strategy = "ascending",
@@ -139,7 +124,7 @@ function M.map_lsp_keys()
 		}},
 
 		{ "<space>", {
-			{ "a", function() telescope_builtin.lsp_code_actions(code_actions_config) end },
+			{ "a", vim.lsp.buf.code_action },
 			{ "r", vim.lsp.buf.rename },
 			{ "c", goto_next_diagnostic },
 			{ "v", goto_prev_diagnostic },

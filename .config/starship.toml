@@ -26,7 +26,7 @@ conflicted = " [](bold red)"
 ahead = " [](green)"
 behind = " [](green)"
 diverged = " [](yellow)"
-untracked = " [](yellow)"
+untracked = " [](blue)"
 stashed = " [](red dimmed)"
 up_to_date = ""
 modified = " [](yellow)"
@@ -54,6 +54,10 @@ format = '[|](bright-black) [$symbol($version)]($style) '
 [rust]
 style = "red"
 format = '[|](bright-black) [$symbol($version)]($style) '
+
+[buf]
+style = "blue"
+format = '[|](bright-black) [$symbol ($version)]($style) '
 
 [package]
 style = "208"

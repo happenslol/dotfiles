@@ -73,13 +73,11 @@ require "packer".startup({function()
       "nvim-telescope/telescope-fzy-native.nvim",
       "edolphin-ydf/goimpl.nvim",
       "tami5/sqlite.lua",
+			"nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
       local telescope = require "telescope"
       local telescope_actions = require "telescope.actions"
-
-      telescope.load_extension "fzy_native"
-      telescope.load_extension "goimpl"
 
       telescope.setup {
         defaults = {
@@ -91,7 +89,28 @@ require "packer".startup({function()
             }
           }
         },
+
+        extensions = {
+          ["ui-select"] = {
+            layout_strategy = "cursor",
+            results_title = false,
+            preview_title = false,
+            prompt_title = false,
+            prompt_prefix = " ",
+            previewer = false,
+            sorting_strategy = "ascending",
+            initial_mode = "normal",
+            layout_config = {
+              width = 60,
+              height = 10,
+            },
+          }
+        }
       }
+
+      telescope.load_extension "fzy_native"
+      telescope.load_extension "goimpl"
+      telescope.load_extension "ui-select"
     end,
   }
 
