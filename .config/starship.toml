@@ -36,7 +36,7 @@ deleted = " [](red dimmed)"
 
 [gcloud]
 symbol = "[](cyan)"
-format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain)](blue dimmed) '
+format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain )](blue dimmed)'
 
 [terraform]
 disabled = true
@@ -44,22 +44,22 @@ disabled = true
 [nodejs]
 symbol = " "
 style = "yellow"
-format = '[|](bright-black) [$symbol($version)]($style) '
+format = '[|](bright-black) [$symbol($version )]($style)'
 
 [golang]
 symbol = "[ﳑ](#79d4fd) "
 style = "cyan dimmed"
-format = '[|](bright-black) [$symbol($version)]($style) '
+format = '[|](bright-black) [$symbol($version )]($style)'
 
 [rust]
 style = "red"
-format = '[|](bright-black) [$symbol($version)]($style) '
+format = '[|](bright-black) [$symbol($version )]($style)'
 
 [buf]
 style = "blue"
-format = '[|](bright-black) [$symbol ($version)]($style) '
+format = '[|](bright-black) [$symbol ($version )]($style)'
 
 [package]
 style = "208"
 symbol = " "
-format = '[|](bright-black) [$symbol$version]($style) '
+format = '[|](bright-black) [$symbol($version) ]($style)'
