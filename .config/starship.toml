@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
+format = "$directory$all"
 
 [character]
 success_symbol = "[»](bold green)"
@@ -63,3 +64,8 @@ format = '[|](bright-black) [$symbol ($version )]($style)'
 style = "208"
 symbol = " "
 format = '[|](bright-black) [$symbol($version) ]($style)'
+
+[kubernetes]
+disabled = false
+style = "cyan"
+format = '[|](bright-black) [$symbol$context ]($style)'
