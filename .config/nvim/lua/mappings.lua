@@ -6,6 +6,7 @@ local cmp_types = require "cmp.types"
 local telescope = require "telescope"
 local telescope_builtin = require "telescope.builtin"
 local telescope_themes = require "telescope.themes"
+local typescript = require "typescript"
 
 local find_files_config = telescope_themes.get_dropdown {
 	previewer = false,
@@ -128,7 +129,14 @@ function M.map_lsp_keys()
 			{ "r", vim.lsp.buf.rename },
 			{ "c", goto_next_diagnostic },
 			{ "v", goto_prev_diagnostic },
+
+			-- Go keybinds
 			{ "ig", telescope.extensions.goimpl.goimpl },
+
+			-- Typescript keybinds
+			{ "ti", function() typescript.addMissingImports() end },
+			{ "ts", function() typescript.organizeImports() end },
+			{ "td", function() typescript.removeUnused() end },
 
 			{ "s", {
 				{ "d", function() telescope_builtin.lsp_definitions(lsp_goto_config) end },
