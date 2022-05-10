@@ -77,3 +77,7 @@ format = '[|](bright-black) [$symbol($version) ]($style)'
 disabled = false
 style = "cyan"
 format = '[|](bright-black) [$symbol$context ]($style)'
+
+[c]
+format = "[|](bright-black) [$symbol($version(-$name) )]($style)"
+style = "149"
