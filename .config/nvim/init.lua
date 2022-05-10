@@ -5,7 +5,7 @@ util.bootstrap_packer()
 require "plugins"
 require "theme"
 require "mappings"
-require "completion"
+require "lsp"
 require "statusline"
 
 vim.cmd [[filetype plugin indent on]]

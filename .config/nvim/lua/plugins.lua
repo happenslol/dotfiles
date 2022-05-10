@@ -118,6 +118,8 @@ require "packer".startup({function()
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
   use "onsails/lspkind-nvim"
+	use "jose-elias-alvarez/typescript.nvim"
+	use "simrat39/rust-tools.nvim"
 
   use "L3MON4D3/LuaSnip"
 
@@ -154,7 +156,7 @@ require "packer".startup({function()
   }
 
   -- File browsing and status
-  use "famiu/feline.nvim"
+  use "feline-nvim/feline.nvim"
   use { "kyazdani42/nvim-tree.lua",
     config = function()
       require "util".set_global {

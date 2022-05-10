@@ -33,7 +33,5 @@ if [[ -d ~/.asdf ]]; then
 fi
 
 autoload -Uz compinit
-
-autoload -Uz compinit
 for _ in ~/.zcompdump(N.mh+24); do compinit; done
 compinit -C

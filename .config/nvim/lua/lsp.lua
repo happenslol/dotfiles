@@ -7,6 +7,7 @@ local luasnip = require "luasnip"
 local lspkind = require "lspkind"
 local lspinstaller = require "nvim-lsp-installer"
 local mappings = require "mappings"
+local lspconfig = require "lspconfig"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover, mappings.float_config
@@ -89,44 +90,64 @@ cmp.setup {
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { text = "" }}))
 
-local custom_lsp_settings = {
-  sumneko_lua = {
-    Lua = {
-      runtime = {
-        version = "LuaJIT",
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        globals = {"vim", "use"},
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-        },
-      },
-    }
-  },
-}
-
-local function make_config()
+local function make_config(extra_options)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = cmp_lsp.update_capabilities(capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  return {
+	local result = {
     capabilities = capabilities,
     on_attach = on_lsp_attach,
   }
+
+	for k, v in pairs(extra_options) do result[k] = v end
+  return result
 end
 
--- Get automatically installed servers
-lspinstaller.on_server_ready(function(server)
-  local config = make_config()
+lspinstaller.setup {
+  ensure_installed = {
+    "bashls", "elixirls", "gopls", "html", "jsonls",
+    "kotlin_language_server", "rust_analyzer", "sumneko_lua",
+    "tsserver",
+  },
+  automatic_installation = true,
+}
 
-  if custom_lsp_settings[server.name] ~= nil then
-    config.settings = custom_lsp_settings[server.name]
-  end
+lspconfig.bashls.setup(make_config {})
+lspconfig.elixirls.setup(make_config {})
+lspconfig.gopls.setup(make_config {})
+lspconfig.html.setup(make_config {})
+lspconfig.jsonls.setup(make_config {})
+lspconfig.kotlin_language_server.setup(make_config {})
+lspconfig.rust_analyzer.setup(make_config {})
 
-  server:setup(config)
-end)
+lspconfig.sumneko_lua.setup(make_config {
+  on_attach = on_lsp_attach,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+				path = vim.split(package.path, ";"),
+			},
+			diagnostics = {
+				globals = {"vim", "use"},
+			},
+			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+				},
+			},
+		}
+	},
+})
+
+require "typescript".setup {
+  server = make_config {}
+}
+
+require "rust-tools".setup {
+  server = make_config {}
+}
+
+require "rust-tools.inlay_hints".disable_inlay_hints()
