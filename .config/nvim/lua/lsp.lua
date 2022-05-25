@@ -147,7 +147,11 @@ require "typescript".setup {
 }
 
 require "rust-tools".setup {
-  server = make_config {}
-}
+	tools = {
+		autoSetHints = false,
+	},
 
-require "rust-tools.inlay_hints".disable_inlay_hints()
+  server = make_config {
+		on_attach = on_lsp_attach,
+	}
+}
