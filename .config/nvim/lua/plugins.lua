@@ -159,33 +159,29 @@ require "packer".startup({function()
   use "feline-nvim/feline.nvim"
   use { "kyazdani42/nvim-tree.lua",
     config = function()
-      require "util".set_global {
-        nvim_tree_show_icons = {
-          git = 1,
-          folders = 1,
-          files = 1
-        },
-
-        nvim_tree_group_empty = 1,
-
-        nvim_tree_icons = {
-          git = {
-            unstaged = "",
-            staged = "",
-            unmerged = "",
-            renamed = "",
-            untracked = "",
-            deleted = "",
-            ignored = "",
-          },
-          lsp = {
-          },
-        },
-      }
-
-      -- TODO: Use lua setup when it has feature parity
       local tree = require "nvim-tree.config".nvim_tree_callback
       require "nvim-tree".setup {
+				renderer = {
+					group_empty = true,
+					icons = {
+						show = {
+							git = true,
+							folder = true,
+							file = true,
+						},
+						glyphs = {
+							git = {
+								unstaged = "",
+								staged = "",
+								unmerged = "",
+								renamed = "",
+								untracked = "",
+								deleted = "",
+								ignored = "",
+							},
+						},
+					},
+				},
         diagnostics = {
           enable = true,
           icons = {
