@@ -241,6 +241,16 @@ require "packer".startup({function()
   use "tpope/vim-surround"
   use "FooSoft/vim-argwrap"
 
+	use { "Darazaki/indent-o-matic",
+		config = function()
+			require "indent-o-matic".setup {
+				max_lines = 2048,
+				standard_widths = { 2, 4 },
+				skip_multiline = false,
+			}
+		end,
+	}
+
   use { "JoosepAlviste/nvim-ts-context-commentstring",
     event = "BufReadPost",
   }

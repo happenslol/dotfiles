@@ -27,9 +27,6 @@ function _yadm-add(){
 if [[ -d ~/.asdf ]]; then
 	. $HOME/.asdf/asdf.sh
 	fpath=($fpath ${ASDF_DIR}/completions)
-
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-  export DIRENV_LOG_FORMAT=""
 fi
 
 autoload -Uz compinit
