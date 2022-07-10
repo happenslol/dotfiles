@@ -74,7 +74,7 @@ cmp.setup {
   },
 
   sources = {
-    { name = "nvim_lsp", priority = 4 },
+    { name = "nvim_lsp", priority = 4, max_item_count = 30 },
     { name = "nvim_lua", priority = 3 },
     { name = "path", priority = 2 },
     { name = "luasnip", priority = 1 },
@@ -108,7 +108,7 @@ lspinstaller.setup {
   ensure_installed = {
     "bashls", "elixirls", "gopls", "html", "jsonls",
     "kotlin_language_server", "rust_analyzer", "sumneko_lua",
-    "tsserver",
+    "tsserver", "tailwindcss",
   },
   automatic_installation = true,
 }
@@ -120,6 +120,7 @@ lspconfig.html.setup(make_config {})
 lspconfig.jsonls.setup(make_config {})
 lspconfig.kotlin_language_server.setup(make_config {})
 lspconfig.rust_analyzer.setup(make_config {})
+lspconfig.tailwindcss.setup(make_config {})
 
 lspconfig.sumneko_lua.setup(make_config {
   on_attach = on_lsp_attach,

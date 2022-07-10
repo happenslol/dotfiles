@@ -1,3 +1,5 @@
+[ -z "$ZPROF" ] || zmodload zsh/zprof
+
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/ssh.zsh
@@ -24,14 +26,10 @@ function _yadm-add(){
     'files:filename:_files'
 }
 
-if [[ -d ~/.asdf ]]; then
-	. $HOME/.asdf/asdf.sh
-	fpath=($fpath ${ASDF_DIR}/completions)
-
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-  export DIRENV_LOG_FORMAT=""
-fi
+eval "$(qwer hook zsh)"
 
 autoload -Uz compinit
 for _ in ~/.zcompdump(N.mh+24); do compinit; done
 compinit -C
+
+[ -z "$ZPROF" ] || zprof
