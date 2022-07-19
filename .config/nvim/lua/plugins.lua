@@ -237,6 +237,9 @@ require "packer".startup({function()
     end,
   }
 
+  -- Utils
+  use "gcmt/wildfire.vim"
+
   -- Code formatting
   use "tpope/vim-surround"
   use "FooSoft/vim-argwrap"

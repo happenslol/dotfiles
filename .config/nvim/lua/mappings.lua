@@ -39,6 +39,14 @@ local lsp_goto_config = {
 util.set_global { mapleader = "," }
 
 nest.applyKeymaps {
+	-- Remap ; to :
+	{ ";", ":", options = { silent = false }},
+	{ ";", ":" },
+
+	-- wildfire.vim
+	{ "<tab>", "<Plug>(wildfire-fuel)", mode = "nv" },
+	{ "<c-tab>", "<Plug>(wildfire-water)", mode = "v" },
+
 	-- Quickfix window mappings
 	{ "<c-f>", {
 		{ "k", [[:copen<CR>]] },
