@@ -2,7 +2,8 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
-bindsym $mod+z exec firefox
+bindsym $mod+z exec google-chrome-stable
+bindsym $mod+c exec firefox
 bindsym $mod+x exec kitty
 bindsym $mod+e exec Thunar
 
