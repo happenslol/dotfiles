@@ -84,3 +84,7 @@ format = '[|](bright-black) [$symbol$context ]($style)'
 [c]
 format = "[|](bright-black) [$symbol($version(-$name) )]($style)"
 style = "149"
+
+[aws]
+symbol = " "
+format = '[|](bright-black) [$symbol](yellow)[($profile )($region )(\[$duration\] )]($style)'

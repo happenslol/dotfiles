@@ -41,7 +41,6 @@ util.set_global { mapleader = "," }
 nest.applyKeymaps {
 	-- Remap ; to :
 	{ ";", ":", options = { silent = false }},
-	{ ";", ":" },
 
 	-- wildfire.vim
 	{ "<tab>", "<Plug>(wildfire-fuel)", mode = "nv" },

@@ -2,6 +2,7 @@ alias svim="sudo -E nvim"
 alias reload="source ~/.zshrc"
 alias cat="bat"
 alias grep="rg"
+alias n="nvim "
 
 alias ls="exa"
 alias ll="exa -la"
