@@ -1,5 +1,6 @@
 [ -z "$ZPROF" ] || zmodload zsh/zprof
 
+source ~/.config/zsh/shortcuts.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/ssh.zsh

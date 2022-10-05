@@ -43,8 +43,8 @@ nest.applyKeymaps {
 	{ ";", ":", options = { silent = false }},
 
 	-- wildfire.vim
-	{ "<tab>", "<Plug>(wildfire-fuel)", mode = "nv" },
-	{ "<c-tab>", "<Plug>(wildfire-water)", mode = "v" },
+	{ "<backspace>", "<Plug>(wildfire-fuel)", mode = "nv" },
+	{ "<c-backspace>", "<Plug>(wildfire-water)", mode = "v" },
 
 	-- Quickfix window mappings
 	{ "<c-f>", {

@@ -1,29 +1,3 @@
-alias svim="sudo -E nvim"
-alias reload="source ~/.zshrc"
-alias cat="bat"
-alias grep="rg"
-alias n="nvim "
-
-alias ls="exa"
-alias ll="exa -la"
-alias lt="exa --tree"
-
-alias watch="watch --color "
-
-alias k="kubectl "
-
-alias -g ...="cd ../.."
-alias -g ....="cd ../../.."
-alias -g .....="cd ../../../.."
-alias -g ......="cd ../../../../.."
-
-alias md='mkdir -p'
-alias rd=rmdir
-
-alias vagrant="TERM=xterm-256color vagrant"
-alias gcloud="TERM=xterm-256color gcloud"
-alias ssh="TERM=xterm-256color ssh"
-
 # Configure history
 export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
